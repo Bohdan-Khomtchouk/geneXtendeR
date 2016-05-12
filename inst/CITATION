@@ -1,0 +1,18 @@
+citHeader("To cite geneXtendeR in publications use:")
+
+citEntry(entry = “Article”,
+	title	   = "Optimal Gene Extensions From Histone Modification ChIP-seq Data",
+	author	   = personList(as.person("Bohdan Khomtchouk"), as.person("Claes Wahlestedt")),
+	journal    = "TBA",
+	year       = "2016",
+	volume     = "TBA",
+	number     = "R package version 0.99.0",
+	pages      = "TBA--TBA",
+	url        = "TBA",
+	
+	textVersion = 
+	paste("Bohdan Khomtchouk, Claes Wahlestedt (2016).",
+		  "Optimal Gene Extensions From Histone Modification ChIP-seq Data.",
+		  "TBA, TBA(TBA), TBA-TBA.",
+		  "URL http://www.TBA.org/TBA/TBA.")
+	)

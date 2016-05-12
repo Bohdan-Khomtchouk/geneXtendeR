@@ -1,0 +1,10 @@
+# Sample .travis.yml for R projects
+
+language: r
+r: bioc-devel
+cache: packages
+warnings_are_errors: true
+sudo: required
+apt_packages: bedtools
+r_github_packages: Bohdan-Khomtchouk/gtf
+
