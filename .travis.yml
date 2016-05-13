@@ -7,7 +7,7 @@ language: r
 r: bioc-devel
 cache: packages
 warnings_are_errors: true
-sudo: false
+sudo: required
 r_github_packages:
  - Bohdan-Khomtchouk/gtf
 apt_packages: bedtools
