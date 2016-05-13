@@ -8,8 +8,13 @@ r: bioc-devel
 cache: packages
 warnings_are_errors: true
 sudo: required
-apt_packages: bedtools
-r_github_packages:
- - Bohdan-Khomtchouk/gtf
+before_install:
+ - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+ - chmod 755 ./travis-tool.sh
+ - ./travis-tool.sh bootstrap
 install:
  - ./travis-tool.sh github_package Bohdan-Khomtchouk/gtf
+r_github_packages:
+ - Bohdan-Khomtchouk/gtf
+apt_packages: bedtools
+
