@@ -10,5 +10,3 @@ warnings_are_errors: true
 sudo: required
 before_install:
   - sudo apt-get install bedtools
-r_github_packages:
- - Bohdan-Khomtchouk/gtf
