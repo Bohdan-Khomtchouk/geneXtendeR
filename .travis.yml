@@ -1,10 +1,9 @@
-# Sample .travis.yml for R projects
-
 language: r
 r: bioc-devel
 cache: packages
 warnings_are_errors: true
 sudo: required
 apt_packages: bedtools
+- ./travis-tool.sh github_package Bohdan-Khomtchouk/gtf
 r_github_packages:
  - Bohdan-Khomtchouk/gtf
