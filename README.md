@@ -18,6 +18,11 @@ You can install the current GitHub version using the [devtools](https://github.c
 devtools::install_github("Bohdan-Khomtchouk/gtf")
 devtools::install_github("Bohdan-Khomtchouk/geneXtendeR")
 ```
+And then:
+```R
+library(gtf)
+library(geneXtendeR)
+```
 
 Also, as specified in the `SystemRequirements` field of the `DESCRIPTION` file, `geneXtendeR` requires the installation of an external program called `bedtools`.  This program must be pre-installed on your computer prior to using `geneXtendeR`.  Detailed installation instructions can be found here: http://bedtools.readthedocs.io/en/latest/content/installation.html.  After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
