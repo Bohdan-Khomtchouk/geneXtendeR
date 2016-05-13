@@ -1,3 +1,5 @@
+# Sample .travis.yml for R projects
+
 language: r
 r: bioc-devel
 cache: packages
