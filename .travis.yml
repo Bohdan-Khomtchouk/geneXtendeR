@@ -7,5 +7,5 @@ language: r
 r: bioc-devel
 cache: packages
 warnings_are_errors: true
-sudo: false
+sudo: required
 apt_packages: bedtools
