@@ -22,5 +22,5 @@ devtools::install_github("Bohdan-Khomtchouk/geneXtendeR")
 Also, as specified in the `SystemRequirements` field of the `DESCRIPTION` file, `geneXtendeR` requires the installation of an external program called `bedtools`.  This program must be pre-installed on your computer prior to using `geneXtendeR`.  Detailed installation instructions can be found here: http://bedtools.readthedocs.io/en/latest/content/installation.html.  After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
-Compile `geneXtendeR.Rmd` in `/vignettes` using `knitr`.
+See `geneXtendeR.pdf` in `/vignettes`.
 
