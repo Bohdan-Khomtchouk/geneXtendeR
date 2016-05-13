@@ -8,4 +8,7 @@ r: bioc-devel
 cache: packages
 warnings_are_errors: true
 sudo: required
-apt_packages: bedtools
+before_install:
+  - sudo apt-get install bedtools
+r_github_packages:
+ - Bohdan-Khomtchouk/gtf
