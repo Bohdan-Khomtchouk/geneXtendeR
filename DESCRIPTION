@@ -28,7 +28,6 @@ Imports:
     data.table,
     dplyr,
     tidyr
-Remotes: Bohdan-Khomtchouk/gtf
 SystemRequirements: bedtools
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
