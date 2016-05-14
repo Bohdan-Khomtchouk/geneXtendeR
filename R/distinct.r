@@ -17,6 +17,8 @@ utils::globalVariables(c("V3", "V9", "V1", "V4", "V5", "V7", "gene_id", "gene_na
 #'
 #' @export
 distinct <- function(organism, start, end) {
+
+		options(warn = -1)
   		geneXtender <- function(upstream) {
     		messy2 <- dplyr::filter(organism, V3 == "gene")
     		messy3 <- tidyr::extract(messy2, V9, c('gene_id', 'gene_name'), 'gene_id .(\\S+).;.*gene_name .(\\S+).;')

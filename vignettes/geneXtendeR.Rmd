@@ -27,7 +27,7 @@ geneXtendeR also requires the installation of an external program called `bedtoo
 
 First, create a series of geneXtendeR files at some user-specified interval:
 
-```{r}
+```{r, results="hide"}
 generate(rat, 1000, 10000, 500)
 ```
 
@@ -35,7 +35,7 @@ This command generates 19 individual whole-genome files: 100, 1500, 2000, ..., a
 
 Next, the user must input their peak data from some peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See `?sample_peaks_input` for an example.  Once the peak input data (e.g., "my_filename.txt") has been assembled properly, it must be properly formatted prior to the execution of various geneXtendeR analyses:
 
-```{r}
+```{r, results="hide"}
 peaksInput("my_filename.txt")
 ```
 
@@ -43,27 +43,43 @@ This command properly formats the user's peak file in preparation for subsequent
 
 First, a raw count of the number of peaks that are sitting on top of a gene is calculated for each file.
 
-```{r, fig.width=7.2, fig.height=5}
+```{r, fig.width=7.2, fig.height=5, fig.show="hide"}
 barChart()
+```
+
+```{r, out.width='400pt', fig.retina = NULL, fig.align='center', fig.cap='Caption 1.', echo=FALSE}
+knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/barchart1.pdf")
 ```
 
 Clearly, the wider the gene-sphere, the more peaks-on-top-of-genes are found throughout the genome.  However, the law of diminishing returns begins to kick in at increasing upstream extension levels (see `linePlot()` for a visual representation):
 
-```{r, fig.width=7.2, fig.height=5}
+```{r, fig.width=7.2, fig.height=5, fig.show="hide"}
 linePlot()
+```
+
+```{r, out.width='400pt', fig.retina = NULL, fig.align='center', fig.cap='Caption 2.', echo=FALSE}
+knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/lineplot1.pdf")
 ```
 
 Clearly, there is a sharp rise in the number of peaks-on-top-of-genes from a 2000 bp upstream extension to a 3500 bp upstream extension.  This rise is followed by a steady decline at subsequent extension levels followed by some fluctuations characteristic of noise.  It may be interesting to investigate what is going on in the interval from 3000 bp to 3500 bp: 
 
-```{r, fig.width=7.2, fig.height=5}
+```{r, fig.width=7.2, fig.height=5, fig.show="hide"}
 generate(rat, 3000, 3500, 50)
 linePlot()
 ```
 
+```{r, out.width='400pt', fig.retina = NULL, fig.align='center', fig.cap='Caption 3.', echo=FALSE}
+knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/lineplot2.pdf")
+```
+
 Clearly, there is a relatively sharp spike in the number of peaks-on-top-of-genes at the 3300 bp upstream extension (as compared to the 3250 bp extension).  This spike then drops back down and stays approximately constant at subsequent extension levels, exhibiting fluctuating behavior characteristic of biological noise.  It is also possible to identify the genes that are unique amongst the 3250 and 3300 bp upstream extension levels:
 
-```{r, fig.width=6.2, fig.height=5}
-distinct(rat, 3250, 3300)
+```{r, fig.width=6.2, fig.height=5, results="hide"}
+head(distinct(rat, 3250, 3300))
+```
+
+```{r, out.width='400pt', fig.retina = NULL, fig.align='center', fig.cap='Table 1.', echo=FALSE}
+knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/table1.pdf")
 ```
 
 `V1-V3` denote the chromosome/start/end positions of the peaks, `V4-V6` denote the respective values for the genes, `V7` is the gene ID (e.g., Ensembl ID), `V8` is the gene name, and `V9` is the distance of each respective peak to its nearest gene.  Note that the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.  This is done for sorting purposes (see `peaksInput()` for more details).   The `distinct()` command finds what peaks-on-top-of-genes would be missed if a 3250 bp upstream extension is used instead of a 3300 bp extension.  Of course, subsequent follow-up extensions naturally incorporate additional peaks-on-top-of-genes, since the concept of a gene is being expanded into an ever-widening gene-sphere.  
@@ -77,22 +93,30 @@ knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/workflow.
 
 It is entirely possible (and probable) for significant peaks to be present at relatively high upstream extension levels (i.e., large gene-spheres), albeit these significant peaks may be associated with biology not directly relevant to the study at-hand, due mainly to the sheer magnitude of the distance of the peak from traditional gene boundaries (+/- 3kb from TSS and +/- 0.5kb from TES).  Consequently, it is normal for peaks-on-top-of-genes to exhibit higher levels of noise at higher upstream extension levels.  However, this does not mean that potential enhancer activity should be discounted.  For instance, it is not uncommon to see a steady rise or even a surge in the number of peaks-on-top-of-genes at higher upstream extension levels:
 
-```{r, fig.width=7.2, fig.height=5}
+```{r, fig.width=7.2, fig.height=5, fig.show="hide"}
 generate(rat, 7000, 8500, 100)
 linePlot()
 ```
 
+```{r, out.width='400pt', fig.retina = NULL, fig.align='center', fig.cap='New figure.', echo=FALSE}
+knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/lineplot3.pdf")
+```
+
 In far-out cases like this, it is particularly recommended to examine the statistical significance of peaks to get a sense for potential enhancer activity.  Assessment of such statistical significance values is beyond the scope of geneXtendeR, in order to allow the user freedom to choose the respective statistical package/technique.  As before, first use the `distinct()` command to create a table of unique genes located under peaks between the two upstream extension levels:
 
-```{r, fig.width=6.2, fig.height=5}
-distinct(rat, 7800, 7900)
+```{r, fig.width=6.2, fig.height=5, results="hide"}
+head(distinct(rat, 7800, 7900))
+```
+
+```{r, out.width='400pt', fig.retina = NULL, fig.align='center', fig.cap='Table 2.', echo=FALSE}
+knitr::include_graphics("/Users/bohdankhomtchouk/geneXtendeR/vignettes/table2.pdf")
 ```
 
 Then, assess the statistical significance of these peaks using a combination of HT-seq and edgeR, or HT-seq and DESeq2, or some other appropriate combination of existing software tools.  Genes associated with the resultant statistically significant peaks may then be further assessed with gene ontology analysis or network analysis to help answer a variety of interesting research questions.  
 
 Even though geneXtendeR is designed to compute (and analyze/display) optimal gene extensions tailored to the characteristics of a specific peak input file, geneXtendeR will not explicitly impose on the user the optimal extension to use, since this information is highly study-dependent and, as such, is ultimately reserved to the user's discretion.  For example, a user may choose a conservatively lower upstream extension (e.g., for studies investigating narrow peaks such as H3K4me3 or H3K9ac that exhibit a compact and localized enrichment pattern, where high upstream extensions may lose biological meaning).  Likewise, a user may also investigate the statistical significance of specific peaks of interest at varying upstream cutoffs via the help of external software (e.g., HT-seq/edgeR, HT-seq/DESeq2, etc).  Once the user has chosen the specific upstream extension to be used, the peak file is ready to be fully annotated:
 
-```{r}
+```{r, results="hide"}
 annotate(rat, 3300)
 ```
 
