@@ -17,6 +17,7 @@ Subsequent gene ontology or network analysis may be conducted on genes associate
 
 You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package and the following two commands in R (since `gtf` is a big data package, it may take a few minutes to install, depending on the speed of your Internet connection):
 ```R
+if (!require("devtools")) install.packages("devtools")
 devtools::install_github("Bohdan-Khomtchouk/gtf")
 devtools::install_github("Bohdan-Khomtchouk/geneXtendeR")
 ```
