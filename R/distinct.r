@@ -56,11 +56,11 @@ distinct <- function(organism, start, end) {
     		geneXtender.file[V1 == "XV", V1 := 15]
     		geneXtender.file[V1 == "XVI", V1 := 16]
     		geneXtender.sorted <- dplyr::arrange(geneXtender.file, as.numeric(V1), V4)
-    		write.table(geneXtender.sorted, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.txt", upstream))
+    		write.table(geneXtender.sorted, quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.bed", upstream))
   		}
 
 		sapply(c(start, end), geneXtender)
-		twogxFiles <- sprintf("geneXtender_gtf_%s.txt", c(start, end))
+		twogxFiles <- sprintf("geneXtender_gtf_%s.bed", c(start, end))
 
 		for (m in twogxFiles) {
 			twocmds <- sprintf("bedtools closest -d -a peaks.txt -b %s", twogxFiles)

@@ -57,12 +57,12 @@ generate <- function(organism, start, end, by) {
     geneXtender.file[V1 == "XV", V1 := 15]
     geneXtender.file[V1 == "XVI", V1 := 16]
     geneXtender.sorted <- dplyr::arrange(geneXtender.file, as.numeric(V1), V4)
-    write.table(geneXtender.sorted, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.txt", upstream))
+    write.table(geneXtender.sorted, quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.bed", upstream))
   }
 
 	sapply(seq(start, end, by), geneXtender)
 	assign("xlabs", as.character(seq(start, end, by)), envir = .GlobalEnv)
 	assign("xDeltas", vapply(seq_along(xlabs)[-1], function(i) paste(xlabs[(i-1):i], collapse = "-"), ""), envir = .GlobalEnv)
-	assign("gxFiles", sprintf("geneXtender_gtf_%s.txt", seq(start, end, by)), envir = .GlobalEnv)
+	assign("gxFiles", sprintf("geneXtender_gtf_%s.bed", seq(start, end, by)), envir = .GlobalEnv)
 
 }

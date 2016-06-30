@@ -12,7 +12,7 @@
 #'
 #' @export
 annotate <- function(organism, extension) {
-		onegxFile <- sprintf("geneXtender_gtf_%s.txt", extension)
+		onegxFile <- sprintf("geneXtender_gtf_%s.bed", extension)
 		options(warn = -1)
 		onecmd <- sprintf("bedtools closest -d -a peaks.txt -b %s", onegxFile)
 		onecmd.bedtools.closest.output <- system(onecmd, intern = TRUE, ignore.stderr = TRUE)

@@ -18,7 +18,7 @@ utils::globalVariables(c("V1", "V2"))
 #' 
 #' @export
 peaksInput <- function(filename) {
-	  file.input <- fread(filename)
+	file.input <- fread(filename)
     file.input[V1 == "X", V1 := 100]
     file.input[V1 == "Y", V1 := 200]
     file.input[V1 == "MT", V1 := 300]
