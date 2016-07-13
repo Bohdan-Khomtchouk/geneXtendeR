@@ -27,7 +27,18 @@ library(gtf)
 library(geneXtendeR)
 ```
 
-Also, as specified in the `SystemRequirements` field of the `DESCRIPTION` file, `geneXtendeR` requires the installation of an external program called `bedtools`.  This program must be pre-installed on your computer prior to using `geneXtendeR`.  Detailed installation instructions can be found here: http://bedtools.readthedocs.io/en/latest/content/installation.html.  After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
+Also, as specified in the `SystemRequirements` field of the `DESCRIPTION` file, `geneXtendeR` requires the installation of an external program called `bedtools`.  This program must be pre-installed on your computer prior to using `geneXtendeR`.  Detailed installation instructions can be found here: http://bedtools.readthedocs.io/en/latest/content/installation.html.  You may follow this recipe:  
+
+```shell
+$ wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
+$ tar -zxvf bedtools-2.25.0.tar.gz
+$ cd bedtools2
+$ make
+$ cd bin
+$ cp * /usr/local/bin
+```
+
+After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
 See `geneXtendeR.pdf` in `/vignettes` directory.
