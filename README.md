@@ -38,7 +38,7 @@ $ cd bin
 $ cp * /usr/local/bin
 ```
 
-After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.  You may check that `bedtools` has been successfully installed via:
+After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.  You may check that `bedtools` has been successfully installed on your system via:
 
 ```shell
 $ bedtools
