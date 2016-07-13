@@ -49,5 +49,5 @@ usage:    bedtools <subcommand> [options]
 After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
-See `geneXtendeR.pdf` in `/vignettes` directory.
+See the `geneXtendeR.pdf` in `/vignettes` directory.
 
