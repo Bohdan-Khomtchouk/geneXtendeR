@@ -38,13 +38,15 @@ $ cd bin
 $ cp * /usr/local/bin
 ```
 
-After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.  You may check that `bedtools` has been successfully installed on your system via:
+You may check that `bedtools` has been successfully installed on your system via:
 
 ```shell
 $ bedtools
 bedtools: flexible tools for genome arithmetic and DNA sequence analysis.
 usage:    bedtools <subcommand> [options]
 ```
+
+After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
 See `geneXtendeR.pdf` in `/vignettes` directory.
