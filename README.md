@@ -11,7 +11,7 @@
 
 Sample biological workflow using `geneXtendeR` in combination with existing statistical software to analyze peak significance:
 
-<img width="772" alt="workflow" src="https://cloud.githubusercontent.com/assets/9893806/15252937/0a043428-18fe-11e6-8951-2dbdeaa97fb8.png">
+[workflow.pdf](https://github.com/Bohdan-Khomtchouk/geneXtendeR/files/367687/workflow.pdf)
 
 Subsequent gene ontology or network analysis may be conducted on genes associated with statistically significant peaks.
 
