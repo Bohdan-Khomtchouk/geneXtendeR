@@ -15,16 +15,20 @@ Subsequent gene ontology or network analysis may be conducted on genes associate
 
 ### Installation instructions
 
-You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package and the following two commands in R (since `gtf` is a big data package, it may take a few minutes to install, depending on the speed of your Internet connection):
+You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package and the following two commands in R:
 ```R
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github("Bohdan-Khomtchouk/gtf")
 devtools::install_github("Bohdan-Khomtchouk/geneXtendeR")
 ```
-And then load the packages:
+And then load the package:
 ```R
-library(gtf)
 library(geneXtendeR)
+```
+And load the following Bioconductor package:
+```R
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("rtracklayer")
 ```
 
 Also, as specified in the `SystemRequirements` field of the `DESCRIPTION` file, `geneXtendeR` requires the installation of an external program called `bedtools`.  This program must be pre-installed on your computer prior to using `geneXtendeR`.  Detailed installation instructions can be found here: http://bedtools.readthedocs.io/en/latest/content/installation.html.  You may follow this recipe:  
@@ -49,5 +53,5 @@ usage:    bedtools <subcommand> [options]
 After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
-See `geneXtendeR.pdf` in `/vignettes` directory.
+See the `geneXtendeR` vignette for details.
 
