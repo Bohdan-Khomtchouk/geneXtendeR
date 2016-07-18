@@ -1,5 +1,3 @@
-![genextender](https://cloud.githubusercontent.com/assets/9893806/16898879/d14647c6-4bba-11e6-93d5-90bc802ac8e9.png)
-
 [![Travis-CI Build Status](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR.svg?branch=master)](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR)
 [![AUR](https://img.shields.io/aur/license/yaourt.svg?maxAge=2592000)]()
 [![GitHub version](https://badge.fury.io/gh/Bohdan-Khomtchouk%2FgeneXtendeR.svg)](https://badge.fury.io/gh/Bohdan-Khomtchouk%2FgeneXtendeR)
@@ -11,7 +9,7 @@
 
 Sample biological workflow using `geneXtendeR` in combination with existing statistical software to analyze peak significance:
 
-![workflow](https://cloud.githubusercontent.com/assets/9893806/16899027/2677a206-4bc2-11e6-9a20-04bc092cbe0b.png)
+<img width="772" alt="workflow" src="https://cloud.githubusercontent.com/assets/9893806/15252937/0a043428-18fe-11e6-8951-2dbdeaa97fb8.png">
 
 Subsequent gene ontology or network analysis may be conducted on genes associated with statistically significant peaks.
 
@@ -51,5 +49,5 @@ usage:    bedtools <subcommand> [options]
 After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
-See the `geneXtendeR.pdf` in `/vignettes` directory.
+See `geneXtendeR.pdf` in `/vignettes` directory.
 
