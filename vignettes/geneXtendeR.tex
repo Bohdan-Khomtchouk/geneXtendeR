@@ -7,13 +7,13 @@
 \title{geneXtendeR}
 \author{Bohdan B. Khomtchouk}
 
-<<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
-BiocStyle::latex()
-@ 
+\RequirePackage{/Library/Frameworks/R.framework/Versions/3.2/Resources/library/BiocStyle/resources/tex/Bioconductor}
 
+\AtBeginDocument{\bibliographystyle{/Library/Frameworks/R.framework/Versions/3.2/Resources/library/BiocStyle/resources/tex/unsrturl}}
 
+\usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{geneXtendeR-concordance}
 
 \maketitle
 
@@ -30,9 +30,11 @@ A series of diagnostic criteria are used to compute optimal gene extensions tail
 
 First, install the \texttt{geneXtendeR} R package via \texttt{install.packages("geneXtendeR")} and load it in:
 
-<<>>=
-library(geneXtendeR)
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(geneXtendeR)
+\end{Sinput}
+\end{Schunk}
 
 This automatically loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism.
 
@@ -47,35 +49,43 @@ After \texttt{bedtools} has been installed, the \texttt{geneXtendeR} package is 
 
 First, load in a GTF file into your R environment, e.g.:
 
-<<results=hide, eval=FALSE>>=
-rat <- rtracklayer::readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
-                      rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
-@
+\begin{Schunk}
+\begin{Sinput}
+> rat <- rtracklayer::readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
++                       rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
+\end{Sinput}
+\end{Schunk}
 
 URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension .gtf.gz (e.g., Homo\_sapiens.GRCh38.84.gtf.gz, Mus\_musculus.GRCm38.84.gtf.gz, etc), and select ``Copy Link Address".  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
 
 Next, use this R object to create a series of \texttt{geneXtendeR} files at some user-specified interval:
 
-<<results=hide, eval=FALSE>>=
-generate(rat, 0, 10000, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> generate(rat, 0, 10000, 500)
+\end{Sinput}
+\end{Schunk}
 
 
 This command generates 21 individual whole-genome files: 0, 500, 1000, ..., and 10000 bp upstream extension files for the rat (\emph{Rattus norvegicus}) genome, each having an automatic 500 bp downstream extension.
 
 Next, the user must input their peak data from some peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``myfilename.txt") has been assembled properly, it must be properly formatted prior to the execution of various geneXtendeR analyses:
 
-<<results=hide, eval=FALSE>>=
-peaksInput("myfilename.txt")
-@
+\begin{Schunk}
+\begin{Sinput}
+> peaksInput("myfilename.txt")
+\end{Sinput}
+\end{Schunk}
 
 This command properly formats the user's peak file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file used in the subsequent analysis.
 
 First, a raw count of the number of peaks that are sitting on top of a gene is calculated for each file.
 
-<<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-barChart()
-@
+\begin{Schunk}
+\begin{Sinput}
+> barChart()
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -84,9 +94,11 @@ barChart()
 
 Clearly, the wider the gene-sphere, the more peaks-on-top-of-genes are found throughout the genome.  However, the law of diminishing returns begins to kick in at increasing upstream extension levels (see \texttt{linePlot()} for a visual representation):
 
-<<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-linePlot()
-@
+\begin{Schunk}
+\begin{Sinput}
+> linePlot()
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -95,10 +107,12 @@ linePlot()
 
 Clearly, there is a sharp rise in the number of peaks-on-top-of-genes from a 0 bp upstream extension to a 1500 bp upstream extension, and from a 2000 bp upstream extension to a 3500 bp upstream extension.  This steady rise up until 3500 bp is followed by a steady decline at subsequent extension levels followed by some noisy fluctuations.  It may be interesting to investigate what is going on in the interval from 3000 bp to 3500 bp: 
 
-<<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-generate(rat, 3000, 3500, 50)
-linePlot()
-@
+\begin{Schunk}
+\begin{Sinput}
+> generate(rat, 3000, 3500, 50)
+> linePlot()
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -109,9 +123,11 @@ Clearly, there is a relatively sharp spike in the number of peaks-on-top-of-gene
 
 It is also possible to identify the genes that are unique amongst the 3250 and 3300 bp upstream extension levels:
 
-<<fig.width=6.2, fig.height=5, results=hide, eval=FALSE>>=
-head(distinct(rat, 3250, 3300))
-@
+\begin{Schunk}
+\begin{Sinput}
+> head(distinct(rat, 3250, 3300))
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -130,10 +146,12 @@ However, even though these dynamics are to be expected, such extensions are unli
 
 It is entirely possible (and probable) for significant peaks to be present at relatively high upstream extension levels (i.e., large gene-spheres), albeit these significant peaks may be associated with biology not directly relevant to the study at-hand, due mainly to the sheer magnitude of the distance of the peak from traditional gene boundaries (where traditional gene boundaries are defined as +/- $\approx 3$ kb from TSS and +/- $\approx 0.5$kb from TES).  Consequently, it is normal for peaks-on-top-of-genes to exhibit higher levels of noise at higher upstream extension levels.  However, this does not mean that potential enhancer activity should be discounted.  For instance, it is not uncommon to see a steady rise or even a surge in the number of peaks-on-top-of-genes at higher upstream extension levels:
 
-<<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-generate(rat, 7000, 8500, 100)
-linePlot()
-@
+\begin{Schunk}
+\begin{Sinput}
+> generate(rat, 7000, 8500, 100)
+> linePlot()
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -144,9 +162,11 @@ In far-out cases like this, it is particularly recommended to examine the statis
 
 Assessment of such statistical significance values is beyond the scope of geneXtendeR, in order to allow the user freedom to choose the respective statistical package/technique.  As before, first use the \texttt{distinct()} command to create a table of unique genes located under peaks between the two upstream extension levels:
 
-<<fig.width=6.2, fig.height=5, results=hide, eval=FALSE>>=
-head(distinct(rat, 7800, 7900))
-@
+\begin{Schunk}
+\begin{Sinput}
+> head(distinct(rat, 7800, 7900))
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -164,9 +184,11 @@ Even though geneXtendeR is designed to compute (and analyze/display) optimal gen
 
 Likewise, a user may also investigate the statistical significance of specific peaks of interest at varying upstream cutoffs via the help of external software (e.g., HT-seq/edgeR, HT-seq/DESeq2, etc).  Once the user has chosen the specific upstream extension to be used, the peak file is ready to be fully annotated:
 
-<<results=hide, eval=FALSE>>=
-annotate(rat, 3300)
-@
+\begin{Schunk}
+\begin{Sinput}
+> annotate(rat, 3300)
+\end{Sinput}
+\end{Schunk}
 
 which generates a fully annotated peaks file containing various genomic features and labeled headers.  
 

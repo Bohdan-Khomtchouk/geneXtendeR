@@ -1,5 +1,3 @@
-![genextender](https://cloud.githubusercontent.com/assets/9893806/16898879/d14647c6-4bba-11e6-93d5-90bc802ac8e9.png)
-
 [![Travis-CI Build Status](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR.svg?branch=master)](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR)
 [![AUR](https://img.shields.io/aur/license/yaourt.svg?maxAge=2592000)]()
 [![GitHub version](https://badge.fury.io/gh/Bohdan-Khomtchouk%2FgeneXtendeR.svg)](https://badge.fury.io/gh/Bohdan-Khomtchouk%2FgeneXtendeR)
@@ -17,13 +15,15 @@ Subsequent gene ontology or network analysis may be conducted on genes associate
 
 ### Installation instructions
 
-You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package and the following two commands in R:
+You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package and the following two commands in R (since `gtf` is a big data package, it may take a few minutes to install, depending on the speed of your Internet connection):
 ```R
 if (!require("devtools")) install.packages("devtools")
+devtools::install_github("Bohdan-Khomtchouk/gtf")
 devtools::install_github("Bohdan-Khomtchouk/geneXtendeR")
 ```
-And then load the package:
+And then load the packages:
 ```R
+library(gtf)
 library(geneXtendeR)
 ```
 
@@ -49,5 +49,5 @@ usage:    bedtools <subcommand> [options]
 After `bedtools` has been installed, the `geneXtendeR` package is fully configured and setup for use.
 
 ### Usage instructions
-See the `geneXtendeR` vignette for details.
+See `geneXtendeR.pdf` in `/vignettes` directory.
 

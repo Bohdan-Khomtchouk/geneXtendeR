@@ -14,6 +14,7 @@ utils::globalVariables(c("type", "seqid", "start", "end", "strand", "gene_id", "
 #' \dontrun{human <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/homo_sapiens/Homo_sapiens.GRCh38.84.gtf.gz")}
 #' \dontrun{generate(human, 2000, 10000, 500)}
 #'
+#' @import rtracklayer
 #' @import data.table
 #' 
 #' @export
