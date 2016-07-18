@@ -36,7 +36,16 @@ First, install the \texttt{geneXtendeR} R package via \texttt{install.packages("
 \end{Sinput}
 \end{Schunk}
 
-This automatically loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism.
+Then load the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism (discussed further below):
+
+\begin{Schunk}
+\begin{Sinput}
+> ## try http:// if https:// URLs are not supported
+> source("https://bioconductor.org/biocLite.R")
+> biocLite("rtracklayer")
+> library(rtracklayer)
+\end{Sinput}
+\end{Schunk}
 
 \texttt{geneXtendeR} also requires the installation of an external program called \texttt{bedtools}.  This program must be pre-installed on your computer prior to using \texttt{geneXtendeR}.  As described in the \texttt{README} file found in the top-level directory of this \texttt{geneXtendeR} R package, detailed installation instructions can be accessed here: \url{http://bedtools.readthedocs.io/en/latest/content/installation.html}.  You may follow this recipe in a Terminal:
 

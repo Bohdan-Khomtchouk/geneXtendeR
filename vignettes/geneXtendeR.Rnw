@@ -34,13 +34,7 @@ First, install the \texttt{geneXtendeR} R package via \texttt{install.packages("
 library(geneXtendeR)
 @
 
-Then load the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism (discussed further below):
-
-<<results=hide, eval=FALSE>>=
-## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite("rtracklayer")
-@
+Then loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism (discussed further below).
 
 \texttt{geneXtendeR} also requires the installation of an external program called \texttt{bedtools}.  This program must be pre-installed on your computer prior to using \texttt{geneXtendeR}.  As described in the \texttt{README} file found in the top-level directory of this \texttt{geneXtendeR} R package, detailed installation instructions can be accessed here: \url{http://bedtools.readthedocs.io/en/latest/content/installation.html}.  You may follow this recipe in a Terminal:
 
@@ -54,7 +48,7 @@ After \texttt{bedtools} has been installed, the \texttt{geneXtendeR} package is 
 First, load in a GTF file into your R environment, e.g.:
 
 <<results=hide, eval=FALSE>>=
-rat <- rtracklayer::readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
+rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
                       rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 @
 
