@@ -1,5 +1,3 @@
-![genextender](https://cloud.githubusercontent.com/assets/9893806/16898879/d14647c6-4bba-11e6-93d5-90bc802ac8e9.png)
-
 [![Travis-CI Build Status](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR.svg?branch=master)](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR)
 [![AUR](https://img.shields.io/aur/license/yaourt.svg?maxAge=2592000)]()
 [![GitHub version](https://badge.fury.io/gh/Bohdan-Khomtchouk%2FgeneXtendeR.svg)](https://badge.fury.io/gh/Bohdan-Khomtchouk%2FgeneXtendeR)
