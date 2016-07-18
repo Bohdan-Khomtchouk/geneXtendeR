@@ -23,7 +23,7 @@ URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
 Depends:
 	rtracklayer,
-    R (>= 3.1.2)
+    R (>= 3.3)
 Imports:
     data.table,
     dplyr,
