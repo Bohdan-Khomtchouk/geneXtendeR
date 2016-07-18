@@ -19,8 +19,6 @@ utils::globalVariables(c("type", "seqid", "start", "end", "strand", "gene_id", "
 #' @export
 distinct <- function(organism, start, end) {
 	options(warn = -1)
-	generate <- function(organism, start, end, by) {
-  		options(warn = -1)
   		geneXtender <- function(upstream) {
     			messy2 <- dplyr::filter(organism, type == "gene")
     			neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
@@ -60,13 +58,6 @@ distinct <- function(organism, start, end) {
     			write.table(geneXtender.sorted, quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.bed", upstream))
   		}
 
-			sapply(seq(start, end, by), geneXtender)
-			assign("xlabs", as.character(seq(start, end, by)), envir = .GlobalEnv)
-			assign("xDeltas", vapply(seq_along(xlabs)[-1], function(i) paste(xlabs[(i-1):i], collapse = "-"), ""), envir = .GlobalEnv)
-			assign("gxFiles", sprintf("geneXtender_gtf_%s.bed", seq(start, end, by)), envir = .GlobalEnv)
-
-	}
-
 		sapply(c(start, end), geneXtender)
 		twogxFiles <- sprintf("geneXtender_gtf_%s.bed", c(start, end))
 
@@ -83,4 +74,5 @@ distinct <- function(organism, start, end) {
 		cmd1.bedtools.closest.output.zeros.DT <- as.data.table(do.call("rbind", strsplit(cmd1.bedtools.closest.output.zeros, split = "\t")))
 		assign("cmd2.bedtools.closest.output.zeros.DT", as.data.table(do.call("rbind", strsplit(cmd2.bedtools.closest.output.zeros, split = "\t"))), envir = .GlobalEnv)
 		cmd2.bedtools.closest.output.zeros.DT[!cmd1.bedtools.closest.output.zeros.DT, on = paste0("V", 1:3)]
+
 }
