@@ -1,18 +1,18 @@
 utils::globalVariables(c("V1", "V2"))
 #' Formats a peaks input file.
 #'
-#' Takes your tab-delimited 3-column input file (see Arguments section below) consisting of peaks called from a peak caller (e.g., MACS2 or SICER) and sorts the file by chromosome and start position to create a formatted file for downstream geneXtendeR analysis.  In this formatted file, the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.
+#' Takes your tab-delimited 3-column input file (see Arguments section below) consisting of peaks called from a peak caller (e.g., MACS2 or SICER) and sorts the file by chromosome and start position to create a formatted file for downstream geneXtendeR analysis.  For sorting purposes, the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.
 #'
-#' @param filename Name of file containing peaks.  This tab-delimited input file may only contain 3 columns: chromosome number, peak start, and peak end.  See ?sample_peaks_input for more details.
+#' @param filename Name of file containing peaks.  This tab-delimited input file may only contain 3 columns: chromosome number, peak start, and peak end.  See ?samplepeaksinput for more details.
 #'
 #' @return Returns a formatted file to be used with barChart(), linePlot(), and other downstream commands.
 #'
 #' @examples
-#' ?sample_peaks_input  #Documentation of some exemplary sample input
-#' data(sample_peaks_input)
-#' head(sample_peaks_input)
-#' tail(sample_peaks_input)
-#' \dontrun{peaksInput("some_peaks_file.txt")}  #E.g., "my_filename.txt" provided in the /vignettes directory
+#' ?samplepeaksinput  #Documentation of some exemplary sample input
+#' data(samplepeaksinput)
+#' head(samplepeaksinput)
+#' tail(samplepeaksinput)
+#' \dontrun{peaksInput("somepeaksfile.txt")}  #E.g., "myfilename.txt" provided in the /vignettes directory
 #'
 #' @import data.table
 #' 

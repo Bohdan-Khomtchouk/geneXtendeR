@@ -7,7 +7,7 @@
 annotate(organism, extension)
 }
 \arguments{
-\item{organism}{Name of organism (refer to gtf R package).}
+\item{organism}{Object name assigned from readGFF() command.}
 
 \item{extension}{Desired upstream extension.}
 }

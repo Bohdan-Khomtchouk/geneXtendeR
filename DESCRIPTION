@@ -22,7 +22,7 @@ Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
 Depends:
-    gtf,
+    rtracklayer,
     R (>= 3.1.2)
 Imports:
     data.table,

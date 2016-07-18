@@ -7,7 +7,7 @@
 generate(organism, start, end, by)
 }
 \arguments{
-\item{organism}{Name of organism (refer to gtf R package).}
+\item{organism}{Object name assigned from readGFF() command.}
 
 \item{start}{Lower bound of upstream extension.}
 
@@ -22,7 +22,8 @@ Generates exactly ([(start-end)/by] + 1) modified gtf files and loads in global 
 Creates organism-specific customized gene transfer format files at user-designated extensions.  Only upstream extensions can be specified.  Downstream extensions are always set as default to 500 bp (to capture any downstream gene elements).
 }
 \examples{
-\dontrun{generate(rat, 2000, 10000, 500)}
+\dontrun{human <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/homo_sapiens/Homo_sapiens.GRCh38.84.gtf.gz")}
+\dontrun{generate(human, 2000, 10000, 500)}
 
 }
 

@@ -2,7 +2,7 @@
 #'
 #' Annotate peaks file with gene information based on optimally chosen geneXtendeR upstream extension file.
 #' 
-#' @param organism Name of organism (refer to gtf R package).
+#' @param organism Object name assigned from readGFF() command.
 #' @param extension Desired upstream extension.
 #'
 #' @return A file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).
