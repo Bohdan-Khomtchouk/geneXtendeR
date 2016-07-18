@@ -1,6 +1,6 @@
 citHeader("To cite geneXtendeR in publications use:")
 
-citEntry(entry = “Article”,
+citEntry(entry = "Article",
 	title	   = "Optimal Gene Extensions From Histone Modification ChIP-seq Data",
 	author	   = personList(as.person("Bohdan Khomtchouk"), as.person("Claes Wahlestedt")),
 	journal    = "TBA",
