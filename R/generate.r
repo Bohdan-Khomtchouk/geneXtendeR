@@ -33,7 +33,7 @@ generate <- function(organism, start, end, by) {
     neg_exons$end = neg_exons$end + upstream
     merged_exons <- rbind(pos_exons, neg_exons)
     geneXtender.file <- dplyr::select(merged_exons, seqid, start, end, gene_id, gene_name)
-    setDT(geneXtender.file)
+    data.table::setDT(geneXtender.file)
     geneXtender.file[seqid == "X", seqid := 100]
     geneXtender.file[seqid == "Y", seqid := 200]
     geneXtender.file[seqid == "MT", seqid := 300]
