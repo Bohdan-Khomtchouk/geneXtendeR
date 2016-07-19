@@ -49,10 +49,10 @@ First, load in a GTF file into your R environment, e.g.:
 
 <<results=hide, eval=FALSE>>=
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
-                      rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
+                      rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
 @
 
-URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension .gtf.gz (e.g., Homo\_sapiens.GRCh38.84.gtf.gz, Mus\_musculus.GRCm38.84.gtf.gz, etc), and select ``Copy Link Address".  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
+URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc), and select ``Copy Link Address".  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
 
 Next, use this R object to create a series of \texttt{geneXtendeR} files at some user-specified interval:
 
