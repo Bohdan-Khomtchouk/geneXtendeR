@@ -17,7 +17,7 @@ Subsequent gene ontology or network analysis may be conducted on genes associate
 
 ### Installation instructions
 
-You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package and the following two commands in R:
+You can install the current GitHub version using the [devtools](https://github.com/hadley/devtools) package:
 ```R
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("Bohdan-Khomtchouk/geneXtendeR")
@@ -26,13 +26,6 @@ And then load the package:
 ```R
 library(geneXtendeR)
 ```
-And load the following Bioconductor package:
-```R
-## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite("rtracklayer")
-```
-
 Also, as specified in the `SystemRequirements` field of the `DESCRIPTION` file, `geneXtendeR` requires the installation of an external program called `bedtools`.  This program must be pre-installed on your computer prior to using `geneXtendeR`.  Detailed installation instructions can be found here: http://bedtools.readthedocs.io/en/latest/content/installation.html.  You may follow this recipe:  
 
 ```shell
