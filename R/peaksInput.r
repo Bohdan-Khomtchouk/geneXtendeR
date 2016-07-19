@@ -12,8 +12,7 @@ utils::globalVariables(c("V1", "V2"))
 #' data(samplepeaksinput)
 #' head(samplepeaksinput)
 #' tail(samplepeaksinput)
-#' \dontrun{peaksInput("somepeaksfile.txt")}  #E.g., "myfilename.txt" provided in the /vignettes directory
-#'
+#' \dontrun{peaksInput("somepeaksfile.txt")}
 #' @import data.table
 #' 
 #' @export

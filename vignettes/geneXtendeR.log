@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  18 JUL 2016 18:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  18 JUL 2016 18:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -519,82 +519,83 @@ es/geneXtendeRlogo.png>] <figures/bedtoolsInstallation.png, id=20, 1442.38875pt
 File: figures/bedtoolsInstallation.png Graphic file (type png)
 
 <use figures/bedtoolsInstallation.png>
-Package pdftex.def Info: figures/bedtoolsInstallation.png used on input line 54
+Package pdftex.def Info: figures/bedtoolsInstallation.png used on input line 45
 .
 (pdftex.def)             Requested size: 400.38872pt x 70.2143pt.
 LaTeX Font Info:    Font shape `T1/aess/m/it' in size <12> not available
-(Font)              Font shape `T1/aess/m/sl' tried instead on input line 79.
- [2 <./figures/bedtoolsInstallation.png>] <figures/fig1.png, id=27, 800.0289pt 
-x 515.0442pt>
+(Font)              Font shape `T1/aess/m/sl' tried instead on input line 70.
+
+<figures/fig1.png, id=22, 800.0289pt x 515.0442pt>
 File: figures/fig1.png Graphic file (type png)
  <use figures/fig1.png>
-Package pdftex.def Info: figures/fig1.png used on input line 101.
+Package pdftex.def Info: figures/fig1.png used on input line 92.
 (pdftex.def)             Requested size: 400.38872pt x 257.76509pt.
 
+[2 <./figures/bedtoolsInstallation.png>]
 <figures/fig2.png, id=28, 838.0911pt x 589.2414pt>
 File: figures/fig2.png Graphic file (type png)
  <use figures/fig2.png>
-Package pdftex.def Info: figures/fig2.png used on input line 114.
+Package pdftex.def Info: figures/fig2.png used on input line 105.
 (pdftex.def)             Requested size: 400.38872pt x 281.51096pt.
 
-[3 <./figures/fig1.png>] <figures/fig3.png, id=34, 838.0911pt x 589.2414pt>
+[3 <./figures/fig1.png> <./figures/fig2.png>]
+<figures/fig3.png, id=35, 838.0911pt x 589.2414pt>
 File: figures/fig3.png Graphic file (type png)
-
-<use figures/fig3.png>
-Package pdftex.def Info: figures/fig3.png used on input line 128.
+ <use figures/fig3.png>
+Package pdftex.def Info: figures/fig3.png used on input line 119.
 (pdftex.def)             Requested size: 400.38872pt x 281.51096pt.
- [4 <./figures/fig2.png>]
-<figures/table1.png, id=40, 1631.09375pt x 322.20375pt>
+
+<figures/table1.png, id=36, 1631.09375pt x 322.20375pt>
 File: figures/table1.png Graphic file (type png)
 
 <use figures/table1.png>
-Package pdftex.def Info: figures/table1.png used on input line 143.
+Package pdftex.def Info: figures/table1.png used on input line 134.
 (pdftex.def)             Requested size: 400.38872pt x 79.09055pt.
- [5 <./figures/fig3.png> <./figures/table1.png>]
-<figures/workflow.pdf, id=46, 410.60803pt x 397.6747pt>
+ [4 <./figures/fig3.png> <./figures/table1.png>]
+<figures/workflow.pdf, id=42, 410.60803pt x 397.6747pt>
 File: figures/workflow.pdf Graphic file (type pdf)
 
 <use figures/workflow.pdf>
-Package pdftex.def Info: figures/workflow.pdf used on input line 152.
+Package pdftex.def Info: figures/workflow.pdf used on input line 143.
 (pdftex.def)             Requested size: 400.38872pt x 387.78891pt.
- [6 <./figures/workflow.pdf>]
-<figures/fig4.png, id=72, 840.2592pt x 589.2414pt>
+ [5]
+<figures/fig4.png, id=47, 840.2592pt x 589.2414pt>
 File: figures/fig4.png Graphic file (type png)
  <use figures/fig4.png>
-Package pdftex.def Info: figures/fig4.png used on input line 167.
+Package pdftex.def Info: figures/fig4.png used on input line 158.
 (pdftex.def)             Requested size: 400.38872pt x 280.77368pt.
 
-<figures/table2.png, id=73, 1624.0675pt x 313.17pt>
+[6 <./figures/workflow.pdf>]
+<figures/table2.png, id=74, 1624.0675pt x 313.17pt>
 File: figures/table2.png Graphic file (type png)
  <use figures/table2.png>
-Package pdftex.def Info: figures/table2.png used on input line 182.
+Package pdftex.def Info: figures/table2.png used on input line 173.
 (pdftex.def)             Requested size: 400.38872pt x 77.20277pt.
 
-[7 <./figures/fig4.png>]
+[7 <./figures/fig4.png> <./figures/table2.png>]
 File: figures/fig2.png Graphic file (type png)
  <use figures/fig2.png>
-Package pdftex.def Info: figures/fig2.png used on input line 191.
+Package pdftex.def Info: figures/fig2.png used on input line 182.
 (pdftex.def)             Requested size: 400.38872pt x 281.51096pt.
- [8 <./figures/table2.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 195.
+ [8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 195.
 
-[9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
- (./geneXtendeR.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 204.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
+(./geneXtendeR.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 195.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 195.
 Package rerunfilecheck Info: File `geneXtendeR.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 204.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 195.
  ) 
 Here is how much of TeX's memory you used:
- 7584 strings out of 493014
- 113820 string characters out of 6133351
+ 7583 strings out of 493014
+ 113814 string characters out of 6133351
  203095 words of memory out of 5000000
  10994 multiletter control sequences out of 15000+600000
  20035 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,45p,1497b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,11n,45p,1497b,335s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
 /usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
@@ -605,10 +606,10 @@ local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/l
 ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/l
 ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
 cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on geneXtendeR.pdf (9 pages, 2834562 bytes).
+Output written on geneXtendeR.pdf (8 pages, 2833440 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
+ 118 PDF objects out of 1000 (max. 8388607)
+ 80 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
  50 words of extra memory for PDF output out of 10000 (max. 10000000)
 
