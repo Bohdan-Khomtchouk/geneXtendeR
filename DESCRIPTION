@@ -32,5 +32,5 @@ Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 License: GPL (>= 3)
 LazyData: TRUE
-biocViews: Genetics, GenomeAnnotation
+biocViews: Genetics, Annotation, GenomeAnnotation, DifferentialPeakCalling, Coverage, PeakDetection
 RoxygenNote: 5.0.1
