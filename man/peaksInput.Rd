@@ -20,7 +20,6 @@ Takes your tab-delimited 3-column input file (see Arguments section below) consi
 data(samplepeaksinput)
 head(samplepeaksinput)
 tail(samplepeaksinput)
-\dontrun{peaksInput("somepeaksfile.txt")}  #E.g., "myfilename.txt" provided in the /vignettes directory
-
+\dontrun{peaksInput("somepeaksfile.txt")}
 }
 

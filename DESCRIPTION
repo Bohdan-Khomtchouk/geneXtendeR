@@ -26,8 +26,7 @@ Depends:
     R (>= 3.3)
 Imports:
     data.table,
-    dplyr,
-    tidyr
+    dplyr
 SystemRequirements: bedtools
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

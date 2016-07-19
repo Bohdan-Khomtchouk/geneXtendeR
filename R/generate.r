@@ -15,6 +15,7 @@ utils::globalVariables(c("type", "seqid", "start", "end", "strand", "gene_id", "
 #' \dontrun{generate(human, 2000, 10000, 500)}
 #'
 #' @import data.table
+#' @import dplyr
 #' 
 #' @export
 generate <- function(organism, start, end, by) {
