@@ -1,4 +1,3 @@
-utils::globalVariables(c("type", "seqid", "start", "end", "strand", "gene_id", "gene_name", "cmd1", "cmd2", "cmd2.bedtools.closest.output.zeros.DT"))
 #' Finds unique genes under peaks.
 #'
 #' Determines what genes directly under peaks are actually unique between two different upstream extension levels.
@@ -13,8 +12,10 @@ utils::globalVariables(c("type", "seqid", "start", "end", "strand", "gene_id", "
 #'
 #' @examples
 #' \dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
-#' \dontrun{generate(rat, 1000, 3000, 500)}
+#' \dontrun{peaksInput("somepeaksfile.txt")}
 #' \dontrun{distinct(rat, 2000, 3000)}
+#'
+#' @import data.table
 #'
 #' @export
 distinct <- function(organism, start, end) {
@@ -32,7 +33,7 @@ distinct <- function(organism, start, end) {
     			neg_exons$end = neg_exons$end + upstream
     			merged_exons <- rbind(pos_exons, neg_exons)
     			geneXtender.file <- dplyr::select(merged_exons, seqid, start, end, gene_id, gene_name)
-    			setDT(geneXtender.file)
+    			data.table::setDT(geneXtender.file)
     			geneXtender.file[seqid == "X", seqid := 100]
     			geneXtender.file[seqid == "Y", seqid := 200]
     			geneXtender.file[seqid == "MT", seqid := 300]
@@ -63,8 +64,8 @@ distinct <- function(organism, start, end) {
 
 		for (m in twogxFiles) {
 			twocmds <- sprintf("bedtools closest -d -a peaks.txt -b %s", twogxFiles)
-			assign("cmd1", twocmds[1], envir = .GlobalEnv)
-			assign("cmd2", twocmds[2], envir = .GlobalEnv)
+			cmd1 <<- twocmds[1]
+			cmd2 <<- twocmds[2]
 		}
 
 		cmd1.bedtools.closest.output <- system(cmd1, intern = TRUE, ignore.stderr = TRUE)

@@ -24,7 +24,7 @@ V1-V3 denote the chromosome/start/end positions of the peaks, V4-V6 denote the r
 }
 \examples{
 \dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
-\dontrun{generate(rat, 1000, 3000, 500)}
+\dontrun{peaksInput("somepeaksfile.txt")}
 \dontrun{distinct(rat, 2000, 3000)}
 
 }

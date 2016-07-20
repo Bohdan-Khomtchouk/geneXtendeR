@@ -34,7 +34,7 @@ First, install the \texttt{geneXtendeR} R package via \texttt{install.packages("
 library(geneXtendeR)
 @
 
-Then loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism (discussed further below).
+This loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism (discussed further below).
 
 \texttt{geneXtendeR} also requires the installation of an external program called \texttt{bedtools}.  This program must be pre-installed on your computer prior to using \texttt{geneXtendeR}.  As described in the \texttt{README} file found in the top-level directory of this \texttt{geneXtendeR} R package, detailed installation instructions can be accessed here: \url{http://bedtools.readthedocs.io/en/latest/content/installation.html}.  You may follow this recipe in a Terminal:
 
@@ -52,18 +52,9 @@ rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
                       rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
 @
 
-URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc), and select ``Copy Link Address".  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
+URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc), and copy the link address.  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
 
-Next, use this R object to create a series of \texttt{geneXtendeR} files at some user-specified interval:
-
-<<results=hide, eval=FALSE>>=
-generate(rat, 0, 10000, 500)
-@
-
-
-This command generates 21 individual whole-genome files: 0, 500, 1000, ..., and 10000 bp upstream extension files for the rat (\emph{Rattus norvegicus}) genome, each having an automatic 500 bp downstream extension.
-
-Next, the user must input their peak data from some peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``myfilename.txt") has been assembled properly, it must be properly formatted prior to the execution of various geneXtendeR analyses:
+Next, the user must input their peak data from some peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``myfilename.txt") has been assembled properly, it must be properly formatted prior to the execution of various geneXtendeR analyses.  First, the user must set their working directory to point to the location of their peak data file.  Then type the following command:
 
 <<results=hide, eval=FALSE>>=
 peaksInput("myfilename.txt")
@@ -71,11 +62,13 @@ peaksInput("myfilename.txt")
 
 This command properly formats the user's peak file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file used in the subsequent analysis.
 
-First, a raw count of the number of peaks that are sitting on top of a gene is calculated for each file.
+Now, we may use the R object that we created with \texttt{readGFF()} above to create a bar chart visualization showing the number of peaks that are sitting directly on top of genes across a series of upstream extensions (of each gene in a genome):
 
-<<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-barChart()
+<<results=hide, eval=FALSE>>=
+barChart(rat, 0, 10000, 500)
 @
+
+This command first generates 21 individual whole-genome files: 0, 500, 1000, ..., and 10000 bp upstream extension files for the rat (\emph{Rattus norvegicus}) genome, each having an automatic 500 bp downstream extension.  In other words, each gene in the rat genome is extended upstream and downstream by some user-specified distance, thereby creating a ``gene-sphere."  \texttt{barChart(rat, 0, 10000, 500)} visualizes the raw count of the number of peaks that are sitting on top of genes at each individual upstream cutoff:
 
 \begin{figure}[H]
 \centering
@@ -85,7 +78,7 @@ barChart()
 Clearly, the wider the gene-sphere, the more peaks-on-top-of-genes are found throughout the genome.  However, the law of diminishing returns begins to kick in at increasing upstream extension levels (see \texttt{linePlot()} for a visual representation):
 
 <<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-linePlot()
+linePlot(rat, 0, 10000, 500)
 @
 
 \begin{figure}[H]
@@ -96,8 +89,7 @@ linePlot()
 Clearly, there is a sharp rise in the number of peaks-on-top-of-genes from a 0 bp upstream extension to a 1500 bp upstream extension, and from a 2000 bp upstream extension to a 3500 bp upstream extension.  This steady rise up until 3500 bp is followed by a steady decline at subsequent extension levels followed by some noisy fluctuations.  It may be interesting to investigate what is going on in the interval from 3000 bp to 3500 bp: 
 
 <<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-generate(rat, 3000, 3500, 50)
-linePlot()
+linePlot(rat, 3000, 3500, 50)
 @
 
 \begin{figure}[H]
@@ -131,8 +123,7 @@ However, even though these dynamics are to be expected, such extensions are unli
 It is entirely possible (and probable) for significant peaks to be present at relatively high upstream extension levels (i.e., large gene-spheres), albeit these significant peaks may be associated with biology not directly relevant to the study at-hand, due mainly to the sheer magnitude of the distance of the peak from traditional gene boundaries (where traditional gene boundaries are defined as +/- $\approx 3$ kb from TSS and +/- $\approx 0.5$kb from TES).  Consequently, it is normal for peaks-on-top-of-genes to exhibit higher levels of noise at higher upstream extension levels.  However, this does not mean that potential enhancer activity should be discounted.  For instance, it is not uncommon to see a steady rise or even a surge in the number of peaks-on-top-of-genes at higher upstream extension levels:
 
 <<fig.width=7.2, fig.height=5, results=hide, eval=FALSE>>=
-generate(rat, 7000, 8500, 100)
-linePlot()
+linePlot(rat, 7000, 8500, 100)
 @
 
 \begin{figure}[H]

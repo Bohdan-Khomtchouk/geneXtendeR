@@ -3,8 +3,6 @@
 export(annotate)
 export(barChart)
 export(distinct)
-export(generate)
 export(linePlot)
 export(peaksInput)
 import(data.table)
-import(dplyr)

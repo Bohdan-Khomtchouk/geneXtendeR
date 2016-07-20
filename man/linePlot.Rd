@@ -4,7 +4,7 @@
 \alias{linePlot}
 \title{Produces line plots.}
 \usage{
-linePlot()
+linePlot(organism, start, end, by)
 }
 \value{
 Creates differential line plots.
@@ -14,8 +14,8 @@ Makes differential line plots showing the differences in the number of genes und
 }
 \examples{
 \dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
-\dontrun{generate(rat, 1000, 3000, 100)}
-\dontrun{linePlot()}  #Explained in vignette
+\dontrun{peaksInput("somepeaksfile.txt")}
+\dontrun{linePlot(rat, 1000, 3000, 100)}
 
 }
 

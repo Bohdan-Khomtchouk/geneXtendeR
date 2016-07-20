@@ -1,4 +1,3 @@
-utils::globalVariables(c("V1", "V2"))
 #' Formats a peaks input file.
 #'
 #' Takes your tab-delimited 3-column input file (see Arguments section below) consisting of peaks called from a peak caller (e.g., MACS2 or SICER) and sorts the file by chromosome and start position to create a formatted file for downstream geneXtendeR analysis.  For sorting purposes, the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.
@@ -13,10 +12,12 @@ utils::globalVariables(c("V1", "V2"))
 #' head(samplepeaksinput)
 #' tail(samplepeaksinput)
 #' \dontrun{peaksInput("somepeaksfile.txt")}
+#'
 #' @import data.table
 #' 
 #' @export
 peaksInput <- function(filename) {
+	options(warn = -1)
 	file.input <- fread(filename)
     file.input[V1 == "X", V1 := 100]
     file.input[V1 == "Y", V1 := 200]

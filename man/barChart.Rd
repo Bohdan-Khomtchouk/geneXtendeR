@@ -4,7 +4,7 @@
 \alias{barChart}
 \title{Produces bar charts.}
 \usage{
-barChart()
+barChart(organism, start, end, by)
 }
 \value{
 Creates bar charts.
@@ -14,8 +14,8 @@ Makes bar graphs showing the number of genes under peaks at various upstream ext
 }
 \examples{
 \dontrun{mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/mus_musculus/Mus_musculus.GRCm38.84.gtf.gz")}
-\dontrun{generate(mouse, 1000, 3000, 100)}
-\dontrun{barChart()}
+\dontrun{peaksInput("somepeaksfile.txt")}
+\dontrun{barChart(mouse, 1000, 3000, 100)}
 
 }
 

@@ -21,5 +21,6 @@ data(samplepeaksinput)
 head(samplepeaksinput)
 tail(samplepeaksinput)
 \dontrun{peaksInput("somepeaksfile.txt")}
+
 }
 
