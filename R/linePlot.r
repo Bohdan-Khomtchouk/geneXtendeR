@@ -2,10 +2,15 @@
 #'
 #' Makes differential line plots showing the differences in the number of genes under peaks at consecutive upstream extension levels.
 #'
+#' @param organism Object name assigned from readGFF() command.
+#' @param start Lower bound of upstream extension.
+#' @param end Upper bound of upstream extension.
+#' @param by Interval between consecutive extensions.
+#'
 #' @return Creates differential line plots.
 #'
 #' @examples
-#' \dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
+#' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' \dontrun{peaksInput("somepeaksfile.txt")}
 #' \dontrun{linePlot(rat, 1000, 3000, 100)}
 #'

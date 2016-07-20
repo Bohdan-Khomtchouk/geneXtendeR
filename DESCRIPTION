@@ -1,6 +1,6 @@
 Package: geneXtendeR
 Type: Package
-Version: 0.99.3
+Version: 0.99.4
 Title: Optimal Gene Extensions From Histone Modification ChIP-seq Data
 Description: geneXtendeR is designed to optimally annotate a histone modification ChIP-seq peak input file with functionally important genomic features (e.g., genes associated with peaks) based on optimization calculations.  geneXtendeR optimally extends the boundaries of every gene in a
     genome by some genomic distance (in DNA base pairs) for the purpose of flexibly
@@ -21,16 +21,12 @@ Authors@R: person("Bohdan", "Khomtchouk", email = "khomtchoukmed@gmail.com", rol
 Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
-Depends:
-	rtracklayer,
-    R (>= 3.3)
-Imports:
-    data.table,
-    dplyr
-SystemRequirements: bedtools
-Suggests: knitr, rmarkdown
+Depends: rtracklayer, R (>= 3.3)
+Imports: data.table, dplyr
+Suggests: BiocStyle, knitr, rmarkdown
 VignetteBuilder: knitr
+SystemRequirements: bedtools
 License: GPL (>= 3)
 LazyData: TRUE
-biocViews: Genetics, Annotation, GenomeAnnotation, DifferentialPeakCalling, Coverage, PeakDetection
+biocViews: Genetics, Annotation, GenomeAnnotation, DifferentialPeakCalling, Coverage, PeakDetection, ChipOnChip, HistoneModification, DataImport
 RoxygenNote: 5.0.1

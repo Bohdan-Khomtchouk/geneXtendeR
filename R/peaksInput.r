@@ -14,6 +14,7 @@
 #' \dontrun{peaksInput("somepeaksfile.txt")}
 #'
 #' @import data.table
+#' @import rtracklayer
 #' 
 #' @export
 peaksInput <- function(filename) {

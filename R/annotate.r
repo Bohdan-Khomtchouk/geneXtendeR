@@ -8,7 +8,7 @@
 #' @return A file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).
 #'
 #' @examples
-#' \dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
+#' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' \dontrun{peaksInput("somepeaksfile.txt")}
 #' \dontrun{annotate(rat, 2500)}
 #'

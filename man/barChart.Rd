@@ -6,6 +6,15 @@
 \usage{
 barChart(organism, start, end, by)
 }
+\arguments{
+\item{organism}{Object name assigned from readGFF() command.}
+
+\item{start}{Lower bound of upstream extension.}
+
+\item{end}{Upper bound of upstream extension.}
+
+\item{by}{Interval between consecutive extensions.}
+}
 \value{
 Creates bar charts.
 }
