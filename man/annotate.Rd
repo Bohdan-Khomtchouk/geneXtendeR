@@ -18,9 +18,9 @@ A file of peaks annotated with gene ID, gene name, and gene-to-peak genomic dist
 Annotate peaks file with gene information based on optimally chosen geneXtendeR upstream extension file.
 }
 \examples{
-\dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
-\dontrun{peaksInput("somepeaksfile.txt")}
-\dontrun{annotate(rat, 2500)}
+rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
+peaksInput("somepeaksfile.txt")
+annotate(rat, 2500)
 
 }
 

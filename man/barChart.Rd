@@ -22,9 +22,9 @@ Creates bar charts.
 Makes bar graphs showing the number of genes under peaks at various upstream extension levels.
 }
 \examples{
-\dontrun{mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/mus_musculus/Mus_musculus.GRCm38.84.gtf.gz")}
-\dontrun{peaksInput("somepeaksfile.txt")}
-\dontrun{barChart(mouse, 1000, 3000, 100)}
+mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/mus_musculus/Mus_musculus.GRCm38.84.gtf.gz")
+peaksInput("somepeaksfile.txt")
+barChart(mouse, 1000, 3000, 100)
 
 }
 

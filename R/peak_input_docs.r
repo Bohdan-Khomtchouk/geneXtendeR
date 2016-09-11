@@ -7,6 +7,8 @@
 #'
 #' @usage data(samplepeaksinput)
 #' 
+#' @return Demonstrates a sample peaks file used as input.  No column headers are present to ensure proper sorting in subsequent analysis steps.
+#'
 #' @examples 
 #' head(samplepeaksinput)
 #' tail(samplepeaksinput)

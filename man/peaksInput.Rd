@@ -20,7 +20,7 @@ Takes your tab-delimited 3-column input file (see Arguments section below) consi
 data(samplepeaksinput)
 head(samplepeaksinput)
 tail(samplepeaksinput)
-\dontrun{peaksInput("somepeaksfile.txt")}
+peaksInput("somepeaksfile.txt")
 
 }
 

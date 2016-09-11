@@ -22,9 +22,9 @@ Creates differential line plots.
 Makes differential line plots showing the differences in the number of genes under peaks at consecutive upstream extension levels.
 }
 \examples{
-\dontrun{rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")}
-\dontrun{peaksInput("somepeaksfile.txt")}
-\dontrun{linePlot(rat, 1000, 3000, 100)}
+rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
+peaksInput("somepeaksfile.txt")
+linePlot(rat, 1000, 3000, 100)
 
 }
 

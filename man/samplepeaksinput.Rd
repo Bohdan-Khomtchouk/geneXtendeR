@@ -13,6 +13,9 @@
 \usage{
 data(samplepeaksinput)
 }
+\value{
+Demonstrates a sample peaks file used as input.  No column headers are present to ensure proper sorting in subsequent analysis steps.
+}
 \description{
 A dataset containing the chromosome number, start and stop positions
 of ChIP-seq peaks along a genome

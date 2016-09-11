@@ -11,7 +11,7 @@
 #' data(samplepeaksinput)
 #' head(samplepeaksinput)
 #' tail(samplepeaksinput)
-#' \dontrun{peaksInput("somepeaksfile.txt")}
+#' peaksInput("somepeaksfile.txt")
 #'
 #' @import data.table
 #' @import rtracklayer
