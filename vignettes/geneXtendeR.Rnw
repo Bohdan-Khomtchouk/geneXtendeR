@@ -46,7 +46,13 @@ rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
                       rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
 @
 
-URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc), and copy the link address.  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
+URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc), and copy the link address.  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.  It is important to inspect what this \texttt{rat} object looks like using \texttt{head(rat)} or \texttt{tail(rat)}.  This is because the GTF files of certain organisms have a ``chr" in front of the chromosome numbers in the first column, which must be removed before proceeding with further analysis.  For instance, the human reference genome (GENCODE download file v19 for hg19) contains such ``chr" characters in front of each chromosome number in every row of the first column (i.e., \texttt{seqid} column).  To easily remove these superfluous ``chr" entries, do:
+
+<<results=hide, eval=FALSE>>=
+human <- readGFF("ftp://ftp.sanger.ac.uk/pub/gencode/
+                        Gencode_human/release_19/gencode.v19.annotation.gtf.gz")
+human$seqid <- gsub("chr", "", human$seqid)
+@
 
 Next, the user must input their peak data from some peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``somepeaksfile.txt") has been assembled properly, it must be properly formatted prior to the execution of various geneXtendeR analyses.  First, the user must set their working directory to point to the location of their peak data file.  Then type the following command:
 
