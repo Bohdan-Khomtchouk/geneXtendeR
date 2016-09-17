@@ -104,8 +104,8 @@ annotate <- function(organism, extension) {
           }
 
           
-        run3 <- function(f1, f2,peakslist) {
-            .C("annotate", f1, f2,peakslist)[[3]]
+        run3 <- function(f1, f2, peakslist) {
+            .C("annotate", f1, f2, peakslist)[[3]]
         }
           
        
