@@ -19,7 +19,8 @@ Annotate peaks file with gene information based on optimally chosen geneXtendeR 
 }
 \examples{
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
-peaksInput("somepeaksfile.txt")
+fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+peaksInput(fpath)
 annotate(rat, 2500)
 
 }

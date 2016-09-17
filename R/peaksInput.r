@@ -11,7 +11,8 @@
 #' data(samplepeaksinput)
 #' head(samplepeaksinput)
 #' tail(samplepeaksinput)
-#' peaksInput("somepeaksfile.txt")
+#' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+#' peaksInput(fpath)
 #'
 #' @import data.table
 #' @import rtracklayer

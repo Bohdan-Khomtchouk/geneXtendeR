@@ -12,7 +12,8 @@
 #'
 #' @examples
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
-#' peaksInput("somepeaksfile.txt")
+#' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+#' peaksInput(fpath)
 #' distinct(rat, 2000, 3000)
 #'
 #' @useDynLib extract_peaks

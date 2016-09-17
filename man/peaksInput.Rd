@@ -20,7 +20,8 @@ Takes your tab-delimited 3-column input file (see Arguments section below) consi
 data(samplepeaksinput)
 head(samplepeaksinput)
 tail(samplepeaksinput)
-peaksInput("somepeaksfile.txt")
+fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+peaksInput(fpath)
 
 }
 

@@ -23,7 +23,8 @@ Makes bar graphs showing the number of genes under peaks at various upstream ext
 }
 \examples{
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
-peaksInput("somepeaksfile.txt")
+fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+peaksInput(fpath)
 barChart(rat, 1000, 3000, 100)
 
 }

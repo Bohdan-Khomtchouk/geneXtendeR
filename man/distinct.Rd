@@ -24,7 +24,8 @@ V1-V3 denote the chromosome/start/end positions of the peaks, V4-V6 denote the r
 }
 \examples{
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
-peaksInput("somepeaksfile.txt")
+fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+peaksInput(fpath)
 distinct(rat, 2000, 3000)
 
 }
