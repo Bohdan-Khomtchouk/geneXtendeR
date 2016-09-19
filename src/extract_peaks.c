@@ -55,11 +55,7 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     char * pvarcol1;
     char * pvarcol2;
     char * pvarcol3;
-    char * pvcfcol1_1;
-    char * pvcfcol2_2;
-    char * pvcfcol3_3;
-    char * pvcfcol4_4;
-    char * pvcfcol5_5;
+   
     char * pvcfcol1;
     char * pvcfcol2;
     char * pvcfcol3;
@@ -71,13 +67,13 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     FILE * varfp=NULL;
     long i;
     long j;
-    long j_1;
+
     long k;
     long l;
     long l_1;
     long m;
     long n;
-    long n_1;
+    
     long v1;
     long v2;
     long v3;
@@ -124,15 +120,11 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     pvcfcol4 = strtok_r(NULL,"\t",&end_str2);
     pvcfcol5 = strtok_r(NULL,"\t\n",&end_str2);
     
-    pvcfcol1_1 = pvcfcol1;
-    pvcfcol2_2 = pvcfcol2;
-    pvcfcol3_3 = pvcfcol3;
-    pvcfcol4_4 = pvcfcol4;
-    pvcfcol5_5 = pvcfcol5;
+
     strcpy(col1,pvcfcol4);
     strcpy(col2,pvcfcol5);
-    n_1 = n;
-    j_1 = j;
+   
+
     l_1 = l;
     
     v1 = i - j;
@@ -173,17 +165,11 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
         else {
             if ((v1 > 0) && (v2 > 0) && (v3 > 0) && (v4 > 0)) {
                 // if the peak in the gtf is all positive then we need to update the previous pointer to the current gtf peak
-                
-                pvcfcol1_1 = pvcfcol1;
-                pvcfcol2_2 = pvcfcol2;
-                pvcfcol3_3 = pvcfcol3;
-                pvcfcol4_4 = pvcfcol4;
-                pvcfcol5_5 = pvcfcol5;
+               
                 
                 strcpy(col1,pvcfcol4);
                 strcpy(col2,pvcfcol5);
-                n_1 = n;
-                j_1 = j;
+             
                 l_1 = l;
                 // set pflag to increase the gtf file
                 pflag = 2;
