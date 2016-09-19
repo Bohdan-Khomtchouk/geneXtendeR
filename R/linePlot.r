@@ -15,7 +15,7 @@
 #' peaksInput(fpath)
 #' linePlot(rat, 1000, 3000, 100)
 #'
-#' @useDynLib extract_number
+#' @useDynLib geneXtendeR
 #'
 #' @export
 linePlot <- function(organism, start, end, by) {

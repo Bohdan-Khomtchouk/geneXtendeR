@@ -15,7 +15,9 @@
 #' peaksInput(fpath)
 #' barChart(rat, 1000, 3000, 100)
 #'
-#' @useDynLib extract_number
+#' importFrom(dplyr, filter, select, arrange)
+#'
+#' @useDynLib geneXtendeR
 #'
 #'
 #' @export

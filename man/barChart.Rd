@@ -27,5 +27,7 @@ fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)
 barChart(rat, 1000, 3000, 100)
 
+importFrom(dplyr, filter, select, arrange)
+
 }
 

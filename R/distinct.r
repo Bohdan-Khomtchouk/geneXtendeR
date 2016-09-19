@@ -16,7 +16,7 @@
 #' peaksInput(fpath)
 #' distinct(rat, 2000, 3000)
 #'
-#' @useDynLib extract_peaks
+#' @useDynLib geneXtendeR
 #' 
 #' @export
 
