@@ -47,11 +47,6 @@ void extractnumber(char **f1, char **f2, int *num)
     char * pvarcol1;
     char * pvarcol2;
     char * pvarcol3;
-    char * pvcfcol1_1;
-    char * pvcfcol2_2;
-    char * pvcfcol3_3;
-    char * pvcfcol4_4;
-    char * pvcfcol5_5;
     char * pvcfcol1;
     char * pvcfcol2;
     char * pvcfcol3;
@@ -63,13 +58,11 @@ void extractnumber(char **f1, char **f2, int *num)
     FILE * varfp=NULL;
     long i;
     long j;
-    long j_1;
     long k;
     long l;
     long l_1;
     long m;
     long n;
-    long n_1;
     long v1;
     long v2;
     long v3;
