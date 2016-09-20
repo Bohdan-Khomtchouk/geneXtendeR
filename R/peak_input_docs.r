@@ -1,7 +1,7 @@
 #' Peaks list ordered by chromosome number and start position
 #'
 #' A dataset containing the chromosome number, start and stop positions
-#' of ChIP-seq peaks along a genome
+#' of ChIP-seq peaks along the Rattus norvegicus genome (rn6 assembly)
 #'
 #' @docType data
 #'

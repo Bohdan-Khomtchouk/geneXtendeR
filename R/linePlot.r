@@ -19,6 +19,9 @@
 #'
 #' @export
 linePlot <- function(organism, start, end, by) {
+ if(!file.exists("peaks.txt")){
+   print("Please run peaksInput() function first!  See ?peaksInput for more information")
+ } else {
 	options(warn = -1)
     geneXtender <- function(upstream) {
         messy2 <- dplyr::filter(organism, type == "gene")
@@ -132,5 +135,5 @@ linePlot <- function(organism, start, end, by) {
 	axis(1, at = 1:length(differences), labels = xDeltas, las = 3)
 	mtext(side = 1, "Genomic region (bp)", line = 6)
 
-
+	}
 }

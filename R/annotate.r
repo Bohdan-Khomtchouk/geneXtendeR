@@ -17,6 +17,9 @@
 #'
 #' @export
 annotate <- function(organism, extension) {
+ if(!file.exists("peaks.txt")){
+   print("Please run peaksInput() function first!  See ?peaksInput for more information")
+ } else {
 	options(warn = -1)
 		  geneXtender <- function(upstream) {
               messy2 <- dplyr::filter(organism, type == "gene")
@@ -127,5 +130,5 @@ annotate <- function(organism, extension) {
     	quote = FALSE
     )
     
-        
+	}      
 }
