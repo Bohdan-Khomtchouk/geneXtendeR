@@ -16,6 +16,7 @@
 #' barChart(rat, 1000, 3000, 100)
 #'
 #' @importFrom dplyr filter select arrange
+#' @import utils
 #'
 #' @useDynLib geneXtendeR
 #'
