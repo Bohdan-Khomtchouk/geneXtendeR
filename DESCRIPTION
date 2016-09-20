@@ -1,6 +1,6 @@
 Package: geneXtendeR
 Type: Package
-Version: 0.99.19
+Version: 0.99.20
 Title: Optimal Gene Extensions From Histone Modification ChIP-seq Data
 Description: geneXtendeR is designed to optimally annotate a histone modification ChIP-seq peak input file with functionally important genomic features (e.g., genes associated with peaks) based on optimization calculations.  geneXtendeR optimally extends the boundaries of every gene in a
     genome by some genomic distance (in DNA base pairs) for the purpose of flexibly

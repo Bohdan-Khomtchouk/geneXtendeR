@@ -17,6 +17,7 @@
 #'
 #' @importFrom dplyr filter select arrange
 #' @import utils
+#' @import graphics
 #'
 #' @useDynLib geneXtendeR
 #'
