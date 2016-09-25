@@ -17,7 +17,9 @@
 #' distinct(rat, 2000, 3000)
 #'
 #' @useDynLib geneXtendeR
-#' 
+#' @import slam
+#' @importFrom qdap beg2char
+#'
 #' @export
 
 distinct <- function(organism, start, end) {
@@ -124,10 +126,9 @@ distinct <- function(organism, start, end) {
         cmdtmp2 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[2]], as.character(peaksArray2))
         cmd1 <- setdiff(cmdtmp1, diffArray)
         cmd2 <- setdiff(cmdtmp2, diffArray)
-        difflength = length(cmd2) - length(cmd1)
-        startindex = length(cmd2) - difflength
-        finalList <- cmd2[startindex:length(cmd2)]
+        finalList <- cmd2[!(qdap::beg2char(cmd2, '\t', 3) %in% qdap::beg2char(cmd1, '\t', 3))]
         return(finalList)
-      
-	}
+   
+	}    
+
 }
