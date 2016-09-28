@@ -17,15 +17,10 @@
 #' distinct(rat, 2000, 3000)
 #'
 #' @useDynLib geneXtendeR
-#' @import slam
-#' @importFrom qdap beg2char
 #'
 #' @export
 
 distinct <- function(organism, start, end) {
- if(!file.exists("peaks.txt")){
-   print("Please run peaksInput() function first!  See ?peaksInput for more information")
- } else {
 	options(warn = -1)
   		geneXtender <- function(upstream) {
             messy2 <- dplyr::filter(organism, type == "gene")
@@ -126,9 +121,13 @@ distinct <- function(organism, start, end) {
         cmdtmp2 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[2]], as.character(peaksArray2))
         cmd1 <- setdiff(cmdtmp1, diffArray)
         cmd2 <- setdiff(cmdtmp2, diffArray)
-        finalList <- cmd2[!(qdap::beg2char(cmd2, '\t', 3) %in% qdap::beg2char(cmd1, '\t', 3))]
+        m = regexec("^(?:[^\t]+\t){3}", cmd1)
+        first3.cmd1 = unlist(regmatches(cmd1, m))
+        m = regexec("^(?:[^\t]+\t){3}", cmd2)
+        first3.cmd2 = unlist(regmatches(cmd2, m))
+        finalList = cmd2[!(first3.cmd2 %in% first3.cmd1)]
         return(finalList)
    
-	}    
+      
 
 }
