@@ -20,7 +20,7 @@
 #' @import graphics
 #'
 #' @useDynLib geneXtendeR
-#' @useDynLib geneXtendeR extractnumber
+#' @useDynLib extractnumber, .registration = TRUE
 #'
 #'
 #' @export

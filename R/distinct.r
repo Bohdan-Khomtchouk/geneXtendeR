@@ -17,7 +17,7 @@
 #' distinct(rat, 2000, 3000)
 #'
 #' @useDynLib geneXtendeR
-#' @useDynLib geneXtendeR extractpeaks
+#' @useDynLib extractpeaks, .registration = TRUE
 #'
 #' @export
 

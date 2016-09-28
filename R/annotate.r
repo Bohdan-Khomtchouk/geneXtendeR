@@ -14,7 +14,7 @@
 #' annotate(rat, 2500)
 #'
 #' @useDynLib geneXtendeR
-#' @useDynLib geneXtendeR annotate
+#' @useDynLib annotate, .registration = TRUE
 #'
 #' @export
 annotate <- function(organism, extension) {
