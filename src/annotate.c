@@ -269,6 +269,7 @@ static const R_CMethodDef cMethods[] = {
   	NULL
 };
 
+
 void R_init_annotate(DllInfo *info)
 {
 	R_registerRoutines(info, cMethods, NULL, NULL, NULL);

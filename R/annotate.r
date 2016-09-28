@@ -13,7 +13,8 @@
 #' peaksInput(fpath)
 #' annotate(rat, 2500)
 #'
-#' @useDynLib geneXtendeR, .registration = TRUE
+#' @useDynLib geneXtendeR
+#' @useDynLib geneXtendeR annotate
 #'
 #' @export
 annotate <- function(organism, extension) {

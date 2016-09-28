@@ -20,6 +20,7 @@
 #' @import graphics
 #'
 #' @useDynLib geneXtendeR
+#' @useDynLib geneXtendeR extractnumber
 #'
 #'
 #' @export
