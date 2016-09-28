@@ -27,5 +27,6 @@ fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)
 linePlot(rat, 1000, 3000, 100)
 
+
 }
 
