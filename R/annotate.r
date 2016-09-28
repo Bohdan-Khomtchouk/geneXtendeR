@@ -13,7 +13,7 @@
 #' peaksInput(fpath)
 #' annotate(rat, 2500)
 #'
-#' @useDynLib geneXtendeR
+#' @useDynLib geneXtendeR, .registration = TRUE
 #'
 #' @export
 annotate <- function(organism, extension) {
@@ -111,8 +111,8 @@ annotate <- function(organism, extension) {
         run3 <- function(f1, f2, peakslist) {
             .C("annotate", f1, f2, peakslist)[[3]]
         }
+        
           
-       
 		sapply(extension, geneXtender)
 		onegxFile <- sprintf("geneXtender_gtf_%s.bed", extension)
         peaksArray <- as.character(is.na((1:500000)))

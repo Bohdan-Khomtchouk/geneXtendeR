@@ -20,6 +20,7 @@
  */
 #include <R.h>
 #include <Rinternals.h>
+#include <R_ext/Rdynload.h>
 #include <Rdefines.h>
 #include <stdio.h>
 #include <string.h>
@@ -256,11 +257,20 @@ void annotate(char **f1, char **f2, char ** Rlist)
     fclose(vcffp);
     
     for(int x = 0; x<counter;x++){
-        
-        
-        *(Rlist+x) = peaksArr[x];
-        
+        *(Rlist+x) = peaksArr[x]; 
     }
     
+    
+}
+
+
+static const R_CMethodDef cMethods[] = {
+    {"annotate", (DL_FUNC) &annotate, 3},
+  	NULL
+};
+
+void R_init_annotate(DllInfo *info)
+{
+	R_registerRoutines(info, cMethods, NULL, NULL, NULL);
 }
 
