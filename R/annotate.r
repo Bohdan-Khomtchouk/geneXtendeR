@@ -1,6 +1,6 @@
 #' Annotate peaks file.
 #'
-#' Annotate peaks file with gene information based on optimally chosen geneXtendeR upstream extension file.
+#' Annotate a user's peaks file (which has been preprocessed with the peaksInput() command) with gene information based on optimally chosen geneXtendeR upstream extension file.  This command requires a preprocessed "peaks.txt" file (generated using peaksInput()) to be present in the user's working directory, otherwise the user is prompted to rerun the peaksInput() command in order to regenerate it.
 #' 
 #' @param organism Object name assigned from readGFF() command.
 #' @param extension Desired upstream extension.

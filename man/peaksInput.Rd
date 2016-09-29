@@ -2,18 +2,18 @@
 % Please edit documentation in R/peaksInput.r
 \name{peaksInput}
 \alias{peaksInput}
-\title{Formats a peaks input file.}
+\title{Preprocesses a peaks input file.}
 \usage{
 peaksInput(filename)
 }
 \arguments{
-\item{filename}{Name of file containing peaks.  This tab-delimited input file may only contain 3 columns: chromosome number, peak start, and peak end.  See ?samplepeaksinput for more details.}
+\item{filename}{Name of file containing peaks that have been generated from a peak caller (e.g., MACS2, SICER).  See ?samplepeaksinput for an example of such an input file.}
 }
 \value{
-Returns a formatted file to be used with barChart(), linePlot(), and other downstream commands.
+Returns a formatted file (called "peaks.txt") that has been preprocessed in preparation for usage with barChart(), linePlot(), distinct(), and other downstream commands and deposited in the user's working directory.
 }
 \description{
-Takes your tab-delimited 3-column input file (see Arguments section below) consisting of peaks called from a peak caller (e.g., MACS2 or SICER) and sorts the file by chromosome and start position to create a formatted file for downstream geneXtendeR analysis.  For sorting purposes, the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.
+Takes your tab-delimited 3-column (chromosome number, peak start, and peak end) input file (see ?samplepeaksinput) consisting of peaks called from a peak caller (e.g., MACS2 or SICER) and sorts the file by chromosome and start position, thereby creating a preprocessed file for downstream geneXtendeR analysis.  This file (called "peaks.txt") is a preprocessed file of the original input and is deposited in the user's working directory and used for the remainder of the analysis.  In this "peaks.txt" file, peaks are sorted by chromosome number and start position, where the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.
 }
 \examples{
 ?samplepeaksinput  #Documentation of some exemplary sample input
