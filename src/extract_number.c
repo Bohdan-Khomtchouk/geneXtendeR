@@ -24,7 +24,6 @@
 
 #include <R.h>
 #include <Rinternals.h>
-#include <R_ext/Rdynload.h>
 #include <Rdefines.h>
 #include <stdio.h>
 #include <string.h>
@@ -217,15 +216,5 @@ void extractnumber(char **f1, char **f2, int *num)
     *num = zero_count;
     
     
-}
-
-static const R_CMethodDef cMethods[] = {
-    {"extractnumber", (DL_FUNC) &extractnumber, 3},
-  	NULL
-};
-
-void R_init_extractnumber(DllInfo *info)
-{
-	R_registerRoutines(info, cMethods, NULL, NULL, NULL);
 }
 
