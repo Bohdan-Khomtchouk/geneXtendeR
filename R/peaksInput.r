@@ -19,7 +19,7 @@
 #' 
 #' @export
 peaksInput <- function(filename) {
-	options(warn = -1)
+	oopts = options(warn = -1)
 	file.input <- fread(filename)
 	file.input[chr == "chr1", chr := 1]
 	file.input[chr == "chr2", chr := 2]
@@ -78,4 +78,5 @@ peaksInput <- function(filename) {
     file.input[chr == "chrMito", chr := 300]
     file.sorted <- dplyr::arrange(file.input, as.numeric(chr), start)
     write.table(file.sorted, file = "peaks.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
+    on.exit(options(oopts))
     }

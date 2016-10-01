@@ -25,9 +25,9 @@
 #' @export
 barChart <- function(organism, start, end, by) {
  if(!file.exists("peaks.txt")){
-   print("Please run peaksInput() function first!  See ?peaksInput for more information")
+   message("Please run peaksInput() function first!  See ?peaksInput for more information")
  } else {
-	options(warn = -1)
+	oopts = options(warn = -1)
     geneXtender <- function(upstream) {
         messy2 <- dplyr::filter(organism, type == "gene")
         neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
@@ -133,6 +133,8 @@ barChart <- function(organism, start, end, by) {
 	}
 	
 	barplot(numvec, names.arg = xlabs)
+	
+	on.exit(options(oopts))
 	
 	}
 }

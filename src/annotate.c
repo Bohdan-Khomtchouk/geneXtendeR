@@ -70,6 +70,8 @@ void annotate(char **f1, char **f2, char ** Rlist)
     long k;
     long l;
     long l_1;
+    long n_1;
+    long j_1;
     long m;
     long n;
     long v1;
@@ -122,6 +124,8 @@ void annotate(char **f1, char **f2, char ** Rlist)
     strcpy(col1,pvcfcol4);
     strcpy(col2,pvcfcol5);
     
+    n_1 = n;
+    j_1 = j;
     l_1 = l;
     
     v1 = i - j;
@@ -149,14 +153,15 @@ void annotate(char **f1, char **f2, char ** Rlist)
         // check chromosomes.  If gtf is on next chromosome then move var file appropriately.
         
         if (k < n) {
-            /*===============================================Mo's code====================================================*/
-            sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+            /*===============================================R/C code====================================================*/
+            // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+            snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
             strcpy(peaksArr[counter],Buffer);
             counter++;
             /*============================================================================================================*/
             
             
-            //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, abs((i - l_1))+1);
+            //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
             pflag = 1;
         }
         else if (k > n) {
@@ -182,19 +187,34 @@ void annotate(char **f1, char **f2, char ** Rlist)
                 // if all is negative then we need to which which is the closest peak and then move the peak file to the next flag.
                 if ((j - m) < (i - l_1)) {
                     // the previous pointer is closre to the distance so we need to put the distance there
-                    //Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, abs((j - m))+1);
-                    /*===============================================Mo's code====================================================*/
-                    sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                    //Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
+                    /*===============================================R/C code====================================================*/
+                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                    snprintf(Buffer, sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
                     strcpy(peaksArr[counter],Buffer);
                     counter++;
                     /*============================================================================================================*/
                 } else {
-                    //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, abs((i - l_1))+1);
-                    /*===============================================Mo's code====================================================*/
-                    sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                    //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+                    if (n_1 == n) {
+                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                    snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
                     strcpy(peaksArr[counter],Buffer);
                     counter++;
                     /*============================================================================================================*/
+                    }
+                    else {
+
+                    /*===============================================R/C code====================================================*/
+                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                    snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1 );
+                    strcpy(peaksArr[counter],Buffer);
+                    counter++;
+                    /*============================================================================================================*/
+                    }
+
+
+                   
                     
                     
                 }
@@ -207,8 +227,9 @@ void annotate(char **f1, char **f2, char ** Rlist)
                 // Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
                 
                 
-                /*===============================================Mo's code====================================================*/
-                sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                /*===============================================R/C code====================================================*/
+               // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+                snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
                 strcpy(peaksArr[counter],Buffer);
                 counter++;
                 /*============================================================================================================*/
@@ -256,9 +277,11 @@ void annotate(char **f1, char **f2, char ** Rlist)
     fclose(vcffp);
     
     for(int x = 0; x<counter;x++){
-        *(Rlist+x) = peaksArr[x]; 
+        
+        
+        *(Rlist+x) = peaksArr[x];
+        
     }
-    
     
 }
 

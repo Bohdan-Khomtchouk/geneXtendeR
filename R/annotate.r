@@ -5,7 +5,7 @@
 #' @param organism Object name assigned from readGFF() command.
 #' @param extension Desired upstream extension.
 #'
-#' @return A file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).
+#' @return  The gene coordinates are extended by `extension` at the 5-prime end, and by 500 bp at the 3-prime end.  The peaks file is then overlayed on these new gene coordinates, producing a file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).  Distance is calculated between 5-prime end of gene and 3-prime end of peak.
 #'
 #' @examples
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
@@ -18,9 +18,9 @@
 #' @export
 annotate <- function(organism, extension) {
  if(!file.exists("peaks.txt")){
-   print("Please run peaksInput() function first!  See ?peaksInput for more information")
+   message("Please run peaksInput() function first!  See ?peaksInput for more information")
  } else {
-	options(warn = -1)
+	oopts = options(warn = -1)
 		  geneXtender <- function(upstream) {
               messy2 <- dplyr::filter(organism, type == "gene")
               neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
@@ -126,9 +126,11 @@ annotate <- function(organism, extension) {
     	file = sprintf("peaks_annotated_%s.txt", extension),
     	sep = "\t",
     	row.names = FALSE,
-    	col.names = paste("Chromosome\t", "Peak Start\t", "Peak End\t", "Chromosome\t", "Gene Start\t", "Gene End\t", "Gene ID\t", "Gene Name\t", "Distance-of-Gene-to-Nearest-Peak"),
+    	col.names = paste("Chromosome\t", "Peak-Start\t", "Peak-End\t", "Chromosome\t", "Gene-Start\t", "Gene-End\t", "Gene-ID\t", "Gene-Name\t", "Distance-of-Gene-to-Nearest-Peak"),
     	quote = FALSE
     )
+    
+    on.exit(options(oopts))
     
 	}      
 }
