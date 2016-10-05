@@ -21,7 +21,8 @@ linePlot <- function(organism, start, end, by) {
  if(!file.exists("peaks.txt")){
    message("Please run peaksInput() function first!  See ?peaksInput for more information")
  } else {
-	oopts = options(warn = -1)
+	oopts = options(warn=-1)
+	on.exit(options(oopts))
     geneXtender <- function(upstream) {
         messy2 <- dplyr::filter(organism, type == "gene")
         neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
@@ -133,8 +134,6 @@ linePlot <- function(organism, start, end, by) {
 	plot(differences, type = "o", col = "blue", xaxt = "n", ylab = "differences", xlab = "")
 	axis(1, at = 1:length(differences), labels = xDeltas, las = 3)
 	mtext(side = 1, "Genomic region (bp)", line = 6)
-	
-	on.exit(options(oopts))
 
 	}
 }

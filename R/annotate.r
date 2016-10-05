@@ -20,7 +20,8 @@ annotate <- function(organism, extension) {
  if(!file.exists("peaks.txt")){
    message("Please run peaksInput() function first!  See ?peaksInput for more information")
  } else {
-	oopts = options(warn = -1)
+	oopts = options(warn=-1)
+	on.exit(options(oopts))
 		  geneXtender <- function(upstream) {
               messy2 <- dplyr::filter(organism, type == "gene")
               neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
@@ -129,8 +130,6 @@ annotate <- function(organism, extension) {
     	col.names = paste("Chromosome\t", "Peak-Start\t", "Peak-End\t", "Chromosome\t", "Gene-Start\t", "Gene-End\t", "Gene-ID\t", "Gene-Name\t", "Distance-of-Gene-to-Nearest-Peak"),
     	quote = FALSE
     )
-    
-    on.exit(options(oopts))
     
 	}      
 }

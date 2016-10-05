@@ -20,6 +20,7 @@
  */
 #include <R.h>
 #include <Rinternals.h>
+#include <R_ext/Rdynload.h>
 #include <Rdefines.h>
 #include <stdio.h>
 #include <string.h>
@@ -50,11 +51,12 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     char vcfstr1[50000];
     char col1[100];
     char col2[100];
-    
+  
     
     char * pvarcol1;
     char * pvarcol2;
     char * pvarcol3;
+   
     char * pvcfcol1;
     char * pvcfcol2;
     char * pvcfcol3;
@@ -66,14 +68,13 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     FILE * varfp=NULL;
     long i;
     long j;
-    
+
     long k;
     long l;
     long l_1;
-    long n_1;
-    long j_1;
     long m;
     long n;
+    
     long v1;
     long v2;
     long v3;
@@ -120,12 +121,11 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     pvcfcol4 = strtok_r(NULL,"\t",&end_str2);
     pvcfcol5 = strtok_r(NULL,"\t\n",&end_str2);
     
-    
+
     strcpy(col1,pvcfcol4);
     strcpy(col2,pvcfcol5);
-    
-    n_1 = n;
-    j_1 = j;
+   
+
     l_1 = l;
     
     v1 = i - j;
@@ -135,13 +135,19 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     
     /*===============================================Mo'scode====================================================*/
     
-    const int line_length = 100;
+        const int line_length = 100;
     
-    const int arraySize = countlines2(f2);
-    char peaksArr[arraySize][line_length+1];
+        const int arraySize = countlines(f2);
+       // char peaksArr[arraySize][line_length+1];
+
+        char **peaksArr;
+        peaksArr = malloc(arraySize * sizeof(char*));
+        for (int i = 0; i < arraySize; i++)
+        peaksArr[i] = malloc((line_length+1) * sizeof(char));
     
-    int counter=0;
-    char Buffer[100];
+    
+        int counter=0;
+        char Buffer[100];
     /*============================================================================================================*/
     
     
@@ -153,15 +159,10 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
         // check chromosomes.  If gtf is on next chromosome then move var file appropriately.
         
         if (k < n) {
-            /*===============================================R/C code====================================================*/
-            // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-            snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-            strcpy(peaksArr[counter],Buffer);
-            counter++;
-            /*============================================================================================================*/
             
             
-            //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+
+        //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, abs((i - l_1))+1);
             pflag = 1;
         }
         else if (k > n) {
@@ -171,13 +172,11 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
         else {
             if ((v1 > 0) && (v2 > 0) && (v3 > 0) && (v4 > 0)) {
                 // if the peak in the gtf is all positive then we need to update the previous pointer to the current gtf peak
-                
-                
+               
                 
                 strcpy(col1,pvcfcol4);
                 strcpy(col2,pvcfcol5);
-                
-                
+             
                 l_1 = l;
                 // set pflag to increase the gtf file
                 pflag = 2;
@@ -187,33 +186,9 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
                 // if all is negative then we need to which which is the closest peak and then move the peak file to the next flag.
                 if ((j - m) < (i - l_1)) {
                     // the previous pointer is closre to the distance so we need to put the distance there
-                    //Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
-                    /*===============================================R/C code====================================================*/
-                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    snprintf(Buffer, sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    strcpy(peaksArr[counter],Buffer);
-                    counter++;
-                    /*============================================================================================================*/
-                } else {
-                    //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
-                    if (n_1 == n) {
-                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
-                    strcpy(peaksArr[counter],Buffer);
-                    counter++;
-                    /*============================================================================================================*/
-                    }
-                    else {
-
-                    /*===============================================R/C code====================================================*/
-                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1 );
-                    strcpy(peaksArr[counter],Buffer);
-                    counter++;
-                    /*============================================================================================================*/
-                    }
-
-
+                    //Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, abs((j - m))+1);
+                                   } else {
+                    //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, abs((i - l_1))+1);
                    
                     
                     
@@ -224,15 +199,14 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
             else {
                 /* add to the running total of the overlap and move ot the next query */
                 zero_count = zero_count + 1;
-                // Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
+               // Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
                 
                 
-                /*===============================================R/C code====================================================*/
-               // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                strcpy(peaksArr[counter],Buffer);
-                counter++;
-                /*============================================================================================================*/
+/*===============================================Mo's code====================================================*/
+            sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+            strcpy(peaksArr[counter],Buffer);
+            counter++;
+  /*============================================================================================================*/
                 
                 
                 pflag = 1;
@@ -275,13 +249,18 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     }
     fclose(varfp);
     fclose(vcffp);
-    
-    for(int x = 0; x<counter;x++){
+        
+         for(int x = 0; x<counter;x++){
         
         
-        *(Rlist+x) = peaksArr[x];
-        
+        //*(Rlist+x) = peaksArr[x];
+        Rlist[x] = peaksArr[x];
     }
+
+     
+     free(peaksArr);
     
 }
+
+
 

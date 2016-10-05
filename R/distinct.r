@@ -24,7 +24,8 @@ distinct <- function(organism, start, end) {
  if(!file.exists("peaks.txt")){
    message("Please run peaksInput() function first!  See ?peaksInput for more information")
  } else {
-	oopts = options(warn = -1)
+	oopts = options(warn=-1)
+	on.exit(options(oopts))
   		geneXtender <- function(upstream) {
             messy2 <- dplyr::filter(organism, type == "gene")
             neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
@@ -130,7 +131,6 @@ distinct <- function(organism, start, end) {
         first3.cmd2 = unlist(regmatches(cmd2, m))
         finalList = cmd2[!(first3.cmd2 %in% first3.cmd1)]
         return(finalList)
-        
-        on.exit(options(oopts))  
+         
 	}
 }
