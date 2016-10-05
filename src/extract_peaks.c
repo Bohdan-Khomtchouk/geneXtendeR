@@ -203,7 +203,7 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
                 
                 
 /*===============================================Mo's code====================================================*/
-            sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
+            sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
             strcpy(peaksArr[counter],Buffer);
             counter++;
   /*============================================================================================================*/

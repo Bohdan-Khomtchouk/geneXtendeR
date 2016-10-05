@@ -162,7 +162,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
         if (k < n) {
             /*===============================================R/C code====================================================*/
             // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-           numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+           numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
            if (numchars >= sizeof(Buffer))
            Rf_error("annotate() doesn't handle output lines longer than %d characters",
            sizeof(Buffer)  - 1);
@@ -197,7 +197,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
                     //Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
                     /*===============================================R/C code====================================================*/
                     //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    numchars =  snprintf(Buffer, sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
+                    numchars =  snprintf(Buffer, sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
                     if (numchars >= sizeof(Buffer))
                     Rf_error("annotate() doesn't handle output lines longer than %d characters",
                     sizeof(Buffer)  - 1);
@@ -208,7 +208,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
                     //Rprintf("%s\t%s\t%s\t%ld\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
                     if (n_1 == n) {
                     //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+                    numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
                     if (numchars >= sizeof(Buffer))
                     Rf_error("annotate() doesn't handle output lines longer than %d characters",
                     sizeof(Buffer)  - 1);
@@ -220,7 +220,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
 
                     /*===============================================R/C code====================================================*/
                     //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1 );
+                    numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1 );
                     if (numchars >= sizeof(Buffer))
                     Rf_error("annotate() doesn't handle output lines longer than %d characters",
                     sizeof(Buffer)  - 1);
@@ -245,7 +245,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
                 
                 /*===============================================R/C code====================================================*/
                // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
+                numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
                 if (numchars >= sizeof(Buffer))
                 Rf_error("annotate() doesn't handle output lines longer than %d characters",
                 sizeof(Buffer)  - 1);
