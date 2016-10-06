@@ -21,6 +21,9 @@
 #' @export
 
 distinct <- function(organism, start, end) {
+ if(!file.exists("peaks.txt")){
+   message("Please run peaksInput() function first!  See ?peaksInput for more information")
+ } else {
 	oopts = options(warn=-1)
 	on.exit(options(oopts))
   		geneXtender <- function(upstream) {
@@ -130,6 +133,6 @@ distinct <- function(organism, start, end) {
         finalList = cmd2[!(first3.cmd2 %in% first3.cmd1)]
         return(finalList)
    
-      
+	}      
 
 }
