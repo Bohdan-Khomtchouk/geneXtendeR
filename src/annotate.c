@@ -133,20 +133,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
     v3 = m - j;
     v4 = m - l;
     
-    /*===============================================Mo'scode====================================================*/
-    
-    const int line_length = 100;
-    
-    const int arraySize = countlines2(f2);
-    //char peaksArr[arraySize][line_length+1];
-
-    
-    char **peaksArr;
-    peaksArr = malloc(arraySize * sizeof(char*));
-    for (int i = 0; i < arraySize; i++)
-    peaksArr[i] = malloc((line_length+1) * sizeof(char));
-    
-    
+    /*===============================================R/C code====================================================*/  
     int counter=0;
     char Buffer[100];
     /*============================================================================================================*/
@@ -161,13 +148,10 @@ void annotate(char **f1, char **f2, char ** Rlist)
         
         if (k < n) {
             /*===============================================R/C code====================================================*/
-            // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-           numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
-           if (numchars >= sizeof(Buffer))
-           Rf_error("annotate() doesn't handle output lines longer than %d characters",
-           sizeof(Buffer)  - 1);
-           strcpy(peaksArr[counter],Buffer);
-           counter++;
+            numchars = snprintf(Rlist[counter],sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+            if (numchars >= sizeof(Buffer))
+                Rf_error("annotate() doesn't handle output lines longer than %d characters", sizeof(Buffer));
+             counter++;
             /*============================================================================================================*/
             
             
@@ -194,37 +178,28 @@ void annotate(char **f1, char **f2, char ** Rlist)
                 // if all is negative then we need to which which is the closest peak and then move the peak file to the next flag.
                 if ((j - m) < (i - l_1)) {
                     // the previous pointer is closre to the distance so we need to put the distance there
-                    //Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
+                    
                     /*===============================================R/C code====================================================*/
-                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    numchars =  snprintf(Buffer, sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
+                    numchars =  snprintf(Rlist[counter],sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1);
                     if (numchars >= sizeof(Buffer))
-                    Rf_error("annotate() doesn't handle output lines longer than %d characters",
-                    sizeof(Buffer)  - 1);
-                    strcpy(peaksArr[counter],Buffer);
+                        Rf_error("annotate() doesn't handle output lines longer than %d characters",sizeof(Buffer));
                     counter++;
                     /*============================================================================================================*/
                 } else {
-                    //Rprintf("%s\t%s\t%s\t%ld\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+
                     if (n_1 == n) {
-                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
+                    numchars = snprintf(Rlist[counter],sizeof(Buffer), "%s\t%s\t%s\t%ld\t%ld\t%ld\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, labs((i - l_1))+1);
                     if (numchars >= sizeof(Buffer))
-                    Rf_error("annotate() doesn't handle output lines longer than %d characters",
-                    sizeof(Buffer)  - 1);
-                    strcpy(peaksArr[counter],Buffer);
+                        Rf_error("annotate() doesn't handle output lines longer than %d characters",sizeof(Buffer));
                     counter++;
                     /*============================================================================================================*/
                     }
                     else {
 
                     /*===============================================R/C code====================================================*/
-                    //sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                    numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1 );
+                    numchars = snprintf(Rlist[counter],sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%ld", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5, labs((j - m))+1 );
                     if (numchars >= sizeof(Buffer))
-                    Rf_error("annotate() doesn't handle output lines longer than %d characters",
-                    sizeof(Buffer)  - 1);
-                    strcpy(peaksArr[counter],Buffer);
+                        Rf_error("annotate() doesn't handle output lines longer than %d characters",sizeof(Buffer));
                     counter++;
                     /*============================================================================================================*/
                     }
@@ -240,16 +215,11 @@ void annotate(char **f1, char **f2, char ** Rlist)
             else {
                 /* add to the running total of the overlap and move ot the next query */
                 zero_count = zero_count + 1;
-                // Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
-                
                 
                 /*===============================================R/C code====================================================*/
-               // sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-                numchars = snprintf(Buffer,sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
+                numchars = snprintf(Rlist[counter],sizeof(Buffer), "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
                 if (numchars >= sizeof(Buffer))
-                Rf_error("annotate() doesn't handle output lines longer than %d characters",
-                sizeof(Buffer)  - 1);
-                strcpy(peaksArr[counter],Buffer);
+                    Rf_error("annotate() doesn't handle output lines longer than %d characters",sizeof(Buffer));
                 counter++;
                 /*============================================================================================================*/
                 
@@ -294,16 +264,8 @@ void annotate(char **f1, char **f2, char ** Rlist)
     }
     fclose(varfp);
     fclose(vcffp);
+   
     
-    for(int x = 0; x<counter;x++){
-        
-        
-       
-        Rlist[x] = peaksArr[x];
-    }
-
-     
-     free(peaksArr);
     
 }
 

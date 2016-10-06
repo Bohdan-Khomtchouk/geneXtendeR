@@ -21,9 +21,6 @@
 #' @export
 
 distinct <- function(organism, start, end) {
- if(!file.exists("peaks.txt")){
-   message("Please run peaksInput() function first!  See ?peaksInput for more information")
- } else {
 	oopts = options(warn=-1)
 	on.exit(options(oopts))
   		geneXtender <- function(upstream) {
@@ -118,19 +115,21 @@ distinct <- function(organism, start, end) {
         
 		sapply(c(start, end), geneXtender)
 		twogxFiles <- sprintf("geneXtender_gtf_%s.bed", c(start, end))
-        peaksArray <- as.character(is.na((1:500000)))
-        peaksArray2 <- as.character(is.na((1:500000)))
-        diffArray <- as.character(is.na(1:500000))
+        linelen <- "                                                                                                    "  
+        n <- 500000
+        peaksArray<-rep(linelen,n)
+        peaksArray2<-rep(linelen,n)
         cmdtmp1 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[1]], as.character(peaksArray))
         cmdtmp2 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[2]], as.character(peaksArray2))
-        cmd1 <- setdiff(cmdtmp1, diffArray)
-        cmd2 <- setdiff(cmdtmp2, diffArray)
+        cmd1 <- cmdtmp1[cmdtmp1 != linelen]
+        cmd2 <- cmdtmp2[cmdtmp2 != linelen]
         m = regexec("^(?:[^\t]+\t){3}", cmd1)
         first3.cmd1 = unlist(regmatches(cmd1, m))
         m = regexec("^(?:[^\t]+\t){3}", cmd2)
         first3.cmd2 = unlist(regmatches(cmd2, m))
         finalList = cmd2[!(first3.cmd2 %in% first3.cmd1)]
         return(finalList)
-         
-	}
+   
+      
+
 }

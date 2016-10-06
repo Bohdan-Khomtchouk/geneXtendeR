@@ -135,17 +135,6 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     
     /*===============================================Mo'scode====================================================*/
     
-        const int line_length = 100;
-    
-        const int arraySize = countlines(f2);
-       // char peaksArr[arraySize][line_length+1];
-
-        char **peaksArr;
-        peaksArr = malloc(arraySize * sizeof(char*));
-        for (int i = 0; i < arraySize; i++)
-        peaksArr[i] = malloc((line_length+1) * sizeof(char));
-    
-    
         int counter=0;
         char Buffer[100];
     /*============================================================================================================*/
@@ -153,8 +142,8 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     
     while(wflag > 0)
     {
-        
-        memset(Buffer,' ',100); //mos code
+        int numchars = 0;
+        memset(Buffer,' ',100); 
         
         // check chromosomes.  If gtf is on next chromosome then move var file appropriately.
         
@@ -162,7 +151,7 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
             
             
 
-        //Rprintf("%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\t%d\n", pvarcol1, pvarcol2, pvarcol3, n_1, j_1, l_1, col1, col2, abs((i - l_1))+1);
+        
             pflag = 1;
         }
         else if (k > n) {
@@ -203,9 +192,12 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
                 
                 
 /*===============================================Mo's code====================================================*/
-            sprintf(Buffer, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5 );
-            strcpy(peaksArr[counter],Buffer);
+
+            numchars =  snprintf(Rlist[counter],sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5);
+            if (numchars >= sizeof(Buffer))
+                Rf_error("annotate() doesn't handle output lines longer than %d characters",sizeof(Buffer));
             counter++;
+           
   /*============================================================================================================*/
                 
                 
@@ -250,15 +242,7 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     fclose(varfp);
     fclose(vcffp);
         
-         for(int x = 0; x<counter;x++){
         
-        
-        //*(Rlist+x) = peaksArr[x];
-        Rlist[x] = peaksArr[x];
-    }
-
-     
-     free(peaksArr);
     
 }
 
