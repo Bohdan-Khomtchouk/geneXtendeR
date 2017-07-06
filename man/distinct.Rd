@@ -29,4 +29,3 @@ peaksInput(fpath)
 distinct(rat, 2000, 3000)
 
 }
-

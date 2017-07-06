@@ -28,4 +28,3 @@ peaksInput(fpath)
 barChart(rat, 1000, 3000, 100)
 
 }
-

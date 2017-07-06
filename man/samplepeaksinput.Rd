@@ -28,4 +28,3 @@ tail(samplepeaksinput)
 
 }
 \keyword{datasets}
-

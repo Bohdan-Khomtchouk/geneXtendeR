@@ -24,4 +24,3 @@ peaksInput(fpath)
 annotate(rat, 2500)
 
 }
-

@@ -1,18 +1,18 @@
 citHeader("To cite geneXtendeR in publications use:")
 
-citEntry(entry = "Article",
-	title	   = "Optimal Gene Extensions From Histone Modification ChIP-seq Data",
-	author	   = personList(as.person("Bohdan Khomtchouk"), as.person("Claes Wahlestedt")),
-	journal    = "TBA",
+citEntry(entry = "article",
+	title	   = "geneXtendeR: R/Bioconductor package for functional annotation of histone modification ChIP-seq data in a 3D genome world",
+	author	   = personList(as.person("Bohdan Khomtchouk"), as.person("Derek Van Booven"), as.person("Claes Wahlestedt")),
+	journal    = "bioRxiv",
 	year       = "2016",
-	volume     = "TBA",
-	number     = "R package version 0.99.0",
-	pages      = "TBA--TBA",
-	url        = "TBA",
+	volume     = "1",
+	number     = "R package version 1.0.0",
+	pages      = "1--15",
+	url        = "http://dx.doi.org/10.1101/082347",
 	
 	textVersion = 
-	paste("Bohdan Khomtchouk, Claes Wahlestedt (2016).",
-		  "Optimal Gene Extensions From Histone Modification ChIP-seq Data.",
-		  "TBA, TBA(TBA), TBA-TBA.",
-		  "URL http://www.TBA.org/TBA/TBA.")
+	paste("Bohdan Khomtchouk, Derek Van Booven, Claes Wahlestedt (2016).",
+		  "geneXtendeR: R/Bioconductor package for functional annotation of histone modification ChIP-seq data in a 3D genome world.",
+		  "bioRxiv, 2016, 1-15.",
+		  "URL http://dx.doi.org/10.1101/082347.")
 	)
