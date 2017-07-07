@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Bohdan Khomtchouk and Derek Van Booven */
+/* Copyright (C) 2016-2017 Bohdan Khomtchouk */
 
 /*
  
@@ -20,7 +20,7 @@
  3.  The user has write permissions to the executing directory
  4.  There is no header within either of the files.  The structure of the file is simply chr \t position \t position.
  
- */
+*/
 
 #include <R.h>
 #include <Rinternals.h>

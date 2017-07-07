@@ -1,4 +1,7 @@
+/* Copyright (C) 2016-2017 Bohdan Khomtchouk */
+
 /*
+ 
  EXPLANATION:
  This program takes in a variant list and goes through a single vcf file to find the matching variants within the vcf file.  It outputs the variants in the vcf file to a separate out vcf file that the user specifies.
  
@@ -17,7 +20,8 @@
  3.  The user has write permissions to the executing directory
  4.  There is no header within either of the files.  The structure of the file is simply chr \t position \t position.
  
- */
+*/
+
 #include <R.h>
 #include <Rinternals.h>
 #include <Rdefines.h>
@@ -134,15 +138,17 @@ void annotate(char **f1, char **f2, char ** Rlist)
     v4 = m - l;
     
     /*===============================================R/C code====================================================*/  
+    
     int counter=0;
     char Buffer[100];
+    
     /*============================================================================================================*/
     
     
     while(wflag > 0)
     {
         int numchars = 0;
-        memset(Buffer,' ',100); //mos code
+        memset(Buffer,' ',100);
         
         // check chromosomes.  If gtf is on next chromosome then move var file appropriately.
         

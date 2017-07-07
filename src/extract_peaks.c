@@ -1,4 +1,7 @@
+/* Copyright (C) 2016-2017 Bohdan Khomtchouk */
+
 /*
+ 
  EXPLANATION:
  This program takes in a variant list and goes through a single vcf file to find the matching variants within the vcf file.  It outputs the variants in the vcf file to a separate out vcf file that the user specifies.
  
@@ -17,7 +20,8 @@
  3.  The user has write permissions to the executing directory
  4.  There is no header within either of the files.  The structure of the file is simply chr \t position \t position.
  
- */
+*/
+
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
@@ -133,12 +137,12 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
     v3 = m - j;
     v4 = m - l;
     
-    /*===============================================Mo'scode====================================================*/
+    /*===============================================R/C code====================================================*/
     
-        int counter=0;
-        char Buffer[100];
+    int counter=0;
+    char Buffer[100];
+    
     /*============================================================================================================*/
-    
     
     while(wflag > 0)
     {
@@ -191,11 +195,11 @@ void extractpeaks(char **f1, char **f2, char ** Rlist)
                // Rprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0\n", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
                 
                 
-/*===============================================Mo's code====================================================*/
+/*===============================================R/C code====================================================*/
 
-            numchars =  snprintf(Rlist[counter],sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3,pvcfcol1,pvcfcol2,pvcfcol3,pvcfcol4,pvcfcol5);
+            numchars =  snprintf(Rlist[counter],sizeof(Buffer),"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t0", pvarcol1, pvarcol2, pvarcol3, pvcfcol1, pvcfcol2, pvcfcol3, pvcfcol4, pvcfcol5);
             if (numchars >= sizeof(Buffer))
-                Rf_error("annotate() doesn't handle output lines longer than %d characters",sizeof(Buffer));
+                Rf_error("annotate() doesn't handle output lines longer than %d characters", sizeof(Buffer));
             counter++;
            
   /*============================================================================================================*/
