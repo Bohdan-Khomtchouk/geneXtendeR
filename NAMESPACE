@@ -2,6 +2,7 @@
 
 export(annotate)
 export(barChart)
+export(cumlinePlot)
 export(distinct)
 export(linePlot)
 export(peaksInput)
