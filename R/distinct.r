@@ -131,7 +131,8 @@ distinct <- function(organism, start, end) {
         m = regexec("^(?:[^\t]+\t){3}", cmd2)
         first3.cmd2 = unlist(regmatches(cmd2, m))
         finalList = cmd2[!(first3.cmd2 %in% first3.cmd1)]
-        return(finalList)
+        DT <- data.table::as.data.table(do.call("rbind", strsplit(finalList, split = "\t")))
+        return(DT)
    
 	}      
 
