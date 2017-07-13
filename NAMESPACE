@@ -3,6 +3,7 @@
 export(annotate)
 export(barChart)
 export(cumlinePlot)
+export(diffGO)
 export(distinct)
 export(linePlot)
 export(peaksInput)

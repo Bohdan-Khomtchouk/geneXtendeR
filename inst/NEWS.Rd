@@ -3,9 +3,16 @@
 \encoding{UTF-8}
 
 
+\section{Version 1.0.2}{\itemize{
+
+\item New differential gene ontology (diffGO) function.
+
+}}
+
+
 \section{Version 1.0.1}{\itemize{
 
-\item New cumulative line plot function
+\item New cumulative line plot function.
 
 \item Output to distinct() function is a lot more visually appealing now (no more \t signs), yay!
 
