@@ -141,21 +141,25 @@ diffGO <- function(organism, start, end, GOcategory, GOspecies) {
       Gene <- gene_names_annotated_DT[gene_names_annotated_DT$ONTOLOGY == 'BP']
       gene <- as.data.frame(Gene)
       terms <- AnnotationDbi::select(GO.db, as.character(gene[,2]), "TERM", "GOID")
-      cbind(gene$SYMBOL, terms)
+      symbol_GOID_terms <- cbind(gene$SYMBOL, terms)
+      unique(symbol_GOID_terms)
     } else if (deparse(substitute(GOcategory)) == 'CC') {
       gene_names_annotated <- AnnotationDbi::select(GOspecies, gene_names, "GO", "SYMBOL")
       gene_names_annotated_DT <- as.data.table(gene_names_annotated)
       Gene <- gene_names_annotated_DT[gene_names_annotated_DT$ONTOLOGY == 'CC']
       gene <- as.data.frame(Gene)
       terms <- AnnotationDbi::select(GO.db, as.character(gene[,2]), "TERM", "GOID")
-      cbind(gene$SYMBOL, terms)
+      symbol_GOID_terms <- cbind(gene$SYMBOL, terms)
+      unique(symbol_GOID_terms)
     } else if (deparse(substitute(GOcategory)) == 'MF') {
       gene_names_annotated <- AnnotationDbi::select(GOspecies, gene_names, "GO", "SYMBOL")
       gene_names_annotated_DT <- as.data.table(gene_names_annotated)
       Gene <- gene_names_annotated_DT[gene_names_annotated_DT$ONTOLOGY == 'MF']
       gene <- as.data.frame(Gene)
       terms <- AnnotationDbi::select(GO.db, as.character(gene[,2]), "TERM", "GOID")
-      cbind(gene$SYMBOL, terms)
+      symbol_GOID_terms <- cbind(gene$SYMBOL, terms)
+      unique(symbol_GOID_terms)
+      
     } else
       message("Not a valid GO category.  Must be either BP, CC, or MF.")
 
