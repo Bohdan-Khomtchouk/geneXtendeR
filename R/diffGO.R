@@ -1,21 +1,21 @@
 #' Finds differential gene ontologies
 #'
 #' Determines gene ontology terms for each category (biological process (BP), cellular compartment (CC), molecular function (MF)) of genes-under-peaks that are unique between two different upstream extension levels.
-#' 
-#' 
+#'
+#'
 #' @param organism Object name assigned from readGFF() command.
 #' @param start Lower bound of upstream extension.
 #' @param end Upper bound of upstream extension.
 #' @param GOcategory Either BP, CC, or MF.
-#' @param GOspecies Optional, can be used to limit the gene hits from given species. You can use "common names" for nine common species (human, mouse, rat, fruitfly, nematode, zebrafish, thale-cress, frog and pig), this common name is allowed to be identical to the organism object parameter. For all other species, you can provide their taxonomy ids.  Multiple species can be passed using comma as a separator. Passing "all" will query against all available species. Default: human,mouse,rat.
+#' @param GOspecies Either org.Ag.eg.db (mosquito), org.Bt.eg.db (bovine), org.Ce.eg.db (worm), org.Cf.eg.db (canine), org.Dm.eg.db (fly), org.Dr.eg.db (zebrafish), org.Gg.eg.db (chicken), org.Hs.eg.db (human), org.Mm.eg.db (mouse), org.Mmu.eg.db (rhesus), org.Pt.eg.db (chimpanzee), org.Rn.eg.db (rat), org.Sc.sgd.db (yeast), org.Ss.eg.db (pig), or org.Xl.eg.db (frog).  
 #'
-#' @return A character vector of gene ontology (BP, CC, or MF) terms for unique genes located under peaks between two upstream extension levels.
+#' @return A data frame of gene symbol, gene ontology ID, and gene ontology term for either a BP, CC, or MF category.  This data frame displays the annotations of all unique genes (i.e., genes that are located under peaks between two upstream extension levels) with their respective gene ontology information.
 #'
 #' @examples
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 #' peaksInput(fpath)
-#' diffGO(rat, 2000, 3000, BP, rat)
+#' diffGO(rat, 0, 500, BP, org.Rn.eg.db)
 #'
 #' @useDynLib geneXtendeR, .registration = TRUE
 #'
@@ -112,17 +112,17 @@ diffGO <- function(organism, start, end, GOcategory, GOspecies) {
       geneXtender.sorted <- dplyr::arrange(geneXtender.file, as.numeric(seqid), start)
       write.table(geneXtender.sorted, quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.bed", upstream))
     }
-    
+
     run2 <- function(f1, f2, peakslist) {
       .C("extractpeaks", f1, f2, peakslist)[[3]]
     }
-    
+
     sapply(c(start, end), geneXtender)
     twogxFiles <- sprintf("geneXtender_gtf_%s.bed", c(start, end))
-    linelen <- "                                                                                                    "  
+    linelen <- ""  
     n <- 500000
-    peaksArray<-rep(linelen,n)
-    peaksArray2<-rep(linelen,n)
+    peaksArray <- rep(linelen, n)
+    peaksArray2 <- rep(linelen, n)
     cmdtmp1 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[1]], as.character(peaksArray))
     cmdtmp2 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[2]], as.character(peaksArray2))
     cmd1 <- cmdtmp1[cmdtmp1 != linelen]
@@ -134,20 +134,31 @@ diffGO <- function(organism, start, end, GOcategory, GOspecies) {
     finalList = cmd2[!(first3.cmd2 %in% first3.cmd1)]
     DT <- data.table::as.data.table(do.call("rbind", strsplit(finalList, split = "\t")))
     gene_names <- DT[[8]]
-    res <- mygene::queryMany(gene_names, scopes = 'symbol', fields = c('go'), species = deparse(substitute(GOspecies)))
-    
+
     if (deparse(substitute(GOcategory)) == 'BP') {
-      goCol <- unlist(res$go.BP)
+      gene_names_annotated <- AnnotationDbi::select(GOspecies, gene_names, "GO", "SYMBOL")
+      gene_names_annotated_DT <- as.data.table(gene_names_annotated)
+      Gene <- gene_names_annotated_DT[gene_names_annotated_DT$ONTOLOGY == 'BP']
+      gene <- as.data.frame(Gene)
+      terms <- AnnotationDbi::select(GO.db, as.character(gene[,2]), "TERM", "GOID")
+      cbind(gene$SYMBOL, terms)
     } else if (deparse(substitute(GOcategory)) == 'CC') {
-      goCol <- unlist(res$go.CC)
+      gene_names_annotated <- AnnotationDbi::select(GOspecies, gene_names, "GO", "SYMBOL")
+      gene_names_annotated_DT <- as.data.table(gene_names_annotated)
+      Gene <- gene_names_annotated_DT[gene_names_annotated_DT$ONTOLOGY == 'CC']
+      gene <- as.data.frame(Gene)
+      terms <- AnnotationDbi::select(GO.db, as.character(gene[,2]), "TERM", "GOID")
+      cbind(gene$SYMBOL, terms)
     } else if (deparse(substitute(GOcategory)) == 'MF') {
-      goCol <- unlist(res$go.MF)
+      gene_names_annotated <- AnnotationDbi::select(GOspecies, gene_names, "GO", "SYMBOL")
+      gene_names_annotated_DT <- as.data.table(gene_names_annotated)
+      Gene <- gene_names_annotated_DT[gene_names_annotated_DT$ONTOLOGY == 'MF']
+      gene <- as.data.frame(Gene)
+      terms <- AnnotationDbi::select(GO.db, as.character(gene[,2]), "TERM", "GOID")
+      cbind(gene$SYMBOL, terms)
     } else
       message("Not a valid GO category.  Must be either BP, CC, or MF.")
-  
-    go_results <- unlist(goCol[names(goCol) == 'term'], use.names = F)
-    return(go_results)
-    
-  }      
-  
+
+  }
+
 }

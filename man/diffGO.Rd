@@ -15,10 +15,10 @@ diffGO(organism, start, end, GOcategory, GOspecies)
 
 \item{GOcategory}{Either BP, CC, or MF.}
 
-\item{GOspecies}{Optional, can be used to limit the gene hits from given species. You can use "common names" for nine common species (human, mouse, rat, fruitfly, nematode, zebrafish, thale-cress, frog and pig), this common name is allowed to be identical to the organism object parameter. For all other species, you can provide their taxonomy ids.  Multiple species can be passed using comma as a separator. Passing "all" will query against all available species. Default: human,mouse,rat.}
+\item{GOspecies}{Either org.Ag.eg.db (mosquito), org.Bt.eg.db (bovine), org.Ce.eg.db (worm), org.Cf.eg.db (canine), org.Dm.eg.db (fly), org.Dr.eg.db (zebrafish), org.Gg.eg.db (chicken), org.Hs.eg.db (human), org.Mm.eg.db (mouse), org.Mmu.eg.db (rhesus), org.Pt.eg.db (chimpanzee), org.Rn.eg.db (rat), org.Sc.sgd.db (yeast), org.Ss.eg.db (pig), or org.Xl.eg.db (frog).}
 }
 \value{
-A character vector of gene ontology (BP, CC, or MF) terms for unique genes located under peaks between two upstream extension levels.
+A data frame of gene symbol, gene ontology ID, and gene ontology term for either a BP, CC, or MF category.  This data frame displays the annotations of all unique genes (i.e., genes that are located under peaks between two upstream extension levels) with their respective gene ontology information.
 }
 \description{
 Determines gene ontology terms for each category (biological process (BP), cellular compartment (CC), molecular function (MF)) of genes-under-peaks that are unique between two different upstream extension levels.
@@ -27,6 +27,6 @@ Determines gene ontology terms for each category (biological process (BP), cellu
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)
-diffGO(rat, 2000, 3000, BP, rat)
+diffGO(rat, 0, 500, BP, org.Rn.eg.db)
 
 }
