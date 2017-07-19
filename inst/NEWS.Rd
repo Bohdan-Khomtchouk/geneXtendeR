@@ -2,10 +2,16 @@
 \title{geneXtendeR News}
 \encoding{UTF-8}
 
+\section{Version 1.0.3}{\itemize{
+
+\item New gene-GO network (makeNetwork()) function.
+
+}}
+
 
 \section{Version 1.0.2}{\itemize{
 
-\item New differential gene ontology (diffGO) function.
+\item New differential gene ontology (diffGO()) function.
 
 }}
 
