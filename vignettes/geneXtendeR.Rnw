@@ -24,21 +24,18 @@ BiocStyle::latex()
 
 \section*{Introduction}
 
-This vignette describes \texttt{geneXtendeR}, an R/Bioconductor package for the annotation of genomic features (primarily peaks called from a ChIP-seq experiment, but any coverage island regions would work) with the nearest gene. "Extending" refers to performing gene-feature overlaps after adding to the gene-span a user-specified region upstream of the start of the gene model and a fixed (500 bp) region downstream of the gene, resulting in assigning to a gene the features that do not physically overlap with it but are sufficiently close.  Extending is an automated iterative procedure in \texttt{geneXtendeR}, allowing the user to repeatedly align peaks to multiple GTF files to assess what global gene-spans optimize the genomewide alignment of peaks with their closest genes.  This facilitates the process of deciphering which differentially enriched peaks are dysregulating which specific genes.  This, in turn, aids experimental follow-up and validation, such as the design of primers for a set of genes during qPCR.  
+This vignette describes \texttt{geneXtendeR}, an R/Bioconductor package for the annotation of genomic features (primarily peaks called from a ChIP-seq experiment, but any coverage island regions would work) with the nearest gene. ``Extending" refers to performing gene-feature overlaps after adding to the gene-span a user-specified region upstream of the start of the gene model and a fixed (500 bp) region downstream of the gene, resulting in assigning to a gene the features that do not physically overlap with it but are sufficiently close.  Extending is an automated iterative procedure in \texttt{geneXtendeR}, allowing the user to repeatedly align peaks to multiple GTF files to assess what global gene-spans optimize the genomewide alignment of peaks with their closest genes.  This facilitates the process of deciphering which differentially enriched peaks are dysregulating which specific genes.  This, in turn, aids experimental follow-up and validation, such as the design of primers for a set of genes during qPCR.  
 
 \subsection*{Rationale}
 
-With an abundance of Bioconductor software available for peak annotation to nearby features (e.g., ChIPpeakAnno) and even command line tools (e.g., BEDTools \emph{closest} function), what makes \texttt{geneXtendeR} different?  The simple answer is: \texttt{geneXtendeR} is designed for cis-regulatory elements and proximal-promoter region analysis.  
+With an abundance of Bioconductor software currently available for peak annotation to nearby features (e.g., \texttt{ChIPpeakAnno}) as well as the existence of various command line tools (e.g., \texttt{BEDTools} \emph{closest} function), what makes \texttt{geneXtendeR} different?  The simple answer is: \texttt{geneXtendeR} is designed for cis-regulatory elements and proximal-promoter region analyses.  The primary focus is to optimize the process of functional annotation of a ChIP-seq peak list whereby instead of just annotating peaks with their nearest genomic features (as statically defined by a given genome build's coordinates), \texttt{geneXtendeR} investigates how peaks dynamically align to various user-specified gene extensions (e.g., 500 bp upstream extensions, 2000 bp upstream extensions, etc. for all genes in the genome).  This shows where peaks localize across the genome with respect to their nearest gene, as well as what gene ontologies (BP, CC, and MF) are impacted at these various extension levels.  This, in turn, informs the user what gene extensions ideally capture the GO terms involved in the biology of their experiment.  For example, if a user's study is investigating the role of epigenetic enzymes in alcohol addiction and dependence, then functionally annotating a peak list using gene extensions that maximize the number of brain-related ontologies (for both BP, CC, and MF categories) would make sense.  
 
-\texttt{geneXtendeR} is designed to optimally annotate a histone modification ChIP-seq peaks file with functionally important genomic features (e.g., genes associated with peaks) based on optimization calculations.  These optimization calculations automatically factor in experimental conditions such as the broadness of the histone peaks found in the specific tissue of the ChIP-seq peak file.
+With regards to histone modification ChIP-seq analysis, \texttt{geneXtendeR} computes optimal gene extensions tailored to the broadness of the specific epigenetic mark (e.g., H3K9me1, H3K27me3), as determined by a user-supplied ChIP-seq peak input file.  To accomplish this level of custom-tailored data analysis, \texttt{geneXtendeR} first optimally extends the boundaries of every gene in a genome by some genomic distance (in DNA base pairs) for the purpose of flexibly incorporating cis-regulatory elements, such as enhancers and promoters, as well as downstream elements that are important to the function of the gene relative to an epigenetic histone modification ChIP-seq dataset.  This action effectively transforms genes into ``gene-spheres", a new term that we coin to emphasize the 3D-nature of heterochromatin.  A gene-sphere is composed of cis-regulatory elements (e.g., proximal promoters +/- $\approx 3$ kb from TSS), distal regulatory elements (e.g., enhancers), transcription start/end sites (TSS/TES), exons, introns, and downstream elements of a gene.  As such, \texttt{geneXtendeR} maximizes the signal-to-noise ratio of locating genes closest to and directly under peaks. By performing a computational expansion of this nature, ChIP-seq reads that would initially not map strictly to a specific gene can now be optimally mapped to the regulatory regions of the gene, thereby implicating the gene as a potential candidate, and thereby making the ChIP-seq experiment more successful. Such an approach becomes particularly important when working with epigenetic histone modifications that have inherently broad peaks with a diffuse range of signal enrichment (e.g., H3K9me1, H3K27me3). 
 
-\texttt{geneXtendeR} is designed to optimally annotate a histone modification ChIP-seq peaks file with functionally important genomic features (e.g., genes associated with peaks) based on optimization calculations.  These optimization calculations automatically factor in experimental conditions such as the broadness of the histone peaks found in the specific tissue of the ChIP-seq peak file.  
 
-To accomplish this level of custom-tailored data-centric analysis, \texttt{geneXtendeR} first optimally extends the boundaries of every gene in a genome by some genomic distance (in DNA base pairs) for the purpose of flexibly incorporating cis-regulatory elements, such as enhancers and promoters, as well as downstream elements that are important to the function of the gene relative to an epigenetic histone modification ChIP-seq dataset.  This action effectively transforms genes into ``gene-spheres", a new term that we coin to emphasize the 3D-nature of heterochromatin.  A gene-sphere is composed of cis-regulatory elements (e.g., proximal promoters +/- $\approx 3$ kb from TSS), distal regulatory elements (e.g., enhancers), transcription start/end sites (TSS/TES), exons, introns, and downstream elements of a gene.  As such, \texttt{geneXtendeR} maximizes the signal-to-noise ratio of locating gene regions closest to and directly under peaks. By performing a computational expansion of this nature, ChIP-seq reads that would initially not map strictly to a specific gene can now be optimally mapped to the regulatory regions of the gene, thereby implicating the gene as a potential candidate, and thereby making the ChIP-seq experiment more successful. Such an approach becomes particularly important when working with epigenetic histone modifications that have inherently broad peaks with a diffuse range of signal enrichment (e.g., H3K9me1, H3K27me3). 
+\section*{Quick start}
 
-A series of diagnostic criteria are used to compute optimal gene extensions tailored to the tissue-specific broadness of the specific epigenetic mark in the ChIP-seq peak input file:
-
-First, install the \texttt{geneXtendeR} R package via:
+First, install the \texttt{geneXtendeR} package via:
 
 <<>>=
 ## try http:// if https:// URLs are not supported
@@ -47,24 +44,26 @@ biocLite("geneXtendeR")
 library(geneXtendeR)
 @
 
-This automatically loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format files of any model organism.  As such, load in a GTF file into your R environment, e.g.:
+This automatically loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve gene transfer format (GTF) files of any model organism.  As such, load in a GTF file into your R environment, e.g.:
 
 <<results=hide, eval=FALSE>>=
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
                       rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
 @
 
-URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc), and copy the link address.  Then, paste it into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
+URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc.), and copy the link address.  Then, paste the link address into the \texttt{readGFF()} as shown above.  This will create an R data frame object containing the respective gene transfer format file.
 
-Next, the user must input their peak data from some peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``somepeaksfile.txt") has been assembled properly (i.e., to contain only the three tab-delimited columns above), it must be properly formatted prior to the execution of various geneXtendeR analyses.  To do this, the user must first set their working directory to point to the location of their peak data file.  Then type the following command:
+Next, the user must input their peak data from a peak caller (e.g., SICER, MACS2, etc).  The peak data must contain only three tab-delimited columns: chromosome number, peak start, and peak end.  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``somepeaksfile.txt") has been assembled properly (i.e., to contain only the three tab-delimited columns above), it must be properly formatted prior to the execution of downstream analyses.  
+
+First, the user must set their working directory to point to the location of their peak data file.  Then type the following command:
 
 <<>>=
 peaksInput("somepeaksfile.txt")
 @
 
-This command properly formats the user's peak file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file.
+This command properly formats the user's peak file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file in the user's working directory.
 
-To see how this works using a built-in example, the \texttt{geneXtendeR} R package provides a peak input dataset called ``somepeaksfile.txt", which can be loaded like this:
+To see how the above command works using a built-in example, the \texttt{geneXtendeR} package provides a peak input dataset called ``somepeaksfile.txt" (add footnote to PRDM2 paper here and add Bibliography for this and ChIPpeakAnno,etc.), which can be loaded like this:
 
 <<>>=
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
@@ -73,7 +72,7 @@ peaksInput(fpath)
 
 This creates a properly formatted (i.e., properly sorted) ``peaks.txt" file in the user's working directory.
 
-Now, we may use the R object that we created with \texttt{readGFF()} above to create a bar chart visualization showing the number of peaks that are sitting directly on top of genes across a series of upstream extensions (of each gene in a genome):
+Now, we may use the R object that we created with \texttt{readGFF()} earlier to create a bar chart visualization showing the number of peaks that are sitting directly on top of genes across a series of upstream extensions (of each gene in a genome):
 
 \begin{figure}[H]
 \begin{center}
@@ -83,9 +82,7 @@ barChart(rat, 0, 10000, 500)
 \end{center}
 \end{figure}
 
-This command first generates 21 individual whole-genome files: 0, 500, 1000, ..., and 10000 bp upstream extension files for the rat (\emph{Rattus norvegicus}) genome, each having an automatic 500 bp downstream extension.  In other words, each gene in the rat genome is extended upstream and downstream by some user-specified distance, thereby creating a ``gene-sphere."  As such, this command visualizes the raw count of the number of peaks that are sitting on top of genes at each individual upstream cutoff.
-
-Clearly, the wider the gene-sphere, the more peaks-on-top-of-genes are found throughout the genome.  However, the law of diminishing returns begins to kick in at increasing upstream extension levels (see \texttt{linePlot()} for a visual representation):
+This command first generates 21 individual whole-genome files: 0, 500, 1000, ..., and 10000 bp upstream extension files for the rat (\emph{Rattus norvegicus}) genome, each having an automatic 500 bp downstream extension.  In other words, each gene in the rat genome is extended upstream and downstream by some user-specified distance, thereby creating a ``gene-sphere."  As such, this bar chart command visualizes the raw count of the number of peaks that are sitting on top of genes at each individual upstream cutoff.  Clearly, the wider the gene-sphere, the more peaks-on-top-of-genes are found throughout the genome.  However, the law of diminishing returns begins to kick in at increasing upstream extension levels (see \texttt{linePlot()} for a visual representation):
 
 \begin{figure}[H]
 \begin{center}
@@ -95,7 +92,7 @@ linePlot(rat, 0, 10000, 500)
 \end{center}
 \end{figure}
 
-Clearly, there is a sharp rise in the number of peaks-on-top-of-genes from a 0 bp upstream extension to a 1500 bp upstream extension, and from a 2000 bp upstream extension to a 3000 bp upstream extension.  This steady rise up until 3000 bp is followed by a steady decline at subsequent extension levels followed by some noisy fluctuations.  It may be interesting to investigate what is going on in the interval from 2500 bp to 3000 bp: 
+In this line plot, there is a sharp rise in the number of peaks-on-top-of-genes from a 0 bp upstream extension to a 1500 bp upstream extension, and from a 2000 bp upstream extension to a 3000 bp upstream extension.  This steady rise up until 3000 bp is followed by a steady decline at subsequent extension levels followed by some noisy fluctuations.  It may be interesting to investigate what is going on in the interval from 2000 bp to 3000 bp: 
 
 \begin{figure}[H]
 \begin{center}
@@ -105,18 +102,35 @@ linePlot(rat, 2000, 3000, 100)
 \end{center}
 \end{figure}
 
-Clearly, there is a relatively sharp spike in the number of peaks-on-top-of-genes at the 2400 bp upstream extension (as compared to the 2300 bp extension).  This spike then drops back down at subsequent extension levels and fluctuates in a noisy manner.  
+Clearly, there is a relative spike in the number of peaks-on-top-of-genes at the 2400 bp upstream extension (as compared to the 2300 bp extension).  This spike then drops back down at subsequent extension levels and fluctuates in a noisy manner.  
 
 It is also possible to identify the genes that are unique amongst the 2300 and 2400 bp upstream extension levels:
 
-%<<fig.width=6.2, fig.height=5>>=
-<<results=hide, eval=FALSE>>=
+<<>>=
 distinct(rat, 2300, 2400)
 @
 
-shows the first six entries sorted by chromosome and start position.  \texttt{V1-V3} denote the chromosome/start/end positions of the peaks, \texttt{V4-V6} denote the respective values for the genes, \texttt{V7} is the gene ID (e.g., Ensembl ID), \texttt{V8} is the gene name, and \texttt{V9} is the distance of each respective peak to its nearest gene.  It should be noted that the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.  This is done for sorting purposes (see \texttt{?peaksInput} for details).  In short, the \texttt{distinct()} command finds what peaks-on-top-of-genes would be missed if a 3250 bp upstream extension is used instead of a 3300 bp extension.  Of course, subsequent follow-up extensions naturally incorporate additional peaks-on-top-of-genes, since the concept of a gene is being expanded into an ever-widening gene-sphere.  
+shows 29 separate entries sorted by chromosome and start position.  \texttt{V1-V3} denote the chromosome/start/end positions of the peaks, \texttt{V4-V6} denote the respective values for the genes, \texttt{V7} is the gene ID (e.g., Ensembl ID), \texttt{V8} is the gene name, and \texttt{V9} is the distance of each respective peak to its nearest gene.  It should be noted that the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.  This is done for sorting purposes (see \texttt{?peaksInput} for details).  In short, the \texttt{distinct()} command finds what peaks-on-top-of-genes would be missed if a 2300 bp upstream extension is used instead of a 2400 bp extension.  Of course, subsequent follow-up extensions naturally incorporate additional peaks-on-top-of-genes, since the concept of a gene is being expanded into an ever-widening gene-sphere. 
 
-However, even though these dynamics are to be expected, such extensions are unlikely to add significant value to the annotation of the peak file.  Taking the example of the 0-10000 bp line plot, an upstream extension beyond 3500 bp globally across every gene in a genome would most likely not accurately reflect the biology of the peak input file (since such large global upstream extensions are likely to reach considerably beyond known proximal promoter elements, especially for relatively narrow histone marks).  Such assumptions may be validated directly by the user by investigating the p-value and FDR of specific peaks using a combination of HT-seq (to count the reads) and edgeR/DESeq (to assess statistical significance).  As such, geneXtendeR is designed to be used as part of a biological workflow involving subsequent statistical analysis:
+It may be of interest to note the differential gene ontologies between these two upstream extensions:
+
+<<>>=
+library(org.Rn.eg.db)
+library(GO.db)
+x <- diffGO(rat, 2300, 2400, BP, org.Rn.eg.db)
+head(x, 20)
+@
+
+Clearly, gene name \emph{Gprc5b} has several BP ontologies related to the brain, while \emph{Taldo1} does not.  Considering that the ChIP-seq peaks dataset used as input into geneXtendeR comes from a ChIP-seq study investigating the prefrontal cortex, this suggests that a 2400 bp extension may be more suitable for this brain dataset.  However, such decisions are left entirely to the discretion and judgment of the user in deciding the relative importance of specific genes and their respective GO terms (for either BP, CC, or MF categories).  A user may also plot these results as an interactive network:
+
+<<>>=
+library(networkD3)
+library(org.Rn.eg.db)
+library(dplyr)
+makeNetwork(rat, 2300, 2400, BP, org.Rn.eg.db)
+@
+
+However, even though these dynamics are to be expected, such additional extensions are unlikely to add significant value to the annotation of the peak file.  Taking the example of the 0-10000 bp line plot, an upstream extension beyond 3500 bp globally across every gene in a genome would most likely not accurately reflect the biology of the peak input file (since such large global upstream extensions are likely to reach considerably beyond known proximal promoter elements, especially for relatively narrow histone marks or transcription factors).  Such assumptions may be validated directly by the user by investigating the p-value and FDR of specific peaks using a combination of HT-seq (to count the reads) and edgeR/DESeq (to assess statistical significance).  As such, geneXtendeR is designed to be used as part of a biological workflow involving subsequent statistical analysis:
 
 \begin{figure}[H]
 \centering

@@ -1,15 +1,17 @@
 Package: geneXtendeR
 Type: Package
-Version: 1.0.3
-Title: Optimal Gene Extensions From Histone Modification ChIP-seq Data
-Description: geneXtendeR is designed to optimally annotate a histone modification ChIP-seq peak input file with functionally important genomic features (e.g., genes associated with peaks) based on optimization calculations.  geneXtendeR optimally extends the boundaries of every gene in a
+Version: 1.2.3
+Title: Optimized Functional Annotation Of Histone Modification ChIP-seq Data
+Description: geneXtendeR is designed to optimally annotate a histone modification ChIP-seq 
+    peak input file with functionally important genomic features (e.g., genes associated with peaks) 
+    based on optimization calculations.  geneXtendeR optimally extends the boundaries of every gene in a
     genome by some genomic distance (in DNA base pairs) for the purpose of flexibly
     incorporating cis-regulatory elements (CREs), such as enhancers and promoters,
     as well as downstream elements that are important to the function of the gene
-    relative to an epigenetic histone modification ChIP-seq dataset. geneXtender
+    relative to an epigenetic histone modification ChIP-seq dataset. geneXtendeR
     computes optimal gene extensions tailored to the broadness of the specific
     epigenetic mark (e.g., H3K9me1, H3K27me3), as determined by a user-supplied
-    ChIP-seq peak input file. As such, geneXtender maximizes the signal-to-noise
+    ChIP-seq peak input file. As such, geneXtendeR maximizes the signal-to-noise
     ratio of locating genes closest to and directly under peaks. By performing a
     computational expansion of this nature, ChIP-seq reads that would initially not
     map strictly to a specific gene can now be optimally mapped to the regulatory

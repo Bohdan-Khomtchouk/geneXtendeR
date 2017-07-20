@@ -15,7 +15,10 @@
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 #' peaksInput(fpath)
-#' \dontrun{makeNetwork(rat, 0, 500, BP, org.Rn.eg.db)}
+#' library(networkD3)
+#' library(dplyr)
+#' library(org.Rn.eg.db)
+#' makeNetwork(rat, 0, 500, BP, org.Rn.eg.db)
 #'
 #' @useDynLib geneXtendeR, .registration = TRUE
 #'
