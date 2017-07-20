@@ -21,8 +21,8 @@ Authors@R: person("Bohdan", "Khomtchouk", email = "khomtchoukmed@gmail.com", rol
 Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
-Depends: GO.db, org.Rn.eg.db, rtracklayer, R (>= 3.3.1)
-Imports: AnnotationDbi, data.table, dplyr, graphics, networkD3, utils, org.Ag.eg.db, org.Bt.eg.db, org.Ce.eg.db, org.Cf.eg.db, org.Dm.eg.db, org.Dr.eg.db, org.Gg.eg.db, org.Hs.eg.db, org.Mm.eg.db, org.Mmu.eg.db, org.Pt.eg.db, org.Sc.sgd.db, org.Ss.eg.db, org.Xl.eg.db
+Depends: dplyr, GO.db, networkD3, org.Rn.eg.db, rtracklayer, R (>= 3.3.1)
+Imports: AnnotationDbi, data.table, graphics, utils, org.Ag.eg.db, org.Bt.eg.db, org.Ce.eg.db, org.Cf.eg.db, org.Dm.eg.db, org.Dr.eg.db, org.Gg.eg.db, org.Hs.eg.db, org.Mm.eg.db, org.Mmu.eg.db, org.Pt.eg.db, org.Sc.sgd.db, org.Ss.eg.db, org.Xl.eg.db
 Suggests: BiocStyle, knitr, rmarkdown
 VignetteBuilder: knitr
 License: GPL (>= 3)
