@@ -8,7 +8,7 @@
 #' @param start Lower bound of upstream extension.
 #' @param end Upper bound of upstream extension.
 #'
-#' @return A table of unique genes located under peaks between two upstream extension levels.
+#' @return A data.table of unique genes located under peaks between two upstream extension levels.
 #'
 #' @examples
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")

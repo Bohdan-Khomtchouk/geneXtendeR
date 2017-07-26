@@ -1,24 +1,13 @@
 Package: geneXtendeR
 Type: Package
-Version: 1.3.4
-Title: Optimized Functional Annotation Of Histone Modification ChIP-seq Data
-Description: geneXtendeR is designed to optimally annotate a histone modification ChIP-seq 
-    peak input file with functionally important genomic features (e.g., genes associated with peaks) 
-    based on optimization calculations.  geneXtendeR optimally extends the boundaries of every gene in a
-    genome by some genomic distance (in DNA base pairs) for the purpose of flexibly
-    incorporating cis-regulatory elements (CREs), such as enhancers and promoters,
-    as well as downstream elements that are important to the function of the gene
-    relative to an epigenetic histone modification ChIP-seq dataset. geneXtendeR
-    computes optimal gene extensions tailored to the broadness of the specific
-    epigenetic mark (e.g., H3K9me1, H3K27me3), as determined by a user-supplied
-    ChIP-seq peak input file. As such, geneXtendeR maximizes the signal-to-noise
-    ratio of locating genes closest to and directly under peaks. By performing a
-    computational expansion of this nature, ChIP-seq reads that would initially not
-    map strictly to a specific gene can now be optimally mapped to the regulatory
-    regions of the gene, thereby implicating the gene as a potential candidate, and
-    thereby making the ChIP-seq experiment more successful. Such an approach becomes
-    particularly important when working with epigenetic histone modifications that
-    have inherently broad peaks.
+Version: 1.3.1
+Title: Optimized Functional Annotation Of ChIP-seq Data
+Description: geneXtendeR optimizes the functional annotation of ChIP-seq peaks using fast iterative
+    peak-coordinate/GTF alignment algorithms.  Since different ChIP-seq peak callers produce different
+    differentially enriched peaks with a large variance in peak length distribution and total peak count,
+    annotating peak lists with their nearest genes can be a noisy process.  As such, the goal of geneXtendeR
+    is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental
+    follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
 Authors@R: person("Bohdan", "Khomtchouk", email = "khomtchoukmed@gmail.com", role = c("aut", "cre"))
 Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
