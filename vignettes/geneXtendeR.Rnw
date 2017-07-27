@@ -105,9 +105,17 @@ linePlot(rat, 2000, 3000, 100)
 \end{center}
 \end{figure}
 
-Clearly, there is a relative spike in the number of peaks-on-top-of-genes at the 2400 bp upstream extension (as compared to the 2300 bp extension).  This spike then drops back down at subsequent extension levels and fluctuates in a noisy manner.
+Visually, there is a relative spike in the number of peaks-on-top-of-genes at the 2400 bp upstream extension (as compared to the 2300 bp extension).  This spike then drops back down at subsequent extension levels and fluctuates in a noisy manner.  However, a cumulative line plot shows that this ``spike" is more of a visual effect than anything else, since the graph is almost perfectly linear:
 
-One very useful function in \texttt{geneXtendeR} is called \texttt{hotspotPlot()}, which allows users to examine the ratio of statistically significant peaks\footnote{Note that statistical significance is set apriori by the user at the peak calling stage (prior to \texttt{geneXtendeR}) to give the user the freedom to choose how to filter out peak coordinates that only pass specific p-value and FDR cutoffs from a peak caller.  Peak caller output (e.g., from SICER) gives both p-value and FDR measures for each peak, thereby making it easy to extract only the peak coordinates that pass a specific set of statistical cutoff criteria.} to the total number of peaks at each genomic interval (e.g., 0-500 bp upstream of every gene in the genome, 500-1000 bp upstream of every gene in the genome, etc.). 
+\begin{figure}[H]
+\begin{center}
+<<fig=TRUE>>=
+cumlinePlot(rat, 2000, 3000, 100)
+@
+\end{center}
+\end{figure}
+
+Hence, one very useful function in \texttt{geneXtendeR} is called \texttt{hotspotPlot()}, which allows users to examine the ratio of statistically significant peaks\footnote{Note that statistical significance is set apriori by the user at the peak calling stage (prior to \texttt{geneXtendeR}) to give the user the freedom to choose how to filter out peak coordinates that only pass specific p-value and FDR cutoffs from a peak caller.  Peak caller output (e.g., from SICER) gives both p-value and FDR measures for each peak, thereby making it easy to extract only the peak coordinates that pass a specific set of statistical cutoff criteria.} to the total number of peaks at each genomic interval (e.g., 0-500 bp upstream of every gene in the genome, 500-1000 bp upstream of every gene in the genome, etc.). 
 
 \begin{figure}[H]
 \begin{center}
@@ -119,9 +127,73 @@ hotspotPlot(allpeaks, sigpeaks, rat, 0, 10000, 500)
 \end{center}
 \end{figure}
 
-This line plot shows that the concentration of significant peaks in this dataset (Barbier et al. 2016) is highest between 0 and 1000 bp upstream of a gene, with over 90\% of peaks in these regions being statistically significant.  In contrast, between 1000 bp and 2500 bp, only about half of the total peaks contained in these intervals are significant.  Statistical significance then fluctuates noisly at further upstream genomic intervals, but with at least a quarter (25\%) of the total peaks in these further upstream regions being statistically significant.  As such, the take-home message is that genomic regions within the first 1000 bp upstream of their respective genes are most likely to contain significant peaks (relative to the total peak count in these regions) and are therefore hotspots, but regions beyond this also contain a fair share of statistically significant peaks. 
+This line plot shows that the concentration of significant peaks in this dataset (Barbier et al. 2016) is highest between 0 and 1000 bp upstream of a gene, with over 90\% of peaks in these regions being statistically significant.  In contrast, between 1000 bp and 2500 bp, only about half of the total peaks contained in these intervals are significant.  Statistical significance then fluctuates noisly at further upstream genomic intervals, but with at least a quarter (25\%) of the total peaks in these further upstream regions being statistically significant.  As such, the take-home message is that genomic regions within the first 1000 bp upstream of their respective genes are most likely to contain significant peaks (relative to the total peak count in these regions) and are therefore hotspots, but regions beyond this also contain a fair share of statistically significant peaks.
 
-\texttt{geneXtendeR} also makes it possible to identify genes that are unique between two separate intervals, e.g., the 2300 and 2400 bp upstream extension levels\footnote{Note that after running the \texttt{hotspotPlot()} command earlier, we need to explicitly reset \texttt{peaksInput()} to specify that we are, once again, working with ``somepeaksfile.txt".}:
+One interesting area to investigate is the variance in the broadness of various significant peaks across different genomic intervals.  In other words, asking questions like ``are statistically significant peaks that are located very close to their nearest gene (e.g., 0-500 bp away) wider or narrower than peaks located 500-1000 bp away from their nearest gene?".  To answer this question we can do:
+
+\begin{figure}[H]
+\begin{center}
+<<fig=TRUE>>=
+sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+peaksInput(sigpeaks)
+meanPeakLengthPlot(rat, 0, 10000, 500)
+@
+\end{center}
+\end{figure}
+
+This line plot displays the mean (average) length of all significant peaks found within each genomic interval.  Clearly, the ``average peak" is slightly narrower in 0-500 bp intervals than in 500-1000 bp intervals yet, overall, peak lengths tend to fluctuate more or less stochastically at various intervals.  To get the exact peak length, we can do:
+
+<<>>=
+sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+peaksInput(sigpeaks)
+meanPeakLength(rat, 0, 500)
+@
+
+So the mean peak length in the interval 0-500 bp is approximately 1958 bp.  Although we see that there is no specific interval with peaks of extraordinary average lengths, it is still possible to see peak length outliers in certain cases (especially when looking at total peak sets):  
+
+\begin{figure}[H]
+\begin{center}
+<<fig=TRUE>>=
+allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+peaksInput(allpeaks)
+meanPeakLengthPlot(rat, 0, 10000, 500)
+@
+\end{center}
+\end{figure}
+
+We see that the 4000-4500 bp and 8500-9000 bp intervals both look quite different in terms of their mean peak lengths relative to the other intervals.  To see if the mean might be influenced by a strong outlier(s), we can do:
+
+\begin{figure}[H]
+\begin{center}
+<<fig=TRUE>>=
+allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+peaksInput(allpeaks)
+peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
+@
+\end{center}
+\end{figure}
+
+This box-and-whisker plot shows a clear outlier, which is an example of a very broad peak.  We can find the exact length of this outlier peak using: 
+
+<<>>=
+peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
+max(peak_lengths)
+@
+
+So this outlier peak measures 114999 bp in total length, therefore making it an extremely broad peak.  To see what nearest gene it resides to, we can first extract the peak's index by:
+
+<<>>=
+peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
+match(114999, peak_lengths)
+@
+
+which returns the index of where this peak length is found.  Then the following command finds all unique peaks that reside between 4000 and 4500 bp upstream of their nearest gene:
+
+<<>>=
+distinct(rat, 4000, 4500)
+@
+
+where we see that index \texttt{126} belongs to gene \texttt{AABR07044065.1}\footnote{This peak may not be statistically significant, but how could it be if it's so huge?  In situations like this, it may be a good idea to check what is known about the gene already: \url{http://panthertest2.usc.edu/genes/gene.do?acc=RAT\%7CEnsembl=ENSRNOG00000028578\%7CUniProtKB=A0A0G2K0W2}.  Clearly, not much is known yet.}.  Checking the arithmetic difference between column 3 and column 2 for this specific row verifies 114999, as these two columns represent the peak start position and peak end positions.  Now let's identify what the other columns represent by running the \texttt{distinct()} function again (but this time on a smaller interval to have less output printed to the screen):    
 
 <<>>=
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")

@@ -116,12 +116,12 @@ distinct <- function(organism, start, end) {
             .C("extractpeaks", f1, f2, peakslist)[[3]]
         }
         
-		sapply(c(start, end), geneXtender)
-		twogxFiles <- sprintf("geneXtender_gtf_%s.bed", c(start, end))
-        linelen <- "                                                                                                    "  
+    		sapply(c(start, end), geneXtender)
+    		twogxFiles <- sprintf("geneXtender_gtf_%s.bed", c(start, end))
+        linelen <- ""  
         n <- 500000
-        peaksArray<-rep(linelen,n)
-        peaksArray2<-rep(linelen,n)
+        peaksArray <- rep(linelen, n)
+        peaksArray2 <- rep(linelen, n)
         cmdtmp1 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[1]], as.character(peaksArray))
         cmdtmp2 <- run2(f1 = "peaks.txt", f2 = twogxFiles[[2]], as.character(peaksArray2))
         cmd1 <- cmdtmp1[cmdtmp1 != linelen]

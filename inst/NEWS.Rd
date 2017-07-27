@@ -5,7 +5,7 @@
 
 \section{Version 1.3.1}{\itemize{
 
-\item New cumulative line plot function.
+\item New cumulative line plot (cumlinePlot()) function.
 
 \item Output to distinct() function is a lot more visually appealing now (no more tab delimiter signs), yay!
 
@@ -18,5 +18,7 @@
 \item New barplot function for plotting word frequencies found within GO terms (plotWordFreq()).
 
 \item New significant/total peaks (hotspotPlot()) function.
+
+\item Add new meanPeakLength(), meanPeakLengthPlot(), and peakLengthBoxplot() functions.
 
 }}

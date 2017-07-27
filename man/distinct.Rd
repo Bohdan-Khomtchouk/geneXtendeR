@@ -14,7 +14,7 @@ distinct(organism, start, end)
 \item{end}{Upper bound of upstream extension.}
 }
 \value{
-A table of unique genes located under peaks between two upstream extension levels.
+A data.table of unique genes located under peaks between two upstream extension levels.
 }
 \description{
 Determines what genes directly under peaks are actually unique between two different upstream extension levels.
