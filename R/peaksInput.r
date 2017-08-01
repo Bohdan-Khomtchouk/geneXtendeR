@@ -65,18 +65,18 @@ peaksInput <- function(filename) {
 	file.input[chr == "chr41", chr := 41]
 	file.input[chr == "chr42", chr := 42]
 	file.input[chr == "chr43", chr := 43]
-    file.input[chr == "X", chr := 100]
-    file.input[chr == "chrX", chr := 100]
-    file.input[chr == "Y", chr := 200]
-    file.input[chr == "chrY", chr := 100]
-    file.input[chr == "MT", chr := 300]
-    file.input[chr == "chrMT", chr := 300]
-    file.input[chr == "MtDNA", chr := 300]
-    file.input[chr == "chrMtDNA", chr := 300]
-    file.input[chr == "M", chr := 300]
-    file.input[chr == "chrM", chr := 300]
-    file.input[chr == "Mito", chr := 300]
-    file.input[chr == "chrMito", chr := 300]
-    file.sorted <- dplyr::arrange(file.input, as.numeric(chr), start)
-    write.table(file.sorted, file = "peaks.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
-    }
+  file.input[chr == "X", chr := 100]
+  file.input[chr == "chrX", chr := 100]
+  file.input[chr == "Y", chr := 200]
+  file.input[chr == "chrY", chr := 100]
+  file.input[chr == "MT", chr := 300]
+  file.input[chr == "chrMT", chr := 300]
+  file.input[chr == "MtDNA", chr := 300]
+  file.input[chr == "chrMtDNA", chr := 300]
+  file.input[chr == "M", chr := 300]
+  file.input[chr == "chrM", chr := 300]
+  file.input[chr == "Mito", chr := 300]
+  file.input[chr == "chrMito", chr := 300]
+  file.sorted <- dplyr::arrange(file.input, as.numeric(chr), start)
+  write.table(file.sorted, file = "peaks.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
+}

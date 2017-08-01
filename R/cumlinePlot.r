@@ -131,10 +131,10 @@ cumlinePlot <- function(organism, start, end, by) {
     
     differences <- diffs[!is.na(diffs)]
     cumulative_differences <- cumsum(differences)
-    par(mar = c(7.1,4.1,2.1,2.1))
+    par(mar = c(8.1,4.1,2.1,2.1))
     plot(cumulative_differences, type = "o", col = "red", xaxt = "n", ylab = "cumulative differences", xlab = "")
     axis(1, at = 1:length(cumulative_differences), labels = xDeltas, las = 3)
-    mtext(side = 1, "Genomic region (bp)", line = 6)
+    mtext(side = 1, "Genomic region (bp)", line = 6.5)
     
   }
 }

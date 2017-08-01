@@ -2,6 +2,11 @@
 \title{geneXtendeR News}
 \encoding{UTF-8}
 
+\section{Version 1.3.2}{\itemize{
+
+\item New allPeakLengths() function.
+
+}}
 
 \section{Version 1.3.1}{\itemize{
 

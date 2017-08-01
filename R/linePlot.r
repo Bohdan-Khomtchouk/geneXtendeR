@@ -130,10 +130,10 @@ linePlot <- function(organism, start, end, by) {
 	}
 	
 	differences <- diffs[!is.na(diffs)]
-	par(mar = c(7.1,4.1,2.1,2.1))
+	par(mar = c(8.1,4.1,2.1,2.1))
 	plot(differences, type = "o", col = "blue", xaxt = "n", ylab = "differences", xlab = "")
 	axis(1, at = 1:length(differences), labels = xDeltas, las = 3)
-	mtext(side = 1, "Genomic region (bp)", line = 6)
+	mtext(side = 1, "Genomic region (bp)", line = 6.6)
 
 	}
 }
