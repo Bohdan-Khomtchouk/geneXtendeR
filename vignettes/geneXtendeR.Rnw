@@ -40,10 +40,13 @@ With regards to histone modification ChIP-seq analysis, \texttt{geneXtendeR} com
 
 First, install the \texttt{geneXtendeR} package via:
 
-<<>>=
+<<eval=FALSE>>=
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
 biocLite("geneXtendeR")
+@
+
+<<>>=
 library(geneXtendeR)
 @
 
@@ -64,7 +67,7 @@ First, the user must set their working directory to point to the location of the
 peaksInput("somepeaksfile.txt")
 @
 
-This command properly formats the user's peak file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file in the user's working directory.
+This command properly formats the user's peaks file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file in the user's working directory\footnote{Similarly, users can transform their peaks file into a file of merged peaks (see \texttt{peaksMerge()}) and use the resultant ``peaks.txt" file instead for the subsequent analysis.}.
 
 To see how the above command works using a built-in example, the \texttt{geneXtendeR} package provides a peak input dataset\footnote{This peaks dataset comes from a ChIP-seq investigation of brain tissue (prefrontal cortex) in alcohol addiction and dependence (Barbier et al. 2016), see References section for details.} called ``somepeaksfile.txt", which can be loaded into memory like this:
 
