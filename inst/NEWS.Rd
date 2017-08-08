@@ -2,9 +2,15 @@
 \title{geneXtendeR News}
 \encoding{UTF-8}
 
+\section{Version 1.3.5}{\itemize{
+
+\item Remove deprecated README.
+
+}}
+
 \section{Version 1.3.4}{\itemize{
 
-\item Cleanup README and update citation.
+\item Update citation.
 
 }}
 

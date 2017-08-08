@@ -1,13 +1,8 @@
 Package: geneXtendeR
 Type: Package
-Version: 1.3.4
+Version: 1.3.5
 Title: Optimized Functional Annotation Of ChIP-seq Data
-Description: geneXtendeR optimizes the functional annotation of ChIP-seq peaks using fast iterative
-    peak-coordinate/GTF alignment algorithms.  Since different ChIP-seq peak callers produce different
-    differentially enriched peaks with a large variance in peak length distribution and total peak count,
-    annotating peak lists with their nearest genes can be a noisy process.  As such, the goal of geneXtendeR
-    is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental
-    follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
+Description: geneXtendeR optimizes the functional annotation of ChIP-seq peaks using fast iterative peak-coordinate/GTF alignment algorithms.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can be a noisy process.  As such, the goal of geneXtendeR is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
 Authors@R: person("Bohdan", "Khomtchouk", email = "khomtchoukmed@gmail.com", role = c("aut", "cre"))
 Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
