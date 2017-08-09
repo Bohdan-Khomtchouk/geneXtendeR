@@ -29,7 +29,7 @@ https://bioconductor.org/packages/3.6/geneXtendeR/
 
 ### Vignette
 
-Please read the `geneXtendeR` documentation (`geneXtendeR.pdf` found in the `/vignettes` directory), which includes software workflows and comprehensive analyses to get you started.
+Please read the `geneXtendeR` documentation (https://bioconductor.org/packages/devel/bioc/vignettes/geneXtendeR/inst/doc/geneXtendeR.pdf), which includes software workflows and comprehensive analyses to get you started.
 
 ### Github installation instructions
 
