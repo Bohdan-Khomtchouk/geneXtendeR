@@ -2,6 +2,7 @@
 
 export(allPeakLengths)
 export(annotate)
+export(annotate_n)
 export(barChart)
 export(cumlinePlot)
 export(diffGO)

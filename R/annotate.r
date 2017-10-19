@@ -71,7 +71,7 @@ annotate <- function(organism, extension) {
     linelen <- "                                                                                                    "  
     n <- 500000
     peaksArray<-rep(linelen,n)
-    sapply(extension, geneXtender)
+    sapply(extension, .geneXtender, organism, FALSE)
     onegxFile <- sprintf("geneXtender_gtf_%s.bed", extension)
     onecmd2 <- run3(f1 = "peaks.txt", f2 = onegxFile, peakslist = peaksArray) 
     onecmd3 <- onecmd2[onecmd2 != linelen]

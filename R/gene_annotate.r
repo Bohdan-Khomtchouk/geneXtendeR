@@ -30,6 +30,8 @@ gene_annotate <- function(organism, extension) {
                          by=.(`Chromosome`, `Gene-Start`, `Gene-End`, `Gene-ID`, `Gene-Name`)]
   data.table::setnames(GtPA, c("N", "mean"), c("Number-of-Peaks-Associated-with-Gene", "Mean-Distance-of-Gene-to-Nearest-Peaks"))
   
+  GtPA <- dplyr::arrange(GtPA, desc(`Number-of-Peaks-Associated-with-Gene`), desc(`Peaks-on-Gene-Body`))
+  
   data.table::fwrite(
     GtPA,
     file = sprintf("gene_annotated_%s.txt", extension),

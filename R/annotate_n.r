@@ -1,46 +1,24 @@
-geneXtender_p <- function(upstream, organism) {
-  messy2 <- dplyr::filter(organism, type == "gene")
-  neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
-  pos_exons <- dplyr::filter(neat, strand == "+")
-  neg_exons <- dplyr::filter(neat, strand == "-")
-  pos_exons$start = pos_exons$start - upstream
-  pos_exons$start[pos_exons$start < 0] <- 1
-  pos_exons$end = pos_exons$end + 500
-  neg_exons$start = neg_exons$start - 500
-  neg_exons$start[neg_exons$start < 0] <- 1
-  neg_exons$end = neg_exons$end + upstream
-  merged_exons <- rbind(pos_exons, neg_exons)
-  geneXtender.file <- dplyr::select(merged_exons, seqid, start, end, gene_id, gene_name)
-  levels(geneXtender.file$seqid) <- gsub("chr", "", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("X", "100", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("Y", "200", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("MT", "300", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("MtDNA", "300", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("M", "300", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("Mito", "300", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("I", "1", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("II", "2", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("III", "3", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("IV", "4", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("V", "5", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("VI", "6", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("VII", "7", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("VIII", "8", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("IX", "9", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("XI", "11", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("XII", "12", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("XIII", "13", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("XIV", "14", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("XV", "15", levels(geneXtender.file$seqid))
-  levels(geneXtender.file$seqid) <- gsub("XVI", "16", levels(geneXtender.file$seqid))
-  geneXtender.file$seqid = as.numeric(as.character(geneXtender.file$seqid))
-  geneXtender.sorted <- dplyr::arrange(geneXtender.file, as.numeric(seqid), start)
-  write.table(geneXtender.sorted, quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.bed", upstream))
-  return(data.table::as.data.table(geneXtender.sorted))
-}
-
-
-annotate_n <- function(organism, extension, n=2, aggregation=TRUE) {
+#' Annotate peaks file.
+#'
+#' Annotate a user's peaks file (which has been preprocessed with the peaksInput() command) with gene information based on optimally chosen geneXtendeR upstream extension file.  This command requires a preprocessed "peaks.txt" file (generated using peaksInput()) to be present in the user's working directory, otherwise the user is prompted to rerun the peaksInput() command in order to regenerate it.
+#' 
+#' @param organism Object name assigned from readGFF() command.
+#' @param extension Desired upstream extension.
+#' @param n Number of Gene's closest away from the peak
+#'
+#' @return The gene coordinates are extended by `extension` at the 5-prime end, and by 500 bp at the 3-prime end.  The peaks file is then overlayed on these new gene coordinates, producing a file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).  Distance is calculated between 5-prime end of gene and 3-prime end of peak. Looks like "annotated_extension_n.txt".
+#' @return A data.table formatted version of the annotated file for checking or further calculations.
+#'
+#' @examples
+#' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
+#' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+#' peaksInput(fpath)
+#' annotate_n(rat, 2500, n=3)
+#'
+#' @useDynLib geneXtendeR, .registration = TRUE
+#'
+#' @export
+annotate_n <- function(organism, extension, n=2) {
   if(!file.exists("peaks.txt")){
     message("Please run peaksInput() function first!  See ?peaksInput for more information")
   } else if(n < 1) {
@@ -49,7 +27,7 @@ annotate_n <- function(organism, extension, n=2, aggregation=TRUE) {
     oopts = options(warn=-1)
     on.exit(options(oopts))
     
-    genes <- geneXtender_p(extension, organism)
+    genes <- .geneXtender(extension, organism, TRUE)
     
     run3 <- function(f1, f2, peakslist) {
       .C("annotate", f1, f2, peakslist)[[3]]
@@ -57,7 +35,6 @@ annotate_n <- function(organism, extension, n=2, aggregation=TRUE) {
     
     linelen <- "                                                                                                    "
     peaksArray<-rep(linelen,500000)
-    sapply(extension, geneXtender_p, organism=organism)
     onegxFile <- sprintf("geneXtender_gtf_%s.bed", extension)
     onecmd2 <- run3(f1 = "peaks.txt", f2 = onegxFile, peakslist = peaksArray) 
     onecmd3 <- onecmd2[onecmd2 != linelen]
@@ -73,11 +50,19 @@ annotate_n <- function(organism, extension, n=2, aggregation=TRUE) {
     
     err <- which(rdj$Chromosome != rdj$seqid)
     if (length(err) > 0) {
-      message(sprintf("Warning! There were %s peaks that could not find the next gene on their respective chromosomes %s genes away", errlen, n))
+      message(sprintf("Warning! There were %s peaks that could not find the next gene on their respective chromosomes %s genes away", length(err), n))
       for(col in c("seqid", "start", "end", "gene_id", "gene_name")) set(rdj, i=err, j=col, value=NA) #cleanup
     }
     
-    setnames(rdj, c("seqid", "start", "end", "gene_id", "gene_name"), c("Chromosome-for-Gene-N-away", "Start-Gene-N-away", "End-Gene-N-away", "Gene-ID-N-away", "Gene-Name-N-away"))
+    data.table::setnames(rdj, c("seqid", "start", "end", "gene_id", "gene_name"), c("Chromosome-for-Gene-N-away", "Start-Gene-N-away", "End-Gene-N-away", "Gene-ID-N-away", "Gene-Name-N-away"))
+    data.table::fwrite(
+      rdj,
+      file = sprintf("annotated_%s_%s.txt", extension, n),
+      sep = "\t",
+      row.names = FALSE,
+      col.names = TRUE,
+      quote = FALSE
+    )
     return(rdt)
   }
 }
