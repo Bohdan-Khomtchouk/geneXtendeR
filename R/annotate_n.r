@@ -1,4 +1,4 @@
-geneXtender <- function(organism, upstream) {
+geneXtender_p <- function(upstream, organism) {
   messy2 <- dplyr::filter(organism, type == "gene")
   neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
   pos_exons <- dplyr::filter(neat, strand == "+")
@@ -36,12 +36,48 @@ geneXtender <- function(organism, upstream) {
   geneXtender.file$seqid = as.numeric(as.character(geneXtender.file$seqid))
   geneXtender.sorted <- dplyr::arrange(geneXtender.file, as.numeric(seqid), start)
   write.table(geneXtender.sorted, quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE, sprintf("geneXtender_gtf_%s.bed", upstream))
+  return(data.table::as.data.table(geneXtender.sorted))
 }
 
-annotate_n <- function(organism, extension, n=2, cap=Inf) {
+
+annotate_n <- function(organism, extension, n=2, aggregation=TRUE) {
   if(!file.exists("peaks.txt")){
     message("Please run peaksInput() function first!  See ?peaksInput for more information")
-  } else {
-    peaks <- fread("peaks.txt")
+  } else if(n < 1) {
+    message("Please run a valid distance of gene's away with n > 0")
+  }else {
+    oopts = options(warn=-1)
+    on.exit(options(oopts))
+    
+    genes <- geneXtender_p(extension, organism)
+    
+    run3 <- function(f1, f2, peakslist) {
+      .C("annotate", f1, f2, peakslist)[[3]]
+    }
+    
+    linelen <- "                                                                                                    "
+    peaksArray<-rep(linelen,500000)
+    sapply(extension, geneXtender_p, organism=organism)
+    onegxFile <- sprintf("geneXtender_gtf_%s.bed", extension)
+    onecmd2 <- run3(f1 = "peaks.txt", f2 = onegxFile, peakslist = peaksArray) 
+    onecmd3 <- onecmd2[onecmd2 != linelen]
+    
+    rdt <- data.table::transpose(data.table::as.data.table(strsplit(onecmd3, "\t"))) #Formatting
+    colnames(rdt) <- c("Chromosome", "Peak-Start", "Peak-End", "rm", "Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Distance-of-Gene-to-Nearest-Peak")
+    rdt <- rdt[,rm:= NULL]
+    for (j in c("Chromosome", "Peak-Start", "Peak-End", "Gene-Start", "Gene-End", "Distance-of-Gene-to-Nearest-Peak")) data.table::set(rdt, j=j, value = as.numeric(rdt[[j]]))
+    
+    indices <- sapply(rdt$`Gene-ID`, function(x) which(x == genes$gene_id))
+    
+    rdj <- rdt[,c("seqid", "start", "end", "gene_id", "gene_name") := genes[indices+(n-1)]]
+    
+    err <- which(rdj$Chromosome != rdj$seqid)
+    if (length(err) > 0) {
+      message(sprintf("Warning! There were %s peaks that could not find the next gene on their respective chromosomes %s genes away", errlen, n))
+      for(col in c("seqid", "start", "end", "gene_id", "gene_name")) set(rdj, i=err, j=col, value=NA) #cleanup
+    }
+    
+    setnames(rdj, c("seqid", "start", "end", "gene_id", "gene_name"), c("Chromosome-for-Gene-N-away", "Start-Gene-N-away", "End-Gene-N-away", "Gene-ID-N-away", "Gene-Name-N-away"))
+    return(rdt)
   }
 }

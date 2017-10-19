@@ -26,8 +26,9 @@ gene_annotate <- function(organism, extension) {
                          .(.N,
                            mean = mean(`Distance-of-Gene-to-Nearest-Peak`),
                            sd = sd(`Distance-of-Gene-to-Nearest-Peak`),
-                           'Peaks-on-Gene' = sum(`Distance-of-Gene-to-Nearest-Peak` == 0)),
+                           'Peaks-on-Gene-Body' = sum(`Distance-of-Gene-to-Nearest-Peak` == 0)),
                          by=.(`Chromosome`, `Gene-Start`, `Gene-End`, `Gene-ID`, `Gene-Name`)]
+  data.table::setnames(GtPA, c("N", "mean"), c("Number-of-Peaks-Associated-with-Gene", "Mean-Distance-of-Gene-to-Nearest-Peaks"))
   
   data.table::fwrite(
     GtPA,
