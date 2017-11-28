@@ -23,7 +23,7 @@ annotate_n <- function(organism, extension, n=2) {
     message("Please run peaksInput() function first!  See ?peaksInput for more information")
   } else if(n < 1) {
     message("Please run a valid distance of gene's away with n > 0")
-  }else {
+  } else {
     oopts = options(warn=-1)
     on.exit(options(oopts))
     
@@ -43,20 +43,52 @@ annotate_n <- function(organism, extension, n=2) {
     colnames(rdt) <- c("Chromosome", "Peak-Start", "Peak-End", "rm", "Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Distance-of-Gene-to-Nearest-Peak")
     rdt <- rdt[,rm:= NULL]
     for (j in c("Chromosome", "Peak-Start", "Peak-End", "Gene-Start", "Gene-End", "Distance-of-Gene-to-Nearest-Peak")) data.table::set(rdt, j=j, value = as.numeric(rdt[[j]]))
+
     
+    #indexing
     indices <- sapply(rdt$`Gene-ID`, function(x) which(x == genes$gene_id))
     
-    rdj <- rdt[,c("seqid", "start", "end", "gene_id", "gene_name") := genes[indices+(n-1)]]
+    #error_checking (MORETODO)
+    indices <- ifelse(indices < (n), n, indices)
+    indices <- ifelse(indices > (length(genes$seqid) - (n-1)), length(genes$seqid) - (n-1), indices)
+    rdt[,'bot' := (indices - (n-1))]
+    rdt[,'top' := (indices + (n-1))]
     
-    err <- which(rdj$Chromosome != rdj$seqid)
-    if (length(err) > 0) {
-      message(sprintf("Warning! There were %s peaks that could not find the next gene on their respective chromosomes %s genes away", length(err), n))
-      for(col in c("seqid", "start", "end", "gene_id", "gene_name")) set(rdj, i=err, j=col, value=NA) #cleanup
+    #THROW
+    rdt[, c("Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Distance-of-Gene-to-Nearest-Peak", "num") := NULL]
+    
+    #Grabs and adds
+    rdt[, ..I := .I]
+    some_fun <- function(dtx) {
+      g <- genes[dtx$bot:dtx$top]
+      g[,names(dtx) := dtx]
+      return(g)
     }
+    rdt <- rdt[, some_fun(.SD), by = ..I] #applies function by row
+    rdt[, c('top', 'bot') := NULL] #Remove top and bot info
     
-    data.table::setnames(rdj, c("seqid", "start", "end", "gene_id", "gene_name"), c("Chromosome-for-Gene-N-away", "Start-Gene-N-away", "End-Gene-N-away", "Gene-ID-N-away", "Gene-Name-N-away"))
+    es <- rdt$`Peak-End` - rdt$start
+    se <- rdt$`Peak-Start` - rdt$end
+    
+    rdt[, "Minimum-Distance-to-Gene" := ifelse(between(0, pmin(es, se), pmax(es, se)), 0 ,pmin(abs(es), abs(se)))]
+    
+    setorderv(rdt, c("..I", "Minimum-Distance-to-Gene"))
+    rdt[,rank := rep(1:(n*2-1), (.N/(n*2-1)))]
+    rdt[rank <= n]
+    
+    
+    data.table::setnames(rdt, c("start", "end", "gene_id", "gene_name", "..I"), c("Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Peak-Num"))
+    data.table::setcolorder(rdt, c("Peak-Num", "Chromosome", "Peak-Start", "Peak-End", "Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "rank", "Minimum-Distance-to-Gene", "seqid"))
+    
+    #TODO more error handling (for now)
+    err <- which(rdt$Chromosome != rdt$seqid)
+    # if (length(err) > 0) {
+    #   message(sprintf("Warning! There were %s peaks that could not find the next gene on their respective chromosomes %s genes away", length(err), n))
+    #   #for(col in c("seqid", "start", "end", "gene_id", "gene_name")) set(export_table, i=err, j=col, value=NA) #cleanup
+    # }
+    rdt <- rdt[rank<= n]
     data.table::fwrite(
-      rdj,
+      rdt,
       file = sprintf("annotated_%s_%s.txt", extension, n),
       sep = "\t",
       row.names = FALSE,
