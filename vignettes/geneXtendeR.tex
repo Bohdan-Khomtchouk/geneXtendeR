@@ -9,13 +9,13 @@
 \title{geneXtendeR}
 \author{Bohdan B. Khomtchouk}
 
-<<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
-BiocStyle::latex()
-@ 
+\RequirePackage{C:/Users/billy/Documents/R/win-library/3.4/BiocStyle/resources/tex/Bioconductor}
 
+\AtBeginDocument{\bibliographystyle{C:/Users/billy/Documents/R/win-library/3.4/BiocStyle/resources/tex/unsrturl}}
 
+\usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{geneXtendeR-concordance}
 
 \maketitle
 
@@ -41,22 +41,28 @@ With regards to histone modification ChIP-seq analysis, \texttt{geneXtendeR} com
 
 First, install the \texttt{geneXtendeR} package via:
 
-<<eval=FALSE>>=
-## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite("geneXtendeR")
-@
+\begin{Schunk}
+\begin{Sinput}
+> ## try http:// if https:// URLs are not supported
+> source("https://bioconductor.org/biocLite.R")
+> biocLite("geneXtendeR")
+\end{Sinput}
+\end{Schunk}
 
-<<>>=
-library(geneXtendeR)
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(geneXtendeR)
+\end{Sinput}
+\end{Schunk}
 
 This automatically loads the \texttt{rtracklayer} R package, which contains the \texttt{readGFF()} command used to retrieve GTF files of any model organism.  As such, load in a GTF file into your R environment, e.g.:
 
-<<results=hide, eval=FALSE>>=
-rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
-                      rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
-@
+\begin{Schunk}
+\begin{Sinput}
+> rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
++                       rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
+\end{Sinput}
+\end{Schunk}
 
 URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc.), and copy the link address.  Then, paste the link address into the \texttt{readGFF()} as shown above.  This will create an R dataframe object containing the respective GTF file.
 
@@ -64,18 +70,22 @@ Next, the user must input their peak data from a peak caller (e.g., SICER, MACS2
 
 First, the user must set their working directory to point to the location of their peak data file.  Then type the following command:
 
-<<>>=
-peaksInput("somepeaksfile.txt")
-@
+\begin{Schunk}
+\begin{Sinput}
+> peaksInput("somepeaksfile.txt")
+\end{Sinput}
+\end{Schunk}
 
 This command properly formats the user's peaks file in preparation for subsequent analyses, producing a resultant ``peaks.txt" file in the user's working directory\footnote{Similarly, users can transform their peaks file into a file of merged peaks (see \texttt{peaksMerge()}) and use the resultant ``peaks.txt" file instead for the subsequent analysis.}.
 
 To see how the above command works using a built-in example, the \texttt{geneXtendeR} package provides a peak input dataset\footnote{This peaks dataset comes from a ChIP-seq investigation of brain tissue (prefrontal cortex) in alcohol addiction and dependence (Barbier et al. 2016), see References section for details.} called ``somepeaksfile.txt", which can be loaded into memory like this:
 
-<<>>=
-fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
-peaksInput(fpath)
-@
+\begin{Schunk}
+\begin{Sinput}
+> fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+> peaksInput(fpath)
+\end{Sinput}
+\end{Schunk}
 
 This creates a properly formatted (i.e., properly sorted) ``peaks.txt" file in the user's working directory.
 
@@ -83,9 +93,12 @@ Now, we may use the R object that we created with \texttt{readGFF()} earlier to 
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-barChart(rat, 0, 10000, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> barChart(rat, 0, 10000, 500)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-007}
 \end{center}
 \end{figure}
 
@@ -93,9 +106,12 @@ This command first generates 21 individual whole-genome files: 0, 500, 1000, ...
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-linePlot(rat, 0, 10000, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> linePlot(rat, 0, 10000, 500)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-008}
 \end{center}
 \end{figure}
 
@@ -103,9 +119,12 @@ In this line plot, there is a sharp rise in the number of peaks-on-top-of-genes 
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-linePlot(rat, 2000, 3000, 100)
-@
+\begin{Schunk}
+\begin{Sinput}
+> linePlot(rat, 2000, 3000, 100)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-009}
 \end{center}
 \end{figure}
 
@@ -113,9 +132,12 @@ Visually, there is a relative spike in the number of peaks-on-top-of-genes at th
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-cumlinePlot(rat, 2000, 3000, 100)
-@
+\begin{Schunk}
+\begin{Sinput}
+> cumlinePlot(rat, 2000, 3000, 100)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-010}
 \end{center}
 \end{figure}
 
@@ -123,11 +145,14 @@ Hence, one very useful function in \texttt{geneXtendeR} is called \texttt{hotspo
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
-hotspotPlot(allpeaks, sigpeaks, rat, 0, 10000, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+> sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+> hotspotPlot(allpeaks, sigpeaks, rat, 0, 10000, 500)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-011}
 \end{center}
 \end{figure}
 
@@ -137,31 +162,42 @@ One interesting area to investigate is the variance in the broadness of signific
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
-peaksInput(sigpeaks)
-meanPeakLengthPlot(rat, 0, 10000, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+> peaksInput(sigpeaks)
+> meanPeakLengthPlot(rat, 0, 10000, 500)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-012}
 \end{center}
 \end{figure}
 
 This line plot displays the mean (average) length of all significant peaks found within each genomic interval.  Clearly, the ``average peak" is slightly narrower in 0-500 bp intervals than in 500-1000 bp intervals yet, overall, peak lengths tend to fluctuate more or less stochastically at various intervals.  To get the exact peak length, we can do:
 
-<<>>=
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
-peaksInput(sigpeaks)
-meanPeakLength(rat, 0, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+> peaksInput(sigpeaks)
+> meanPeakLength(rat, 0, 500)
+\end{Sinput}
+\begin{Soutput}
+[1] 1957.621
+\end{Soutput}
+\end{Schunk}
 
 So the mean peak length in the interval 0-500 bp is approximately 1958 bp.  Although we see that there is no specific interval with peaks of extraordinary average lengths, it is still possible to see peak length outliers in certain cases (especially when looking at total peak sets):  
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
-peaksInput(allpeaks)
-meanPeakLengthPlot(rat, 0, 10000, 500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+> peaksInput(allpeaks)
+> meanPeakLengthPlot(rat, 0, 10000, 500)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-014}
 \end{center}
 \end{figure}
 
@@ -169,52 +205,184 @@ We see that the 4000-4500 bp and 8500-9000 bp intervals both look quite differen
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
-peaksInput(allpeaks)
-peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+> peaksInput(allpeaks)
+> peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-015}
 \end{center}
 \end{figure}
 
 This box-and-whisker plot shows a clear outlier, which is an example of a very broad peak.  We can find the exact length of this outlier peak using: 
 
-<<>>=
-peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
-max(peak_lengths)
-@
+\begin{Schunk}
+\begin{Sinput}
+> peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
+> max(peak_lengths)
+\end{Sinput}
+\begin{Soutput}
+[1] 114999
+\end{Soutput}
+\end{Schunk}
 
 So this outlier peak measures 114999 bp in total length, therefore making it an extremely broad peak.  To see what nearest gene it resides to, we can first extract the peak's index by:
 
-<<>>=
-peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
-match(114999, peak_lengths)
-@
+\begin{Schunk}
+\begin{Sinput}
+> peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
+> match(114999, peak_lengths)
+\end{Sinput}
+\begin{Soutput}
+[1] 126
+\end{Soutput}
+\end{Schunk}
 
 which returns the index of where this peak length is found.  Then the following command finds all unique peaks that reside between 4000 and 4500 bp upstream of their nearest gene:
 
-<<>>=
-distinct(rat, 4000, 4500)
-@
+\begin{Schunk}
+\begin{Sinput}
+> distinct(rat, 4000, 4500)
+\end{Sinput}
+\begin{Soutput}
+     Chromosome Peak-Start  Peak-End Gene-Chr Gene-Start  Gene-End            Gene-ID
+  1:          1   19526200  19526799        1   19520708  19526671 ENSRNOG00000030796
+  2:          1   61630800  61631999        1   61624941  61630954 ENSRNOG00000025949
+  3:          1   71346800  71347999        1   71334629  71347133 ENSRNOG00000049014
+  4:          1   98385400  98394199        1   98394160  98403468 ENSRNOG00000037331
+  5:          1  101099600 101101399        1  101086377 101100094 ENSRNOG00000020583
+ ---                                                                                 
+124:         18   60006800  60007199       18   59985860  60007069 ENSRNOG00000017852
+125:         19   45499400  45499799       19   45499420  45507827 ENSRNOG00000053551
+126:         19   54877400  54992399       19   54871853  54877469 ENSRNOG00000028578
+127:         20   30610800  30620799       20   30606026  30611101 ENSRNOG00000049167
+128:        100   73017400  73018799      100   73018667  73024598 ENSRNOG00000027980
+          Gene-Name Distance
+  1: AABR07000595.1        0
+  2:        Vom1r22        0
+  3:   LOC100912263        0
+  4:           Cd33        0
+  5:          Fcgrt        0
+ ---                        
+124:           Nars        0
+125: AABR07043877.1        0
+126: AABR07044065.1        0
+127: AABR07044988.1        0
+128: AABR07039245.1        0
+\end{Soutput}
+\end{Schunk}
 
 where we see that index \texttt{126} belongs to gene \texttt{AABR07044065.1}\footnote{This peak may not be statistically significant, but how could it be if it's so huge?  In situations like this, it may be a good idea to check what is known about the gene already: \url{http://panthertest2.usc.edu/genes/gene.do?acc=RAT\%7CEnsembl=ENSRNOG00000028578\%7CUniProtKB=A0A0G2K0W2}.  Clearly, not much is known yet.}.  Checking the arithmetic difference between column 3 and column 2 for this specific row verifies 114999, as these two columns represent the peak start position and peak end positions.  Now let's identify what the other columns represent by running the \texttt{distinct()} function again (but this time on a smaller interval to have less output printed to the screen):    
 
-<<>>=
-fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
-peaksInput(fpath)
-distinct(rat, 2300, 2400)
-@
+\begin{Schunk}
+\begin{Sinput}
+> fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+> peaksInput(fpath)
+> distinct(rat, 2300, 2400)
+\end{Sinput}
+\begin{Soutput}
+    Chromosome Peak-Start  Peak-End Gene-Chr Gene-Start  Gene-End            Gene-ID
+ 1:          1   79718600  79725199        1   79725197  79728613 ENSRNOG00000026891
+ 2:          1  188715600 188716999        1  188688243 188715680 ENSRNOG00000016013
+ 3:          1  214368800 214373199        1  214373115 214386385 ENSRNOG00000018367
+ 4:          1  221669800 221671199        1  221671190 221694018 ENSRNOG00000027456
+ 5:          1  236532800 236534799        1  236529431 236532885 ENSRNOG00000022308
+ 6:          3   82239000  82242199        3   82096568  82239064 ENSRNOG00000008758
+ 7:          3   82780200  82784599        3   82762362  82780214 ENSRNOG00000042533
+ 8:          3  146409600 146412399        3  146376328 146409652 ENSRNOG00000006795
+ 9:          3  165702800 165706799        3  165678807 165702889 ENSRNOG00000042101
+10:          4   84850400  84851999        4   84851986  84872257 ENSRNOG00000010205
+11:          4  118157000 118157799        4  118157747 118166562 ENSRNOG00000016273
+12:          4  171955800 171956999        4  171956961 171961084 ENSRNOG00000057540
+13:          4  180237200 180239199        4  180231882 180237204 ENSRNOG00000048961
+14:          5   36437600  36438199        5   36433358  36437694 ENSRNOG00000055329
+15:          5   69038200  69039399        5   69035218  69038218 ENSRNOG00000060997
+16:          5  121456000 121457199        5  121451803 121456072 ENSRNOG00000045614
+17:          5  153628200 153630199        5  153568245 153628269 ENSRNOG00000018109
+18:          7   14586000  14587199        7   14587120  14615369 ENSRNOG00000048450
+19:          7   75225000  75225799        7   75225775  75249569 ENSRNOG00000061463
+20:          8  133130600 133133199        8  133126720 133130690 ENSRNOG00000006730
+21:         10    1830200   1832199       10    1832118   1841132 ENSRNOG00000040121
+22:         11   80315400  80316799       11   80316777  80332099 ENSRNOG00000022160
+23:         14   76654000  76654999       14   76654911  76833661 ENSRNOG00000051169
+24:         14  103716400 103719199       14  103711769 103716440 ENSRNOG00000054704
+25:         16     631200    642399       16     517332    631224 ENSRNOG00000061982
+26:         16    9020200   9020999       16    9020987   9055164 ENSRNOG00000042628
+27:         16   75363800  75364599       16   75364529  75368406 ENSRNOG00000029462
+28:         20    1747000   1747399       20    1747316   1751142 ENSRNOG00000050043
+29:         20   22423400  22426199       20   22420251  22423425 ENSRNOG00000057124
+    Chromosome Peak-Start  Peak-End Gene-Chr Gene-Start  Gene-End            Gene-ID
+         Gene-Name Distance
+ 1:     AC093995.1        0
+ 2:         Gprc5b        0
+ 3:         Taldo1        0
+ 4:       Cdc42bpg        0
+ 5:   LOC103691298        0
+ 6:        Tspan18        0
+ 7:          Accsl        0
+ 8:          Apmap        0
+ 9:          Zfp93        0
+10:          Mturn        0
+11:        Fam136a        0
+12: AABR07062363.1        0
+13:        Bhlhe41        0
+14: AABR07047528.1        0
+15:             U6        0
+16:   LOC102552337        0
+17:          Clic4        0
+18:        Cyp4f37        0
+19: AABR07057510.3        0
+20:         Ccr1l1        0
+21:     RGD1565158        0
+22:           Rtp2        0
+23:           Clnk        0
+24: AABR07016558.1        0
+25: AABR07024473.2        0
+26:     RGD1561145        0
+27:         Defal1        0
+28:        Olr1735        0
+29: AABR07044824.1        0
+         Gene-Name Distance
+\end{Soutput}
+\end{Schunk}
 
 This data table shows 29 separate entries sorted by chromosome and start position.  \texttt{V1-V3} denote the chromosome/start/end positions of the peaks, \texttt{V4-V6} denote the respective values for the genes, \texttt{V7} is the gene ID (e.g., Ensembl ID), \texttt{V8} is the gene name, and \texttt{V9} is the distance of each respective peak to its nearest gene.  It should be noted that the X chromosome is designated by the integer 100, the Y chromosome by the integer 200, and the mitochondrial chromosome by the integer 300.  This is done for sorting purposes (see \texttt{?peaksInput} for details).  In short, the \texttt{distinct()} command finds what peaks-on-top-of-genes would be missed if a 2300 bp upstream extension is used instead of a 2400 bp extension.  In other words, these 29 genes all reside between 2300-2400 bp upstream of their nearest gene.
 
 It may be of interest to note the differential gene ontologies between these two upstream extensions:
 
-<<>>=
-library(org.Rn.eg.db)
-library(GO.db)
-x <- diffGO(rat, 2300, 2400, BP, org.Rn.eg.db)
-head(x, 20)
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(org.Rn.eg.db)
+> library(GO.db)
+> x <- diffGO(rat, 2300, 2400, BP, org.Rn.eg.db)
+> head(x, 20)
+\end{Sinput}
+\begin{Soutput}
+   gene$SYMBOL       GOID                                                       TERM
+1       Gprc5b GO:0001934             positive regulation of protein phosphorylation
+2       Gprc5b GO:0007186               G-protein coupled receptor signaling pathway
+3       Gprc5b GO:0007626                                        locomotory behavior
+5       Gprc5b GO:0010976       positive regulation of neuron projection development
+7       Gprc5b GO:0032147                      activation of protein kinase activity
+8       Gprc5b GO:0042593                                        glucose homeostasis
+10      Gprc5b GO:0043123 positive regulation of I-kappaB kinase/NF-kappaB signaling
+12      Gprc5b GO:0045666              positive regulation of neuron differentiation
+13      Gprc5b GO:0045860             positive regulation of protein kinase activity
+14      Gprc5b GO:0050729               positive regulation of inflammatory response
+16      Gprc5b GO:0060907      positive regulation of macrophage cytokine production
+18      Gprc5b GO:0061098    positive regulation of protein tyrosine kinase activity
+20      Gprc5b GO:0090263     positive regulation of canonical Wnt signaling pathway
+22      Taldo1 GO:0005975                             carbohydrate metabolic process
+23      Taldo1 GO:0006002                     fructose 6-phosphate metabolic process
+24      Taldo1 GO:0006098                                    pentose-phosphate shunt
+25      Taldo1 GO:0009052              pentose-phosphate shunt, non-oxidative branch
+26      Taldo1 GO:0019682               glyceraldehyde-3-phosphate metabolic process
+27    Cdc42bpg GO:0006468                                    protein phosphorylation
+29    Cdc42bpg GO:0031532                          actin cytoskeleton reorganization
+\end{Soutput}
+\end{Schunk}
 
 This dataframe shows the first 20 unique gene ontology terms, their IDs, and respective gene symbols.  Clearly, gene name \emph{Gprc5b} has several BP ontologies related explicitly to the brain, while \emph{Taldo1} does not.  Considering that the ChIP-seq peaks dataset used as input into \texttt{geneXtendeR} comes from a ChIP-seq study investigating the prefrontal cortex, this suggests that a 2400 bp extension may be more suitable for this brain dataset.  However, such decisions are left entirely to the discretion and judgment of the user in deciding the relative importance of specific genes and their respective GO terms (BP, CC, or MF) to the goals of the computational analysis (as well as plans for experimental follow-up and validation).  See Discussion section for details.  
 
@@ -222,12 +390,14 @@ It is also critical to note that the \texttt{diffGO()} function returns ALL know
 
 Furthermore, a user may plot the differential gene ontology results as an interactive network:
 
-<<>>=
-library(networkD3)
-library(org.Rn.eg.db)
-library(dplyr)
-makeNetwork(rat, 2300, 2400, BP, org.Rn.eg.db)
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(networkD3)
+> library(org.Rn.eg.db)
+> library(dplyr)
+> makeNetwork(rat, 2300, 2400, BP, org.Rn.eg.db)
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -243,13 +413,15 @@ makeNetwork(rat, 2300, 2400, BP, org.Rn.eg.db)
 
 In addition, users can generate word clouds comprised from words present in their GO terms:
 
-<<results=hide, eval=FALSE>>=
-library(tm)
-library(SnowballC)
-library(wordcloud)
-library(RColorBrewer)
-makeWordCloud(rat, 2300, 2400, BP, org.Rn.eg.db)
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(tm)
+> library(SnowballC)
+> library(wordcloud)
+> library(RColorBrewer)
+> makeWordCloud(rat, 2300, 2400, BP, org.Rn.eg.db)
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -259,13 +431,15 @@ makeWordCloud(rat, 2300, 2400, BP, org.Rn.eg.db)
 
 It may also be of interest to visually examine the most frequently used words found within GO terms:  
 
-<<results=hide, eval=FALSE>>=
-library(tm)
-library(SnowballC)
-library(wordcloud)
-library(RColorBrewer)
-plotWordFreq(rat, 2300, 2400, BP, org.Rn.eg.db, 10)
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(tm)
+> library(SnowballC)
+> library(wordcloud)
+> library(RColorBrewer)
+> plotWordFreq(rat, 2300, 2400, BP, org.Rn.eg.db, 10)
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -276,9 +450,11 @@ plotWordFreq(rat, 2300, 2400, BP, org.Rn.eg.db, 10)
 
 Once the user has chosen the specific upstream extension to be used, the peak file is ready to be fully annotated:
 
-<<results=hide, eval=FALSE>>=
-annotate(rat, 2400)
-@
+\begin{Schunk}
+\begin{Sinput}
+> annotate(rat, 2400)
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -291,9 +467,34 @@ which generates a fully annotated peaks outfile (in the user's working directory
 If a user is looking for a more gene-centric approach to an\-notation, they may use either the \texttt{gene\_lookup()}
 or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function builds off of the \texttt{annotate()} function, but reorganizes the information based on relevant gene information.
 
-<<>>=
-head(gene_annotate(rat, 2400))
-@
+\begin{Schunk}
+\begin{Sinput}
+> head(gene_annotate(rat, 2400))
+\end{Sinput}
+\begin{Soutput}
+  Chromosome Gene-Start  Gene-End            Gene-ID Gene-Name
+1         12   14448510  15101186 ENSRNOG00000001103      Sdk1
+2          5  168141047 168736696 ENSRNOG00000018602    Camta1
+3          8  127268889 127573488 ENSRNOG00000043167     Itga9
+4         13  106749225 107427829 ENSRNOG00000003738     Ush2a
+5         10   18557628  18944940 ENSRNOG00000005365    Kcnip1
+6         12   51385263  51705130 ENSRNOG00000032590     Ttc28
+  Number-of-Peaks-Associated-with-Gene Mean-Distance-of-Gene-to-Nearest-Peaks       sd
+1                                   36                               6290.222 19899.71
+2                                   21                                  0.000     0.00
+3                                   20                                  0.000     0.00
+4                                   20                                  0.000     0.00
+5                                   19                                  0.000     0.00
+6                                   19                                  0.000     0.00
+  Peaks-on-Gene-Body
+1                 32
+2                 21
+3                 20
+4                 20
+5                 19
+6                 19
+\end{Soutput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -303,9 +504,11 @@ head(gene_annotate(rat, 2400))
 
 Information such as Peaks-on-Gene-Body, number of peaks associated with a single gene, and other information are included in this table. \hl{Ideally, a user would be looking for genes that have a high number of \texttt{Peaks-on-Gene-Body} to follow-up on for gene research. Genes that have peaks that reside close to the chosen gene-body (low mean) and that are clustered (low standard deviation) may also be good targets for follow-up analysis.} The \texttt{gene\_lookup()} function looks up all genes' (or gene IDs') peaks surrounding those genes across all chromosomes and reports these peaks. \hl{This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.}
 
-<<results=hide, eval=FALSE>>=
-gene_lookup(rat, c("zbtb16"), n = 19, extension = 2400)
-@
+\begin{Schunk}
+\begin{Sinput}
+> gene_lookup(rat, c("zbtb16"), n = 19, extension = 2400)
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -317,9 +520,11 @@ gene_lookup(rat, c("zbtb16"), n = 19, extension = 2400)
 
 For a much more in-depth analysis, a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} has been provided as \texttt{annotate\_n()}. Instead of simply annotating a peak to a single, closest gene, this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the peaks layout for further analysis. Called, this function looks like:
 
-<<results=hide, eval=FALSE>>=
-annotate_n(rat, 3500, n=3)
-@
+\begin{Schunk}
+\begin{Sinput}
+> annotate_n(rat, 3500, n=3)
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[H]
 \centering
@@ -335,9 +540,7 @@ Even though \texttt{geneXtendeR} is designed to compute (and analyze/display) op
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE, echo=FALSE>>=
-linePlot(rat, 0, 10000, 500)
-@
+\includegraphics{geneXtendeR-028}
 \end{center}
 \end{figure}
 
@@ -355,18 +558,23 @@ It is entirely possible (and probable) for significant peaks to be present at re
 
 \begin{figure}[H]
 \begin{center}
-<<fig=TRUE>>=
-linePlot(rat, 7000, 8500, 100)
-@
+\begin{Schunk}
+\begin{Sinput}
+> linePlot(rat, 7000, 8500, 100)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{geneXtendeR-029}
 \end{center}
 \end{figure}
 
 This line plot shows that there are over 30 peaks in this dataset (across the rat genome) that reside between 8100 and 8200 bp upstream of their nearest gene.  In far-out cases like this, it is particularly recommended to examine the statistical significance of peaks to get a sense for the possibility of potential enhancer activity/regulation.  Of course, such computational findings would require experimental follow-up and/or database mining for known motifs.  Assessment of such statistical significance values is beyond the scope of \texttt{geneXtendeR}, in order to allow the user freedom to choose the most appropriate statistical package/technique for their analysis.  As before, first use the \texttt{distinct()} function to create a table of unique genes located under peaks between the two upstream extension levels:
 
 %<<fig.width=6.2, fig.height=5>>=
-<<results=hide, eval=FALSE>>=
-distinct(rat, 8100, 8200)
-@
+\begin{Schunk}
+\begin{Sinput}
+> distinct(rat, 8100, 8200)
+\end{Sinput}
+\end{Schunk}
 
 Then, assess the statistical significance of these peaks using a combination of \texttt{HT-seq} (Anders et al. 2015) and \texttt{edgeR} (Robinson et al. 2010), or \texttt{HT-seq} and \texttt{DESeq2} (Love et al. 2014), or some other appropriate combination of existing software tools.  Genes associated with the resultant statistically significant peaks may then be further assessed with gene ontology enrichment analysis to help answer a variety of interesting research questions.  It should once again be noted that the \texttt{diffGO()} function does NOT perform gene ontology enrichment analysis.  Instead, it returns all known gene ontologies for each gene.  The purpose and utility of this is described in the previous section.
 
@@ -374,15 +582,87 @@ Moreover, DNA sequences under peaks may be checked for the presence of known reg
 
 In addition to the computational workflows discussed above, \texttt{geneXtendeR}'s wide array of functions makes it possible to conduct some rather interesting and creative combinations of genomic analysis.  Let's say, for example, that a user wants to explore all known ontological differences across specific disparate sectors of the genome (e.g., 0-500 bp vs. 2000-3000 bp, but removing 501-1999 bp from consideration).  In other words, look at all peaks (across the entire genome) that reside between 0-500 bp upstream of their nearest gene (and 2000-3000 bp upstream of their nearest gene), and extract unique gene ontologies that differ between these two variable-length sectors (where one is 500 bp long and the other is 1000 bp in length).  This can be accomplished rather conveniently using \texttt{dplyr}:
 
-<<>>=
-library(dplyr)
-library(org.Rn.eg.db)
-library(GO.db)
-a <- diffGO(rat, 0, 500, BP, org.Rn.eg.db)
-b <- diffGO(rat, 2000, 3000, BP, org.Rn.eg.db)
-dplyr::filter(b, TERM %in% a$TERM)
-
-@
+\begin{Schunk}
+\begin{Sinput}
+> library(dplyr)
+> library(org.Rn.eg.db)
+> library(GO.db)
+> a <- diffGO(rat, 0, 500, BP, org.Rn.eg.db)
+> b <- diffGO(rat, 2000, 3000, BP, org.Rn.eg.db)
+> dplyr::filter(b, TERM %in% a$TERM)
+\end{Sinput}
+\begin{Soutput}
+   gene$SYMBOL       GOID                                                TERM
+1         Sod2 GO:0001889                                   liver development
+2         Sod2 GO:0007507                                   heart development
+3         Sod2 GO:0008285           negative regulation of cell proliferation
+4         Sod2 GO:0042311                                        vasodilation
+5         Sod2 GO:0042493                                    response to drug
+6         Sod2 GO:0043066            negative regulation of apoptotic process
+7         Dll1 GO:0001757                                somite specification
+8         Dll1 GO:0008284           positive regulation of cell proliferation
+9         Dll1 GO:0008285           negative regulation of cell proliferation
+10        Dll1 GO:0045596         negative regulation of cell differentiation
+11       Olr40 GO:0007186        G-protein coupled receptor signaling pathway
+12         Hbb GO:0070527                                platelet aggregation
+13      Olr139 GO:0007186        G-protein coupled receptor signaling pathway
+14      Olr282 GO:0007186        G-protein coupled receptor signaling pathway
+15      Gprc5b GO:0007186        G-protein coupled receptor signaling pathway
+16        Aqp8 GO:0055085                             transmembrane transport
+17        Aqp8 GO:0071320                           cellular response to cAMP
+18        Ano9 GO:1902476                    chloride transmembrane transport
+19      Osbpl5 GO:0006869                                     lipid transport
+20    Cdc42bpg GO:0006468                             protein phosphorylation
+21       Dusp5 GO:0045892 negative regulation of transcription, DNA-templated
+22      Adgrl2 GO:0007166             cell surface receptor signaling pathway
+23      Adgrl2 GO:0007186        G-protein coupled receptor signaling pathway
+24      Nfe2l2 GO:0016567                              protein ubiquitination
+25      Nfe2l2 GO:0071456                        cellular response to hypoxia
+26      Olr559 GO:0007186        G-protein coupled receptor signaling pathway
+27     Tspan18 GO:0007166             cell surface receptor signaling pathway
+28       Kcnq2 GO:0060081                          membrane hyperpolarization
+29       Reg3b GO:0008284           positive regulation of cell proliferation
+30       Reg3b GO:0043066            negative regulation of apoptotic process
+31      Olr828 GO:0007186        G-protein coupled receptor signaling pathway
+32      Tspan9 GO:0007166             cell surface receptor signaling pathway
+33     Bhlhe41 GO:0045892 negative regulation of transcription, DNA-templated
+34        Aptx GO:0006974            cellular response to DNA damage stimulus
+35       Ccl21 GO:0007186        G-protein coupled receptor signaling pathway
+36       Aldob GO:0001889                                   liver development
+37       Aldob GO:0042493                                    response to drug
+38       Clic4 GO:1902476                    chloride transmembrane transport
+39       Htr1d GO:0042310                                    vasoconstriction
+40       Nlrc4 GO:0016567                              protein ubiquitination
+41       Esyt1 GO:0006869                                     lipid transport
+42       Sbno2 GO:0045892 negative regulation of transcription, DNA-templated
+43     Olr1085 GO:0007186        G-protein coupled receptor signaling pathway
+44       Fbxo7 GO:0016567                              protein ubiquitination
+45       Dnmt1 GO:0042493                                    response to drug
+46       Dnmt1 GO:0045892 negative regulation of transcription, DNA-templated
+47        Xcr1 GO:0007186        G-protein coupled receptor signaling pathway
+48      Ccr1l1 GO:0007186        G-protein coupled receptor signaling pathway
+49       Clcn7 GO:1902476                    chloride transmembrane transport
+50   LOC684471 GO:0007186        G-protein coupled receptor signaling pathway
+51         Il3 GO:0008284           positive regulation of cell proliferation
+52         Il3 GO:0043066            negative regulation of apoptotic process
+53     Olr1501 GO:0007186        G-protein coupled receptor signaling pathway
+54       Socs3 GO:0016567                              protein ubiquitination
+55       Socs3 GO:0042493                                    response to drug
+56       Socs3 GO:0043066            negative regulation of apoptotic process
+57       Fbxw8 GO:0016567                              protein ubiquitination
+58      Fcgr2b GO:0007166             cell surface receptor signaling pathway
+59    Arhgef10 GO:0090307                            mitotic spindle assembly
+60      Eef1e1 GO:0008285           negative regulation of cell proliferation
+61       F13a1 GO:0007596                                   blood coagulation
+62       Tubb6 GO:0007010                           cytoskeleton organization
+63     Csnk2a2 GO:0006468                             protein phosphorylation
+64     Csnk2a2 GO:0051726                            regulation of cell cycle
+65     Olr1735 GO:0007186        G-protein coupled receptor signaling pathway
+\end{Soutput}
+\begin{Sinput}
+> 
+\end{Sinput}
+\end{Schunk}
 
 This displays all biological process (BP) ontologies present in \texttt{b} that are not present in \texttt{a}.  Similarly, one can look at all BP, CC, or MF ontologies present in \texttt{a} that are not present in \texttt{b}. 
 

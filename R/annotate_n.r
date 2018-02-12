@@ -6,7 +6,7 @@
 #' @param extension Desired upstream extension.
 #' @param n Number of Gene's closest away from the peak
 #'
-#' @return The gene coordinates are extended by `extension` at the 5-prime end, and by 500 bp at the 3-prime end.  The peaks file is then overlayed on these new gene coordinates, producing a file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).  Distance is calculated between 5-prime end of gene and 3-prime end of peak. Looks like "annotated_extension_n.txt".
+#' @return The gene coordinates are extended by `extension` at the 5-prime end, and by 500 bp at the 3-prime end.  The peaks file is then overlayed on these new gene coordinates, producing a file of peaks annotated with gene ID, gene name, and gene-to-peak genomic distance (in bp).  Distance is calculated between 5-prime end of gene and 3-prime end of peak. File named "annotated_'extension'_'n'.txt".
 #' @return A data.table formatted version of the annotated file for checking or further calculations.
 #'
 #' @examples
@@ -54,8 +54,8 @@ annotate_n <- function(organism, extension, n=2) {
     rdt[,'bot' := (indices - (n-1))]
     rdt[,'top' := (indices + (n-1))]
     
-    #THROW
-    rdt[, c("Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Distance-of-Gene-to-Nearest-Peak", "num") := NULL]
+    #THROW extras
+    rdt[, c("Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Distance-of-Gene-to-Nearest-Peak") := NULL]
     
     #Grabs and adds
     rdt[, ..I := .I]

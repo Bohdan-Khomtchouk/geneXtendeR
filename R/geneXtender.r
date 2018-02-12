@@ -11,13 +11,15 @@
 #'
 #' @note Not to be run by the user
 #' 
+#' 
 #' @keywords internal
 #' 
+#' @import data.table
 #'
 #' @useDynLib geneXtendeR, .registration = TRUE
 .geneXtender <- function(upstream, organism, ret = FALSE) {
-  oopts = options(warn=-1)
-  on.exit(options(oopts))
+  #oopts = options(warn=-1)
+  #on.exit(options(oopts))
   messy2 <- dplyr::filter(organism, type == "gene")
   neat <- dplyr::select(messy2, seqid, start, end, strand, gene_id, gene_name)
   pos_exons <- dplyr::filter(neat, strand == "+")

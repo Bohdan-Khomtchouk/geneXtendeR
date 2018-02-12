@@ -17,20 +17,21 @@
 #' gene_annotate(rat, 3400)
 #' 
 #' @useDynLib geneXtendeR, .registration = TRUE
+#' @import data.table
 #'
 #' @export
 gene_annotate <- function(organism, extension) {
   PeaktoGeneAnno <- annotate(organism, extension)
   
   GtPA <- PeaktoGeneAnno[,
-                         .(.N,
+                         .('Peaks-on-Gene-Body' = sum(`Distance-of-Gene-to-Nearest-Peak` == 0),
                            mean = mean(`Distance-of-Gene-to-Nearest-Peak`),
                            sd = sd(`Distance-of-Gene-to-Nearest-Peak`),
-                           'Peaks-on-Gene-Body' = sum(`Distance-of-Gene-to-Nearest-Peak` == 0)),
+                           .N),
                          by=.(`Chromosome`, `Gene-Start`, `Gene-End`, `Gene-ID`, `Gene-Name`)]
   data.table::setnames(GtPA, c("N", "mean"), c("Number-of-Peaks-Associated-with-Gene", "Mean-Distance-of-Gene-to-Nearest-Peaks"))
   
-  GtPA <- dplyr::arrange(GtPA, desc(`Number-of-Peaks-Associated-with-Gene`), desc(`Peaks-on-Gene-Body`))
+  GtPA <- dplyr::arrange(GtPA,desc(`Peaks-on-Gene-Body`), desc(`Number-of-Peaks-Associated-with-Gene`))
   
   data.table::fwrite(
     GtPA,

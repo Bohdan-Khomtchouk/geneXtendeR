@@ -18,7 +18,7 @@
 #' @export
 peakLengthBoxplot <- function(organism, start, end) {
   a <- distinct(organism, start, end)
-  b <- as.numeric(a$V3) - as.numeric(a$V2)
+  b <- as.numeric(a$`Peak-End`) - as.numeric(a$`Peak-Start`)
   boxplot(b, ylab = "peak length (bp)")
   b
 }
