@@ -1,6 +1,6 @@
 Package: geneXtendeR
 Type: Package
-Version: 1.3.5
+Version: 1.3.6
 Title: Optimized Functional Annotation Of ChIP-seq Data
 Description: geneXtendeR optimizes the functional annotation of ChIP-seq peaks using fast iterative peak-coordinate/GTF alignment algorithms.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can be a noisy process.  As such, the goal of geneXtendeR is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
 Authors@R: person("Bohdan", "Khomtchouk", email = "khomtchoukmed@gmail.com", role = c("aut", "cre"))
@@ -9,7 +9,8 @@ URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
 Depends: GO.db, org.Rn.eg.db, rtracklayer, R (>= 3.3.1)
 Imports: AnnotationDbi, data.table, dplyr, graphics, networkD3, org.Ag.eg.db, org.Bt.eg.db, org.Ce.eg.db, org.Cf.eg.db, org.Dm.eg.db, org.Dr.eg.db, org.Gg.eg.db, org.Hs.eg.db, org.Mm.eg.db, org.Mmu.eg.db, org.Pt.eg.db, org.Sc.sgd.db, org.Ss.eg.db, org.Xl.eg.db, RColorBrewer, SnowballC, tm, utils, wordcloud
-Suggests: BiocStyle, knitr, rmarkdown
+Suggests: BiocStyle, knitr, rmarkdown,
+    testthat
 VignetteBuilder: knitr
 License: GPL (>= 3)
 LazyData: TRUE
