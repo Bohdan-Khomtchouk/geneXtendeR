@@ -464,6 +464,8 @@ Once the user has chosen the specific upstream extension to be used, the peak fi
 
 which generates a fully annotated peaks outfile (in the user's working directory) containing various genomic features and labeled headers.
 
+\subsection*{Gene-centric approach to functional annotation}
+
 If a user is looking for a more gene-centric approach to an\-notation, they may use either the \texttt{gene\_lookup()}
 or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function builds off of the \texttt{annotate()} function, but reorganizes the information based on relevant gene information.
 
@@ -471,38 +473,29 @@ or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function b
 \begin{Sinput}
 > head(gene_annotate(rat, 2400))
 \end{Sinput}
-\begin{Soutput}
-  Chromosome Gene-Start  Gene-End            Gene-ID Gene-Name
-1         12   14448510  15101186 ENSRNOG00000001103      Sdk1
-2          5  168141047 168736696 ENSRNOG00000018602    Camta1
-3          8  127268889 127573488 ENSRNOG00000043167     Itga9
-4         13  106749225 107427829 ENSRNOG00000003738     Ush2a
-5         10   18557628  18944940 ENSRNOG00000005365    Kcnip1
-6         12   51385263  51705130 ENSRNOG00000032590     Ttc28
-  Number-of-Peaks-Associated-with-Gene Mean-Distance-of-Gene-to-Nearest-Peaks       sd
-1                                   36                               6290.222 19899.71
-2                                   21                                  0.000     0.00
-3                                   20                                  0.000     0.00
-4                                   20                                  0.000     0.00
-5                                   19                                  0.000     0.00
-6                                   19                                  0.000     0.00
-  Peaks-on-Gene-Body
-1                 32
-2                 21
-3                 20
-4                 20
-5                 19
-6                 19
-\end{Soutput}
 \end{Schunk}
 
 \begin{figure}[H]
 \centering
-\includegraphics{figures/vignette_gene_lookup_zbtb16_19.png}
-\caption{This output shows all the peaks nearest to "Zbtb16" and their respective distances. Even though only 17 of the peaks reside on the extended gene-body, the additional two peaks are close enough to consider being included in analysis.}
+\includegraphics{figures/vignette_gene_annotate_2400.PNG}
+\caption{This output labels each gene and matches it with the number of peaks that lie on and "first away" from the gene-body. The table is sorted by number of peaks on gene body and include extra information such as mean and standard deviation(sd) for extra validation.}
 \end{figure}
 
-Information such as Peaks-on-Gene-Body, number of peaks associated with a single gene, and other information are included in this table. \hl{Ideally, a user would be looking for genes that have a high number of \texttt{Peaks-on-Gene-Body} to follow-up on for gene research. Genes that have peaks that reside close to the chosen gene-body (low mean) and that are clustered (low standard deviation) may also be good targets for follow-up analysis.} The \texttt{gene\_lookup()} function looks up all genes' (or gene IDs') peaks surrounding those genes across all chromosomes and reports these peaks. \hl{This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.}
+Information such as Peaks-on-Gene-Body, number of peaks associated with a single gene, and other information are included in this table. Ideally, a user would be looking for genes that have a high number of \texttt{Peaks-on-Gene-Body} to follow-up on for experimental validation. Genes that have peaks that reside close to the chosen gene-body (low mean) and that are clustered (low standard deviation) may also be good targets for follow-up analysis.} The \texttt{gene\_lookup()} function looks up all genes' (or gene IDs') peaks surrounding those genes across all chromosomes and reports these peaks. \hl{This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.
+
+An example of how the gene-annotate function is intented to be used is below:
+\begin{figure}[H]
+\centering
+\includegraphics{figures/vignette_gene_annotate_example.png}
+\caption{The figure shows three seperate genes that explemplify three of the four different scenarios that may arise when using the table.}
+\end{figure}
+
+\begin{enumerate}
+\item The first gene has 32 peaks on the gene-body of "Sdk1", with a total of 36 genes that would be annotated to it. The high SD and mean (relative to the fact that 32/36 of these genes reside on the gene-body itself) show that the other peaks that do not reside on gene-body, also do not reside near enough to the gene to warrant biological meaning. Or, focus on the 32 peaks on the gene-body itself and not the other 4.
+\item The second gene has both a low mean distance as well as a relatively low SD, so "Zbtb16" is definitely a good gene to follow-up on and include the peaks near the gene in the follow-up.
+\item And the third gene has 7 peaks that point to "Zfp423" that do not reside on the gene-body, with high mean and SD those 7 are probably unnecessary for use in a follow-up of that gene.
+\item The default case where both the mean and sd are high. Some cleaning may be done but there is probably very little point in following-up on these peaks based on distance alone.
+\end{enumerate}
 
 \begin{Schunk}
 \begin{Sinput}
@@ -516,7 +509,7 @@ Information such as Peaks-on-Gene-Body, number of peaks associated with a single
 \caption{This output shows all the peaks nearest to "Zbtb16" and their respective distances. Even though only 17 of the peaks reside on the extended gene-body, the additional two peaks are close enough to consider being included in analysis.}
 \end{figure}
 
-\hl{In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, n represents the number of nearest peaks to a given gene, listed separately for each chromosome. In the case of "zbtb16," there are 19 nearest peaks to the gene and this displays their location as well as their distance from the gene. This function is motivated by the need of biologists to accurately design primers for specific genomic loci in order to experimentally validate the existence (realness) of a peak.}
+In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, n represents the number of nearest peaks to a given gene, listed separately for each chromosome. In the case of "zbtb16," there are 19 nearest peaks to the gene and this displays their location as well as their distance from the gene. This function is motivated by the need of biologists to accurately design primers for specific genomic loci in order to experimentally validate the existence (realness) of a peak.
 
 For a much more in-depth analysis, a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} has been provided as \texttt{annotate\_n()}. Instead of simply annotating a peak to a single, closest gene, this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the peaks layout for further analysis. Called, this function looks like:
 
@@ -532,7 +525,7 @@ For a much more in-depth analysis, a function that combines both \texttt{gene\_l
 \caption{This output shows how the information is organized and the scale of the information provided.}
 \end{figure}
 
-\hl{This function is the most versatile of the annotation functions provided and is extremely useful for providing peak-to-gene evidence and follow-up information. When moving away from the traditional "first closest gene" to a peak, this method opens up many more possiblibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance a peak that influences any particular gene is missed or misattributed to the wrong gene.}
+This function is the most versatile of the annotation functions provided and is extremely useful for providing peak-to-gene evidence and follow-up information. When moving away from the traditional "first closest gene" to a peak, this method opens up many more possiblibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance a peak that influences any particular gene is missed or misattributed to the wrong gene.
 
 \section*{Discussion}
 

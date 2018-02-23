@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  9 FEB 2018 12:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.11)  23 FEB 2018 10:10
 entering extended mode
 **./geneXtendeR.tex
 (geneXtendeR.tex
@@ -626,94 +626,51 @@ Package pdftex.def Info: figures/vignette_annotate_2400.PNG used on input line
 461.
 (pdftex.def)             Requested size: 400.38872pt x 70.89053pt.
 
-Overfull \hbox (9.79532pt too wide) in paragraph at lines 467--469
-[]\T1/aess/m/n/12 If a user is look-ing for a more gene-centric ap-proach to an
--notation, they may use ei-ther the \T1/aett/m/n/12 gene_lookup()
+Overfull \hbox (9.79532pt too wide) in paragraph at lines 469--471
+\T1/aess/m/n/12 If a user is look-ing for a more gene-centric ap-proach to an-n
+otation, they may use ei-ther the \T1/aett/m/n/12 gene_lookup()
  []
 
 [19 <./figures/vignette_wordfreq.png> <./figures/vignette_annotate_2400.PNG>]
-<figures/vignette_gene_lookup_zbtb16_19.png, id=178, 479.54156pt x 226.59656pt>
-File: figures/vignette_gene_lookup_zbtb16_19.png Graphic file (type png)
-<use figures/vignette_gene_lookup_zbtb16_19.png>
-Package pdftex.def Info: figures/vignette_gene_lookup_zbtb16_19.png used on inp
-ut line 501.
-(pdftex.def)             Requested size: 400.38872pt x 189.19534pt.
- [20 <./figures/vignette_gene_lookup_zbtb16_19.png>]
-File: figures/vignette_gene_lookup_zbtb16_19.png Graphic file (type png)
- <use figures/vignette_gene_lookup_zbtb16_19.png>
-Package pdftex.def Info: figures/vignette_gene_lookup_zbtb16_19.png used on inp
-ut line 515.
-(pdftex.def)             Requested size: 400.38872pt x 189.19534pt.
+<figures/vignette_gene_annotate_2400.PNG, id=179, 1009.52156pt x 81.30376pt>
+File: figures/vignette_gene_annotate_2400.PNG Graphic file (type png)
 
-Overfull \hbox (9.69963pt too wide) in paragraph at lines 521--522
-[]\T1/aess/m/n/12 For a much more in-depth anal-y-sis, a func-tion that com-bin
-es both \T1/aett/m/n/12 gene_lookup() \T1/aess/m/n/12 and \T1/aett/m/n/12 gene_
-annotate()
- []
+<use figures/vignette_gene_annotate_2400.PNG>
+Package pdftex.def Info: figures/vignette_gene_annotate_2400.PNG used on input 
+line 480.
+(pdftex.def)             Requested size: 400.38872pt x 32.2455pt.
 
-<figures/vignette_annotate_3500_3.png, id=185, 828.09375pt x 137.01187pt>
-File: figures/vignette_annotate_3500_3.png Graphic file (type png)
+! Too many }'s.
+l.484 ... be good targets for follow-up analysis.}
+                                                   The \texttt{gene\_lookup(...
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
 
-<use figures/vignette_annotate_3500_3.png>
-Package pdftex.def Info: figures/vignette_annotate_3500_3.png used on input lin
-e 531.
-(pdftex.def)             Requested size: 400.38872pt x 66.24788pt.
- [21 <./figures/vignette_annotate_3500_3.png>] <geneXtendeR-028.pdf, id=193, 43
-3.62pt x 433.62pt>
-File: geneXtendeR-028.pdf Graphic file (type pdf)
+)
+Runaway argument?
+{This method is extremely useful when paired with \texttt {gene\_anno\ETC.
+! File ended while scanning use of \SOUL@n.
+<inserted text> 
+                \par 
+<*> ./geneXtendeR.tex
+                     
+I suspect you have forgotten a `}', causing me
+to read past where you wanted me to stop.
+I'll try to recover; but if the error is serious,
+you'd better type `E' or `X' now and fix your file.
 
-<use geneXtendeR-028.pdf>
-Package pdftex.def Info: geneXtendeR-028.pdf used on input line 543.
-(pdftex.def)             Requested size: 400.38872pt x 400.41072pt.
- [22 <./geneXtendeR-028.pdf>]
-<figures/workflow.pdf, id=204, 410.60803pt x 397.6747pt>
-File: figures/workflow.pdf Graphic file (type pdf)
+! Emergency stop.
+<*> ./geneXtendeR.tex
+                     
+*** (job aborted, no legal \end found)
 
-<use figures/workflow.pdf>
-Package pdftex.def Info: figures/workflow.pdf used on input line 553.
-(pdftex.def)             Requested size: 400.38872pt x 387.78891pt.
- [23 <./figures/workflow.pdf>]
-<geneXtendeR-029.pdf, id=230, 433.62pt x 433.62pt>
-File: geneXtendeR-029.pdf Graphic file (type pdf)
- <use geneXtendeR-029.pdf>
-Package pdftex.def Info: geneXtendeR-029.pdf used on input line 566.
-(pdftex.def)             Requested size: 400.38872pt x 400.41072pt.
-
-[24 <./geneXtendeR-029.pdf>] [25] [26] [27]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 727.
- [28]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 727.
- (geneXtendeR.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 727.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 727.
-Package rerunfilecheck Info: File `geneXtendeR.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 727.
- ) 
+ 
 Here is how much of TeX's memory you used:
- 8011 strings out of 493323
- 118983 string characters out of 3139065
- 229109 words of memory out of 3000000
- 11319 multiletter control sequences out of 15000+200000
+ 7941 strings out of 493323
+ 117991 string characters out of 3139065
+ 214229 words of memory out of 3000000
+ 11286 multiletter control sequences out of 15000+200000
  34480 words of font info for 74 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,11n,45p,1730b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmsltt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmss10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmss12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmss17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss
-8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on geneXtendeR.pdf (28 pages, 686239 bytes).
-PDF statistics:
- 335 PDF objects out of 1000 (max. 8388607)
- 65 named destinations out of 1000 (max. 500000)
- 100 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+!  ==> Fatal error occurred, no output PDF file produced!
