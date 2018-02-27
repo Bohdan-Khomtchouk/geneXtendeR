@@ -8,5 +8,7 @@ r: bioc-devel
 cache: packages
 warnings_are_errors: false
 sudo: false
+before_install:
+  sudo apt-get install texinfo
 r_packages:
   - devtools
