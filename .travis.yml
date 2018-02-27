@@ -9,6 +9,9 @@ cache: packages
 warnings_are_errors: false
 sudo: false
 before_install:
-  - tlmgr install beramono
+  - tlmgr install bera
+  - tlmgr install nowidow
+  - tlmgr install parnotes
+  - tlmgr install marginfix
 r_packages:
   - devtools
