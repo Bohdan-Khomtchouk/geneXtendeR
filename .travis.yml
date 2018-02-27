@@ -7,12 +7,8 @@ language: r
 r: bioc-devel
 cache: packages
 warnings_are_errors: false
-sudo: false
+sudo: required
 r_check_args: "--no-vignettes"
-env:
-  - TEST_SUITE=units
-  - TEST_SUITE=integration
-script: "bundle exec rake test:$TEST_SUITE"
 before_install:
   - tlmgr install bera
   - tlmgr install nowidow
