@@ -9,6 +9,6 @@ cache: packages
 warnings_are_errors: false
 sudo: false
 before_install:
-  - tlmgr install index
+  - tlmgr install beramono
 r_packages:
   - devtools
