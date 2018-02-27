@@ -7,4 +7,6 @@ language: r
 r: bioc-devel
 cache: packages
 warnings_are_errors: false
-sudo: required
+sudo: false
+r_packages:
+  - devtools
