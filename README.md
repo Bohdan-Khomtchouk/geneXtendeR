@@ -8,7 +8,7 @@
 
 [![AUR](https://img.shields.io/aur/license/yaourt.svg?maxAge=2592000)]()
 [![Bioconductor Time](http://bioconductor.org/shields/years-in-bioc/geneXtendeR.svg)](http://bioconductor.org/packages/release/bioc/html/geneXtendeR.html "Bioconductor status")
-[![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](http://bioconductor.org/packages/stats/bioc/geneXtendeR.html "Percentile downloads")
+[![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](https://bioconductor.org/packages/stats/bioc/geneXtendeR/ "Percentile downloads")
 
 </div>
 
