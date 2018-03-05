@@ -87,6 +87,6 @@ gene_lookup <- function(organism, gene_name, n=2, extension = NA, cutoff = Inf) 
     data.table::setnames(report, c("Chromosome", "Peak-Start", "Peak-End", "Distance-to-Gene", "Gene-Start", "Gene-End", "Gene"))
     
     
-    return(report)
+    return(report[])
   }
 }

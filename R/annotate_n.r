@@ -95,6 +95,6 @@ annotate_n <- function(organism, extension, n=2) {
       col.names = TRUE,
       quote = FALSE
     )
-    return(rdt)
+    return(rdt[])
   }
 }
