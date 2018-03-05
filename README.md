@@ -6,16 +6,13 @@
 
 ##### R/Bioconductor package for optimized functional annotation of ChIP-seq data
 
-[![Travis-CI Build Status](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR.svg?branch=master)](https://travis-ci.org/Bohdan-Khomtchouk/geneXtendeR)
-[![AUR](https://img.shields.io/aur/license/yaourt.svg?maxAge=2592000)]()
+![AUR](https://img.shields.io/aur/license/yaourt.svg)
 [![Bioconductor Time](http://bioconductor.org/shields/years-in-bioc/geneXtendeR.svg)](http://bioconductor.org/packages/release/bioc/html/geneXtendeR.html "Bioconductor status")
-[![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](http://bioconductor.org/packages/stats/bioc/geneXtendeR.html "Percentile downloads")
-[![Bioconductor Commits](http://bioconductor.org/shields/commits/bioc/geneXtendeR.svg)](http://bioconductor.org/packages/release/bioc/html/geneXtendeR.html#svn_source "svn commits")
-[![Support posts](http://bioconductor.org/shields/posts/geneXtendeR.svg)](https://support.bioconductor.org/t/geneXtendeR/ "Bioconductor support posts")
+[![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](https://bioconductor.org/packages/stats/bioc/geneXtendeR/ "Percentile downloads")
 
 </div>
 
-`geneXtendeR` optimizes the functional annotation of ChIP-seq peaks using fast iterative peak-coordinate/GTF alignment algorithms.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can be a noisy process.  As such, the goal of `geneXtendeR` is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
+`geneXtendeR` optimizes the functional annotation of ChIP-seq peaks by exploring relative differences in annotating ChIP-seq peak sets to variable-length gene bodies.  In contrast to prior techniques, `geneXtendeR` considers peak annotations beyond just the closest gene, allowing users to see peak summary statistics for the first-closest gene, second-closest gene, ..., n-closest gene whilst ranking the output according to biologically relevant events and iteratively comparing the fidelity of peak-to-gene overlap across a user-defined range of upstream and downstream extensions on the original boundaries of each gene's coordinates.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can often be a noisy process.  As such, the goal of `geneXtendeR` is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
 
 ### Landing page
 
@@ -29,7 +26,7 @@ https://bioconductor.org/packages/3.6/geneXtendeR/
 
 ### Vignette
 
-Please read the `geneXtendeR` documentation (https://bioconductor.org/packages/devel/bioc/vignettes/geneXtendeR/inst/doc/geneXtendeR.pdf), which includes software workflows and comprehensive analyses to get you started.
+Please read the `geneXtendeR` documentation (https://bioconductor.org/packages/devel/bioc/vignettes/geneXtendeR/inst/doc/geneXtendeR.pdf), which includes software workflows and comprehensive analyses to get you started.  Note, however, that the most up-to-date vignette will be found in this git repository.
 
 ### Github installation instructions
 
@@ -51,14 +48,6 @@ library(geneXtendeR)
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
 biocLite("geneXtendeR")
-```
-
-After installation, you should always update to the latest available version of `geneXtendeR` by typing `biocLite()`:
-
-```R
-## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite()                  ## R version 3.0 or later
 ```
 
 ### Citation
