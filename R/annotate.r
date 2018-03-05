@@ -51,6 +51,6 @@ annotate <- function(organism, extension) {
     colnames(rdt) <- c("Chromosome", "Peak-Start", "Peak-End", "rm", "Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "Distance-of-Gene-to-Nearest-Peak")
     rdt <- rdt[,rm:= NULL]
     for (j in c("Chromosome", "Peak-Start", "Peak-End", "Gene-Start", "Gene-End", "Distance-of-Gene-to-Nearest-Peak")) data.table::set(rdt, j=j, value = as.numeric(rdt[[j]]))
-    return(rdt)
+    return(rdt[])
  }      
 }

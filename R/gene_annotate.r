@@ -41,5 +41,5 @@ gene_annotate <- function(organism, extension) {
     col.names = TRUE,
     quote = FALSE
   )
-  return(GtPA)
+  return(GtPA[])
 }
