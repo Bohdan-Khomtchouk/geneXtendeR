@@ -11,7 +11,7 @@
 
 <<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
-@ 
+@
 
 
 \begin{document}
@@ -57,7 +57,8 @@ This automatically loads the \texttt{rtracklayer} R package, which contains the 
 
 <<results=hide, eval=FALSE>>=
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
-                      rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
+                      rattus_norvegicus/
+                      Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
 @
 
 URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc.), and copy the link address.  Then, paste the link address into the \texttt{readGFF()} as shown above.  This will create an R dataframe object containing the respective GTF file.
@@ -127,7 +128,8 @@ Hence, one very useful function in \texttt{geneXtendeR} is called \texttt{hotspo
 \begin{center}
 <<fig=TRUE>>=
 allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+sigpeaks <- system.file("extdata", "significantpeaksfile.txt",
+                        package="geneXtendeR")
 hotspotPlot(allpeaks, sigpeaks, rat, 0, 10000, 500)
 @
 \end{center}
@@ -140,7 +142,8 @@ One interesting area to investigate is the variance in the broadness of signific
 \begin{figure}[H]
 \begin{center}
 <<fig=TRUE>>=
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+sigpeaks <- system.file("extdata", "significantpeaksfile.txt",
+                        package="geneXtendeR")
 peaksInput(sigpeaks)
 meanPeakLengthPlot(rat, 0, 10000, 500)
 @
@@ -150,7 +153,8 @@ meanPeakLengthPlot(rat, 0, 10000, 500)
 This line plot displays the mean (average) length of all significant peaks found within each genomic interval.  Clearly, the ``average peak" is slightly narrower in 0-500 bp intervals than in 500-1000 bp intervals yet, overall, peak lengths tend to fluctuate more or less stochastically at various intervals.  To get the exact peak length, we can do:
 
 <<>>=
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
+sigpeaks <- system.file("extdata", "significantpeaksfile.txt",
+                        package="geneXtendeR")
 peaksInput(sigpeaks)
 meanPeakLength(rat, 0, 500)
 @
@@ -160,7 +164,8 @@ So the mean peak length in the interval 0-500 bp is approximately 1958 bp.  Alth
 \begin{figure}[H]
 \begin{center}
 <<fig=TRUE>>=
-allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+allpeaks <- system.file("extdata", "totalpeaksfile.txt",
+                        package="geneXtendeR")
 peaksInput(allpeaks)
 meanPeakLengthPlot(rat, 0, 10000, 500)
 @
@@ -172,7 +177,8 @@ We see that the 4000-4500 bp and 8500-9000 bp intervals both look quite differen
 \begin{figure}[H]
 \begin{center}
 <<fig=TRUE>>=
-allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
+allpeaks <- system.file("extdata", "totalpeaksfile.txt",
+                        package="geneXtendeR")
 peaksInput(allpeaks)
 peak_lengths <- peakLengthBoxplot(rat, 4000, 4500)
 @
@@ -195,7 +201,7 @@ match(114999, peak_lengths)
 
 which returns the index of where this peak length is found.  Then the following command finds all unique peaks that reside between 4000 and 4500 bp upstream of their nearest gene:
 
-<<>>=
+<<keep.source=FALSE>>=
 distinct(rat, 4000, 4500)
 @
 
@@ -222,7 +228,7 @@ which generates a fully annotated peaks outfile (in the user's working directory
 If a user is looking for a more gene-centric approach to an\-notation, they may use either the \texttt{gene\_lookup()}
 or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function builds off of the \texttt{annotate()} function, but reorganizes the information based on relevant gene information.
 
-<<eval=TRUE>>=
+<<tidy=TRUE, eval=TRUE>>=
 head(gene_annotate(rat, 2400)[])
 @
 
@@ -232,7 +238,7 @@ Information such as Peaks-on-Gene-Body, number of peaks associated with a single
 
 An example of how the gene-annotate function is intented to be used is below:
 
-<<eval=TRUE, result=show>>=
+<<tidy=TRUE, eval=TRUE, result=show>>=
 print(head(gene_annotate(rat, 2400)[], 20)[c(1, 7, 11),])
 @
 
