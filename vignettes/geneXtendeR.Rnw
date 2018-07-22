@@ -266,6 +266,8 @@ print(annotate_n(rat, 3500, n=3)[], topn =5)
 
 This function is the most versatile of the annotation functions provided and is extremely useful for providing peak-to-gene evidence and follow-up information, but it also expands the information similar to bootstrapping. When moving away from the traditional "first closest gene" to a peak, this method opens up many more possiblibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance a peak that influences any particular gene is missed or misattributed to the wrong gene.
 
+"Rank" is rank of the gene in respect to how close it is to a peak. For example, a rank 2 record is the second closest gene to a peak. Or, ranks 3 or 4 would indicate the third or fourth closest gene to a peak respetively. "Minimum-Distance-to-Gene" is the distance in bp from a gene to a peak. This can be very useful when only looking for peaks a specified bp distance from genes. 
+
 \subsection{Gene Ontology functions}
 
 It may be of interest to note the differential gene ontologies between these two upstream extensions:
