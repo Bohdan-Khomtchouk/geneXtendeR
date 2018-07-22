@@ -218,7 +218,7 @@ This data table shows 29 separate entries sorted by chromosome and start positio
 Once the user has chosen the specific upstream extension to be used, the peak file is ready to be fully annotated:
 
 <<eval=TRUE>>=
-print(annotate(rat, 2400)[], topn = 5)
+print(annotate(rat, 2400)[], 5)
 @
 
 which generates a fully annotated peaks outfile (in the user's working directory) containing various genomic features and labeled headers. An example of which is above.
@@ -261,7 +261,7 @@ In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, n represents the n
 For a much more in-depth analysis, a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} has been provided as \texttt{annotate\_n()}. Instead of simply annotating a peak to a single, closest gene, this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the peaks layout for further analysis. Called, this function looks like:
 
 <<>>=
-print(annotate_n(rat, 3500, n=3)[], topn =5)
+print(annotate_n(rat, 3500, n=3)[], 5)
 @
 
 This function is the most versatile of the annotation functions provided and is extremely useful for providing peak-to-gene evidence and follow-up information, but it also expands the information similar to bootstrapping. When moving away from the traditional "first closest gene" to a peak, this method opens up many more possiblibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance a peak that influences any particular gene is missed or misattributed to the wrong gene.
