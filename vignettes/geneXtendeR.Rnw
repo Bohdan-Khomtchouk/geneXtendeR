@@ -61,16 +61,10 @@ mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
 
 Next, load in the ChIP-seq peak coordinates (comes pre-bundled with this package) of Gidl\"{o}f et al. 2016.
 
-<<>>=
-fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", package="geneXtendeR")
-peaksInput(fpath_peaks)
-@
+
 
 For reference, these genomic coordinates were called using the SICER peak calling algorithm, and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the publication.  Finally, type in the following command to annotate this peaks file with a GTF file (the R object \texttt{mouse}) whose genes have been extended 2000 bp upstream of their first exon and 500 bp downstream of their last exon:
 
-<<>>=
-head(gene_annotate(mouse, 2000))
-@
 
 
 
