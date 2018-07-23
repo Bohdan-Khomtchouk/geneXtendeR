@@ -36,7 +36,43 @@ With an abundance of Bioconductor software currently available for peak annotati
 
 \subsection{Case-study}
 
-Here we use \texttt{geneXtendeR} to analyze ChIP-seq data published in \emph{Journal of the American Heart Association} (Gidl\"{o}f et al. 2016).  
+Here we use \texttt{geneXtendeR} to analyze ChIP-seq data published in \emph{Journal of the American Heart Association} (Gidl\"{o}f et al. 2016).  To demonstrate this analysis, please download the latest version of \texttt{geneXtendeR} (from Github, since Bioconductor is on a bi-annual release cycle).  To download, open Terminal (or any command line) and type in \texttt{git clone https://github.com/Bohdan-Khomtchouk/geneXtendeR.git}
+
+
+Then, in RStudio, set your working directory to point to this folder and do:
+
+<<results=hide, eval=FALSE>>=
+install.packages("devtools")
+library(devtools)
+build()
+install()
+library(geneXtendeR)
+@
+
+You now have the latest version of \texttt{geneXtendeR} installed on your machine.  Next, load in a mouse GTF file (will be explained more in detail in \emph{Quick Start} section of this vignette):
+
+<<results=hide, eval=FALSE>>=
+mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
+                      mus_musculus/
+                      Mus_musculus.GRCm38.93.chr.gtf.gz")
+@
+
+{\bf{Note:}} Make sure the above command is pre-formatted to fit on one line (as opposed to three separate lines like above -- purely for visual clarity such that it does not run off the page margins).
+
+Next, load in the ChIP-seq peak coordinates (comes pre-bundled with this package) of Gidl\"{o}f et al. 2016.
+
+<<>>=
+fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", package="geneXtendeR")
+peaksInput(fpath_peaks)
+@
+
+For reference, these genomic coordinates were called using the SICER peak calling algorithm, and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the publication.  Finally, type in the following command to annotate this peaks file with a GTF file (the R object \texttt{mouse}) whose genes have been extended 2000 bp upstream of their first exon and 500 bp downstream of their last exon:
+
+<<>>=
+head(gene_annotate(mouse, 2000))
+@
+
+
 
 \subsection{Background}
 
