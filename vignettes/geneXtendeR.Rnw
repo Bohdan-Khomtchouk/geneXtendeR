@@ -61,7 +61,7 @@ biocLite("geneXtendeR")
 library(geneXtendeR)
 @ 
 
-Next, load in a mouse GTF file (will be explained more in detail in \emph{Quick Start} section of this vignette):
+Next, load in a mouse GTF file (will be explained more in detail in Section \ref{sec:qs} of this vignette):
 
 <<results=hide, eval=FALSE>>=
 mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
@@ -78,12 +78,43 @@ fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", package="geneXtendeR"
 peaksInput(fpath_peaks)
 @
 
-For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the publication.  Finally, type in the following command to annotate this peaks file with a GTF file (the R object \texttt{mouse}) whose genes have been extended 2000 bp upstream of their first exon and 500 bp downstream of their last exon:
+For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the JAHA publication.  
+
+Finally, type in the following command to annotate this peaks file with a GTF file (the R object \texttt{mouse} above) whose genes have been extended 2000 bp upstream of their first exon and 500 bp downstream of their last exon:
 
 <<>>=
 head(gene_annotate(mouse, 2000))
 @
 
+Clearly, the peaks file has now been functionally annotated with the content of the mouse genome (mm10 build).  Specifically, each individual row of peak coordinates in the input file (chromosome, start position of peak, end position of peak) has been annotated with relevant gene information.  This output labels each gene and matches it with the number of peaks that overlap it and are "first away" from its gene-body (i.e., closest/nearest but not overlapping).  Distance is calculated between the 5-prime end of gene and 3-prime end of peak (or 3-prime end of gene and 5-prime end of peak, whichever is smallest).  The table is sorted by number of peaks on gene body (i.e., number of peaks that directly overlap the gene body) and include extra information such as mean and standard deviation (sd) for extra validation.  Typically, a user would be looking for genes that have a high number of \texttt{Peaks-on-Gene-Body} to follow-up on for experimental validation. Genes that have peaks that reside close (but not overlapping) to the chosen gene-body (i.e., low mean) and that are clustered together spatially (i.e., low standard deviation) may also be good targets for follow-up analysis.  It should be noted that mean = 0 (i.e, \texttt{Mean-Distance-of-Gene-to-Nearest-Peaks} = 0) denotes cases where all peaks are overlapping a given gene body. 
+
+
+The table above shows that the top 3 genes (in terms of total number of peaks overlapping their gene body) are \texttt{Gm20388}, \texttt{Fgfr2}, and \texttt{Camta1} -- which have 781, 165, and 77 peaks (respectively).  Although little is currently known in the literature about \texttt{Gm20388} (since it is a predicted gene), the gene \texttt{Fgfr2} plays a well-known role in cardiac ischemia (House et al. 2016).  In addition, Gidl\"{o}f et al. 2016 report that the gene \texttt{Camta1} is significantly downregulated in ischemic heart tissue enriched in H3K9me2 (Table S2, Gidl\"{o}f et al. 2016), as quantified by p-value and fold change information acquired from microarray.  Therefore, \texttt{geneXtendeR} has successfully shown at least 2 out of 3 top genes (mapped to peaks) to play a confirmed role in ischemia.    
+
+
+Similarly, the \texttt{gene\_lookup()} function looks up all peaks surrounding a specific gene or list of genes across all chromosomes and reports these peaks. This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.  Here, we examine the \texttt{mTOR} gene, which was also experimentally validated in Gidl\"{o}f et al. 2016:
+
+<<>>=
+gene_lookup(mouse, c("mTOR"), n = 22, extension = 2000)
+@
+
+This output shows the sheer quantity of peaks that overlap the \texttt{mTOR} gene body (19 peaks!).  It is no surprise that, with this many peaks directly on top of the \texttt{mTOR} gene, experimental validation was indeed successful in this case (Gidl\"{o}f et al. 2016).  Using \texttt{geneXtendeR} can suggest such opportunities for wet-lab follow-up, especially when combined with biological knowledge/domain expertise.  For instance, it is well-known that \texttt{mTOR} is involved in the regulation of autophagy, and as the cardioprotective effect of ischemic preconditioning is strongly linked with autophagy, \texttt{mTOR} was an interesting gene to follow up on in this study.  The hypothesis was that ischemic preconditioning (IPC) leads to enrichment of H3K9me2 throughout the \texttt{mTOR} gene, transcriptional repression, induction of autophagy and ultimately, cardioprotection.  This hypothesis was indeed validated.  For instance, it was confirmed that \texttt{mTOR} is indeed downregulated in IPC-hearts compared with qPCR (Figure 3a from Gidl\"{o}f et al. 2016).  Therefore, knowing these genomic peak coordinates facilitated the design of PCR primers.  Likewise, Figures 4-6 validated the other points of the hypothesis.  
+
+In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, \texttt{n} represents the number of nearest (and overlapping) peaks to a given gene. We see that in the case of \texttt{mTOR} there are quite a number of nearest (and overlapping) peaks to the gene and \texttt{gene\_lookup()} displays their location as well as their distance from the gene. Thus, this function is motivated by the need of biologists to accurately design primers for specific genomic loci in order to experimentally validate the existence (realness) of a peak.
+
+\texttt{geneXtendeR} also provides a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} called: \texttt{annotate\_n()}. Instead of simply annotating a peak to a single closest gene (and reporting any overlapping peaks on gene bodies), this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the peaks layout for further analysis. When called, this function looks like:
+
+<<>>=
+annotate_n(mouse, 2000, n = 3)
+@
+
+This function is the most versatile (and compute-intensive) of the annotation functions provided and is designed for the purpose of providing peak-to-gene associations and follow-up information that goes beyond just a simple genomic distance criterion.  Future work in this direction can address three-dimensional genome interactions (when coupled with methods like Hi-C), and we encourage the reader to explore this frontier further.  When moving away from the traditional "first closest gene" to a peak approach, this method opens up many more possibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance that a peak that influences any particular gene is missed or misattributed to the wrong gene.  In the table above, row 5 clearly shows a peak where the second closest gene (\texttt{Mrpl15}) is located just 1707 bp away. However...
+
+<<>>=
+gene_lookup(mouse, c("Mrpl15"), n = 20, extension = 2000)
+@
+
+Must debug \texttt{annotate\_n()} now...
 
 \subsection{Background}
 
@@ -94,7 +125,7 @@ The primary focus of \texttt{geneXtendeR} is to optimize the process of function
 With regards to histone modification ChIP-seq analysis, \texttt{geneXtendeR} computes optimal gene extensions tailored to the broadness of the specific epigenetic mark (e.g., H3K9me1, H3K27me3), as determined by a user-supplied ChIP-seq peak input file.  To accomplish this level of custom-tailored data analysis, \texttt{geneXtendeR} first optimally extends the boundaries of every gene in a genome by some genomic distance (in DNA base pairs) for the purpose of flexibly incorporating cis-regulatory elements, such as promoter regions, as well as downstream elements that are important to the function of the gene relative to an epigenetic histone modification ChIP-seq dataset.  This action effectively transforms genes into ``gene-spheres", a new term that we coin to emphasize the 3D-nature of heterochromatin.  A gene-sphere is composed of cis-regulatory elements (e.g., proximal promoters +/- $\approx 3$ kb from TSS), distal regulatory elements (e.g., enhancers), transcription start/end sites (TSS/TES), exons, introns, and downstream elements of a gene.  As such, \texttt{geneXtendeR} maximizes the signal-to-noise ratio of locating genes closest to and directly under peaks. By performing a computational expansion of this nature, ChIP-seq reads that would initially not map strictly to a specific gene can now be optimally mapped to the regulatory regions of the gene, thereby implicating the gene as a potential candidate, and thereby making the ChIP-seq analysis more successful. Such an approach becomes particularly important when working with epigenetic histone modifications that have inherently broad peaks with a diffuse range of signal enrichment (e.g., H3K9me1, H3K27me3). 
 
 
-\section{Quick start}
+\section{Quick start} \label{sec:qs}
 
 First, install the \texttt{geneXtendeR} package via:
 
