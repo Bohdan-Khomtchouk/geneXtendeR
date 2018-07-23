@@ -49,7 +49,19 @@ install()
 library(geneXtendeR)
 @
 
-You now have the latest version of \texttt{geneXtendeR} installed on your machine.  Next, load in a mouse GTF file (will be explained more in detail in \emph{Quick Start} section of this vignette):
+You now have the latest version of \texttt{geneXtendeR} installed on your machine. Otherwise, to install directly from Bioconductor, do:
+
+<<eval=FALSE>>=
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("geneXtendeR")
+@
+
+<<>>=
+library(geneXtendeR)
+@ 
+
+Next, load in a mouse GTF file (will be explained more in detail in \emph{Quick Start} section of this vignette):
 
 <<results=hide, eval=FALSE>>=
 mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
@@ -61,9 +73,12 @@ mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
 
 Next, load in the ChIP-seq peak coordinates (comes pre-bundled with this package) of Gidl\"{o}f et al. 2016.
 
+<<>>=
+fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", package="geneXtendeR")
+peaksInput(fpath_peaks)
+@
 
-
-For reference, these genomic coordinates were called using the SICER peak calling algorithm, and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the publication.  Finally, type in the following command to annotate this peaks file with a GTF file (the R object \texttt{mouse}) whose genes have been extended 2000 bp upstream of their first exon and 500 bp downstream of their last exon:
+For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the publication.  Finally, type in the following command to annotate this peaks file with a GTF file (the R object \texttt{mouse}) whose genes have been extended 2000 bp upstream of their first exon and 500 bp downstream of their last exon:
 
 
 
