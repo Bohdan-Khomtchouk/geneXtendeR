@@ -7,7 +7,7 @@
 \usepackage{float}
 \usepackage{cite}
 \title{geneXtendeR}
-\author{Bohdan B. Khomtchouk}
+\author{Bohdan Khomtchouk, Ph.D.}
 
 <<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
@@ -21,18 +21,26 @@ BiocStyle::latex()
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=50mm,scale=0.8]{figures/geneXtendeRlogo.png}
+\includegraphics[width=0.7\columnwidth]{figures/geneXtendeRlogo.png}
 \end{figure}
 
 \tableofcontents
 
 \section{Introduction}
 
-This vignette describes \texttt{geneXtendeR} (Khomtchouk et al. 2016), an R/Bioconductor package for optimized annotation of genomic features (primarily peaks called from a ChIP-seq experiment, but any coverage island regions would work) with the nearest gene. ``Extending" refers to performing gene-feature overlaps after adding to the gene-span a user-specified region upstream of the start of the gene model and a fixed (500 bp) region downstream of the gene, resulting in assigning to a gene the features that do not physically overlap with it but are sufficiently close.  Extending is an automated iterative procedure in \texttt{geneXtendeR}, allowing the user to repeatedly align peaks to multiple gene transfer format (GTF) files to assess what global gene-spans optimize the genomewide alignment of peaks with their closest genes.  This facilitates the process of deciphering which differentially enriched peaks are dysregulating which specific genes.  This, in turn, aids experimental follow-up and validation in designing primers for a set of prospective genes during qPCR (Barbier et al. 2016).  
+This vignette describes \texttt{geneXtendeR}, an R/Bioconductor package for optimized functional annotation of ChIP-seq data.  This software is designed for optimized annotation of genomic features (primarily peaks called from a ChIP-seq experiment, but any coverage island regions would work) with the nearest gene. "Extending" refers to performing gene-feature overlaps after adding to the gene-span a user-specified region upstream of the start of the gene model and a fixed (500 bp) region downstream of the gene, resulting in assigning to a gene the features that do not physically overlap with it but are sufficiently close.  This facilitates the process of deciphering which differentially enriched peaks are dysregulating which specific genes.  This, in turn, aids experimental follow-up and validation in designing primers for a set of prospective genes during qPCR (Barbier et al. 2016).  
 
 \subsection{Rationale}
 
-With an abundance of Bioconductor software currently available for peak annotation to nearby features (e.g., \texttt{ChIPpeakAnno} (Zhu et al. 2010)) as well as the existence of various command line tools (e.g., \texttt{BEDTools} \emph{closest} function (Quinlan and Hall, 2010), \texttt{HOMER} (Heinz et al. 2010)), what makes \texttt{geneXtendeR} different?  The simple answer is: \texttt{geneXtendeR} is designed for assessing the variability of peak overlap with cis-regulatory elements and proximal-promoter regions.  It is well-known that peak coordinates (peak start position, peak end position) exhibit a considerable degree of variance depending on the peak caller used (e.g., SICER (Zang et al. 2009), MACS2 (Zhang et al. 2008), etc.), both in terms of length distribution of peaks as well as the total number of peaks called, even when run at identical default parameter values (Koohy et al. 2014; Thomas et al. 2017).  Tuning algorithm-specific parameters produces even greater variance amongst peak callers, thereby complicating the issue further.  This variance becomes a factor when annotating peak lists genome-wide with their nearest genes as, depending on the peak caller, peaks can be either shifted in genomic position (towards 5' or 3' end) or be of different lengths.  As such, \texttt{geneXtendeR} represents a first step towards tailoring (or customizing) the functional annotation of a ChIP-seq peak dataset according to the details of the peak coordinates (chromosome number, peak start position, peak end position).  
+With an abundance of Bioconductor software currently available for peak annotation to nearby features (e.g., \texttt{ChIPpeakAnno} (Zhu et al. 2010)) as well as the existence of various command line tools (e.g., \texttt{BEDTools} \emph{closest} function (Quinlan and Hall, 2010), \texttt{HOMER} (Heinz et al. 2010)), what makes \texttt{geneXtendeR} different?  Let's look at a concrete example:
+
+\subsection{Case-study}
+
+Here we use \texttt{geneXtendeR} to analyze ChIP-seq data published in \emph{Journal of the American Heart Association} (Gidl\"{o}f et al. 2016).  
+
+\subsection{Background}
+
+\texttt{geneXtendeR} is designed for assessing the variability of peak overlap with cis-regulatory elements and proximal-promoter regions.  It is well-known that peak coordinates (peak start position, peak end position) exhibit a considerable degree of variance depending on the peak caller used (e.g., SICER (Zang et al. 2009), MACS2 (Zhang et al. 2008), etc.), both in terms of length distribution of peaks as well as the total number of peaks called, even when run at identical default parameter values (Koohy et al. 2014; Thomas et al. 2017).  Tuning algorithm-specific parameters produces even greater variance amongst peak callers, thereby complicating the issue further.  This variance becomes a factor when annotating peak lists genome-wide with their nearest genes as, depending on the peak caller, peaks can be either shifted in genomic position (towards 5' or 3' end) or be of different lengths.  As such, \texttt{geneXtendeR} represents a first step towards tailoring (or customizing) the functional annotation of a ChIP-seq peak dataset according to the details of the peak coordinates (chromosome number, peak start position, peak end position).  
 
 The primary focus of \texttt{geneXtendeR} is to optimize the process of functional annotation of a ChIP-seq peak list whereby instead of just annotating peaks with their nearest genomic features (as statically defined by a given genome build's coordinates), \texttt{geneXtendeR} investigates how peaks dynamically align to various user-specified gene extensions (e.g., 500 bp upstream extensions, 2000 bp upstream extensions, etc. for all genes in the genome).  This shows where peaks localize across the genome with respect to their nearest gene, as well as what gene ontologies (BP, CC, and MF) are impacted at these various extension levels.  This, in turn, informs the user what gene extensions ideally capture the GO terms involved in the biology of their experiment.  For example, if a user's study is investigating the role of epigenetic enzymes in alcohol addiction and dependence, then functionally annotating a peak list using gene extensions that maximize the number of brain-related ontologies (for both BP, CC, and MF categories) makes sense.
 
@@ -218,7 +226,7 @@ This data table shows 29 separate entries sorted by chromosome and start positio
 Once the user has chosen the specific upstream extension to be used, the peak file is ready to be fully annotated:
 
 <<eval=TRUE>>=
-print(annotate(rat, 2400)[], topn = 5)
+annotate(rat, 2400)
 @
 
 which generates a fully annotated peaks outfile (in the user's working directory) containing various genomic features and labeled headers. An example of which is above.
@@ -226,45 +234,59 @@ which generates a fully annotated peaks outfile (in the user's working directory
 \subsection{Gene-centric approach to functional annotation}
 
 If a user is looking for a more gene-centric approach to an\-notation, they may use either the \texttt{gene\_lookup()}
-or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function builds off of the \texttt{annotate()} function, but reorganizes the information based on relevant gene information.
+or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function builds off of the \texttt{annotate()} function, but reorganizes and groups the output based on relevant gene information.  If you (the reader) are just joining us now in the vignette and have not yet run any of the command on preceding pages, first just run the following commands:
+
+<<results=hide, eval=FALSE>>=
+library(geneXtendeR)
+rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
+                      rattus_norvegicus/
+                      Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
+fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+peaksInput(fpath)
+@
+
+Now do:
 
 <<tidy=TRUE, eval=TRUE>>=
-head(gene_annotate(rat, 2400)[])
+head(gene_annotate(rat, 2400))
 @
 
-This output labels each gene and matches it with the number of peaks that lie on and "first away" from the gene-body. The table is sorted by number of peaks on gene body and include extra information such as mean and standard deviation(sd) for extra validation.
+This output labels each gene and matches it with the number of peaks that overlap it and are "first away" from its gene-body (i.e., closest/nearest but not overlapping).  Distance is calculated between 5-prime end of gene and 3-prime end of peak (or 3-prime end of gene and 5-prime end of peak, whichever is smallest).  The table is sorted by number of peaks on gene body (i.e., number of peaks that directly overlap the gene body) and include extra information such as mean and standard deviation (sd) for extra validation.  Typically, a user would be looking for genes that have a high number of \texttt{Peaks-on-Gene-Body} to follow-up on for experimental validation. Genes that have peaks that reside close (but not overlapping) to the chosen gene-body (i.e., low mean) and that are clustered together spatially (i.e., low standard deviation) may also be good targets for follow-up analysis. 
 
-Information such as Peaks-on-Gene-Body, number of peaks associated with a single gene, and other information are included in this table. Ideally, a user would be looking for genes that have a high number of \texttt{Peaks-on-Gene-Body} to follow-up on for experimental validation. Genes that have peaks that reside close to the chosen gene-body (low mean) and that are clustered (low standard deviation) may also be good targets for follow-up analysis. The \texttt{gene\_lookup()} function looks up all genes' (or gene IDs') peaks surrounding those genes across all chromosomes and reports these peaks. This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.
 
-An example of how the gene-annotate function is intented to be used is below:
+An example of how the \texttt{gene\_annotate()} function is intended to be used is below, where we highlight three specific rows to highlight key points of the discussion:
 
 <<tidy=TRUE, eval=TRUE, result=show>>=
-print(head(gene_annotate(rat, 2400)[], 20)[c(1, 7, 11),])
+gene_annotate(rat, 2400)[c(1, 7, 11),]
 @
 
-These three genes exemplify three of the four different scenarios that may occur in this table. The difference between the mean and the standard deviation of the peaks located closest to a specific gene can be used to judge the distribution of those peaks, thereby indicating what may or may not be worth following up on.
+These three genes exemplify three of the four different scenarios that may occur in this table. The difference between the mean and the standard deviation of the peaks located closest to a specific gene can be used to judge the distribution of those peaks, thereby indicating what may or may not be worth following up on in the wet-lab experiments.
 \begin{enumerate}
-\item The first gene has 32 peaks on the gene-body of "Sdk1", with a total of 36 genes that would be annotated to it. The high SD and mean (relative to the fact that 32/36 of these genes reside on the gene-body itself) show that the other peaks that do not reside on gene-body, also do not reside near enough to the gene to warrant biological meaning. Or, focus on the 32 peaks on the gene-body itself and not the other 4.
-\item The second gene has both a low mean distance as well as a relatively low SD, which indicates that peaks not residing on the extended gene-body are close to the body."Zbtb16" is definitely a good gene to follow-up on because the peaks are close enough to the gene body to be considered.
-\item The thrid gene showcases the default case, in which both the mean and sd are relatively high. The peaks that do not reside on "Zfp423" are not close either, based on the spread of the mean and standard deviation, so the 7 additional peaks are probably unnecessary for use in a follow-up of that gene.
-\item The final case is the rarest case, when the mean is high but the stadard deviation (sd) is low. This indicates that the peaks are grouped, but located away from the closest gene-body. This is may be another case worth following up on.
+\item The first gene has 32 peaks on the gene-body of "Sdk1" (i.e., 32 peaks that overlap a 2400 bp upstream and 500 bp downstream extension of "Sdk1"), with a total of 36 genes annotated to the "Sdk1" gene body in total. The high SD and mean (relative to the fact that 32/36 of these genes reside on the gene-body itself) indicate that the other 4 peaks that do not reside on gene-body, also do not reside near enough to the gene to warrant biological meaning. In other words, focus on the 32 peaks on the gene-body itself and not the other 4.
+\item The second gene has both a low mean distance as well as a relatively low standard deviation, which indicates that peaks not residing on the extended gene-body are still quite close to it and clustered together spatially at approximately the same genomic location (possibly a proximal-promoter region).  "Zbtb16" is definitely a good gene to follow-up on because the peaks are close enough to the gene body to be considered biologically important (e.g., might reside in important proximal-promoter regions of the gene).
+\item The third gene showcases the default case, in which both the mean and sd are relatively high. The peaks that do not reside on "Zfp423" are not close or clustered together either, based on the spread of the mean and standard deviation, so the 7 additional peaks are probably unnecessary for use in a follow-up of that gene.  The reason why the \texttt{geneXtendeR} package registers these 7 peaks in the first place (even though their mean distance is 19804 bp from their nearest genes) is because these peaks are located in intergenic regions where "Zfp423" just so happens to be the closest gene.
+\item The final case is the rarest case, when the mean is high but the standard deviation is low. This indicates that the peaks are grouped, but located far away from the closest gene-body. This may be another case worth following up on, especially in the context of long-range interactions (e.g., trans-regulatory elements).
 \end{enumerate}
 
-<<>>=
-gene_lookup(rat, c("zbtb16"), n = 19, extension = 2400)[]
-@
+It should be noted that mean = 0 (i.e, \texttt{Mean-Distance-of-Gene-to-Nearest-Peaks} = 0) denotes cases where all peaks are overlapping a given gene body.  
 
-This output shows all the peaks nearest to "Zbtb16" and their respective distances. Even though only 17 of the peaks reside on the extended gene-body, the additional two peaks are close enough to be consider for analysis.
-
-In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, n represents the number of nearest peaks to a given gene, listed separately for each chromosome. In the case of "zbtb16," there are 19 nearest peaks to the gene and this displays their location as well as their distance from the gene. This function is motivated by the need of biologists to accurately design primers for specific genomic loci in order to experimentally validate the existence (realness) of a peak.
-
-For a much more in-depth analysis, a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} has been provided as \texttt{annotate\_n()}. Instead of simply annotating a peak to a single, closest gene, this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the peaks layout for further analysis. Called, this function looks like:
+The \texttt{gene\_lookup()} function looks up all peaks surrounding a specific gene or list of genes across all chromosomes and reports these peaks. This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.
 
 <<>>=
-print(annotate_n(rat, 3500, n=3)[], topn =5)
+gene_lookup(rat, c("Zbtb16"), n = 19, extension = 2400)
 @
 
-This function is the most versatile of the annotation functions provided and is extremely useful for providing peak-to-gene evidence and follow-up information, but it also expands the information similar to bootstrapping. When moving away from the traditional "first closest gene" to a peak, this method opens up many more possiblibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance a peak that influences any particular gene is missed or misattributed to the wrong gene.
+This output shows all the peaks nearest to "Zbtb16" and their respective distances.  Knowing these genomic peak coordinates facilitates the design of PCR primers.  Although 17/19 of the peaks reside on the extended gene-body (2400 bp upstream extension, 500 bp downstream extension), the two additional peaks are still close enough to be considered for analysis.  Out of all the genes on that specific chromosome, these two nearby peaks are located closest to the gene "Zbtb16".
+
+In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, n represents the number of nearest (and overlapping) peaks to a given gene. We saw from \texttt{gene\_annotate()} that, in the case of "Zbtb16," there are 19 nearest (and overlapping) peaks to the gene and \texttt{gene\_lookup()} displays their location as well as their distance from the gene. This function is motivated by the need of biologists to accurately design primers for specific genomic loci in order to experimentally validate the existence (realness) of a peak.
+
+For a much more in-depth analysis, a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} has been provided as \texttt{annotate\_n()}. Instead of simply annotating a peak to a single closest gene (and reporting any overlapping peaks on gene bodies), this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the peaks layout for further analysis. Called, this function looks like:
+
+<<>>=
+annotate_n(rat, 3500, n = 3)
+@
+
+This function is the most versatile of the annotation functions provided and is designed for the purpose of providing peak-to-gene associations and follow-up information that goes beyond just a simple genomic distance criterion.  Future work in this direction will address three-dimensional genome interactions (when coupled with methods like Hi-C).  When moving away from the traditional "first closest gene" to a peak, this method opens up many more possibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance that a peak that influences any particular gene is missed or misattributed to the wrong gene.
 
 \subsection{Gene Ontology functions}
 
