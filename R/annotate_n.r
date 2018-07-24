@@ -87,6 +87,7 @@ annotate_n <- function(organism, extension, n=2) {
     #   #for(col in c("seqid", "start", "end", "gene_id", "gene_name")) set(export_table, i=err, j=col, value=NA) #cleanup
     # }
     rdt <- rdt[rank<= n]
+    rdt <- rdt[,seqid := NULL]
     data.table::fwrite(
       rdt,
       file = sprintf("annotated_%s_%s.txt", extension, n),
