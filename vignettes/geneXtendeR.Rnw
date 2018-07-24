@@ -44,9 +44,7 @@ With an abundance of Bioconductor software currently available for peak annotati
 
 \subsubsection{R/Bioconductor package installation} \label{sec:install}
 
-Here we use \texttt{geneXtendeR} to analyze ChIP-seq data published in \emph{Journal of the American Heart Association} (Gidl\"{o}f et al. 2016).  To follow along with the analysis steps of this workflow, please download the latest version of \texttt{geneXtendeR} directly from Github, since Bioconductor is on a bi-annual release cycle (and thus may not be fully up-to-date with the latest package features).  To download the latest version of the \texttt{geneXtendeR} package, open Terminal (or any command line) and type in \texttt{git clone https://github.com/Bohdan-Khomtchouk/geneXtendeR.git}
-
-Then, in RStudio, set your working directory to point to this folder's location in your filesystem and type in:
+Here we use \texttt{geneXtendeR} to analyze ChIP-seq data from a cardiac ischemia study published in \emph{Journal of the American Heart Association} (Gidl\"{o}f et al. 2016).  To follow along with the analysis steps of this workflow, please download the latest version of \texttt{geneXtendeR} directly from Github, since Bioconductor is on a bi-annual release cycle (and thus may not be fully up-to-date with the latest package features).  To download the latest version of the \texttt{geneXtendeR} package:
 
 <<results=hide, eval=FALSE>>=
 install.packages("devtools")
@@ -55,7 +53,7 @@ install_github("Bohdan-Khomtchouk/geneXtendeR")
 library(geneXtendeR)
 @
 
-You now have the latest version of \texttt{geneXtendeR} installed on your machine. Otherwise, to install directly from Bioconductor (may not be fully up-to-date), do:
+Otherwise, to install directly from Bioconductor (may not be fully up-to-date), do:
 
 <<eval=FALSE>>=
 ## try http:// if https:// URLs are not supported
