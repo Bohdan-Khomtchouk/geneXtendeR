@@ -51,8 +51,7 @@ Then, in RStudio, set your working directory to point to this folder's location 
 <<results=hide, eval=FALSE>>=
 install.packages("devtools")
 library(devtools)
-build()
-install()
+install_github("Bohdan-Khomtchouk/geneXtendeR")
 library(geneXtendeR)
 @
 
@@ -85,7 +84,8 @@ mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
 Next, load in the ChIP-seq peak coordinates produced by the bioinformatics pipeline used by Gidl\"{o}f et al. 2016 (comes pre-bundled with the \texttt{geneXtendeR} package for convenience):
 
 <<>>=
-fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", package="geneXtendeR")
+fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", 
+                           package="geneXtendeR")
 peaksInput(fpath_peaks)
 @
 
@@ -180,7 +180,8 @@ This command properly formats the user's peaks file in preparation for subsequen
 To see how the above command works using a built-in example, the \texttt{geneXtendeR} package provides a peak input dataset\footnote{This peaks dataset comes from a ChIP-seq investigation of brain tissue (prefrontal cortex) in alcohol addiction and dependence (Barbier et al. 2016), see References section for details.} called ``somepeaksfile.txt", which can be loaded into memory like this:
 
 <<>>=
-fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+fpath <- system.file("extdata", "somepeaksfile.txt", 
+                     package="geneXtendeR")
 peaksInput(fpath)
 @
 
@@ -233,8 +234,10 @@ Hence, one very useful function in \texttt{geneXtendeR} is called \texttt{hotspo
 \begin{figure}[H]
 \begin{center}
 <<fig=TRUE>>=
-allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt",
+allpeaks <- system.file("extdata", "totalpeaksfile.txt", 
+                        package="geneXtendeR")
+sigpeaks <- system.file("extdata", 
+                        "significantpeaksfile.txt",
                         package="geneXtendeR")
 hotspotPlot(allpeaks, sigpeaks, rat, 0, 10000, 500)
 @
@@ -248,7 +251,8 @@ One interesting area to investigate is the variance in the broadness of signific
 \begin{figure}[H]
 \begin{center}
 <<fig=TRUE>>=
-sigpeaks <- system.file("extdata", "significantpeaksfile.txt",
+sigpeaks <- system.file("extdata", 
+                        "significantpeaksfile.txt",
                         package="geneXtendeR")
 peaksInput(sigpeaks)
 meanPeakLengthPlot(rat, 0, 10000, 500)
@@ -314,7 +318,8 @@ distinct(rat, 4000, 4500)
 where we see that index \texttt{126} belongs to gene \texttt{AABR07044065.1}\footnote{This peak may not be statistically significant, but how could it be if it's so huge?  In situations like this, it may be a good idea to check what is known about the gene already: \url{http://www.pantherdb.org/genes/gene.do?acc=RAT\%7CEnsembl\%3DENSRNOG00000028578\%7CUniProtKB\%3DA0A0G2K0W2}.  Clearly, not much is known yet.}.  Checking the arithmetic difference between column 3 and column 2 for this specific row verifies 114999, as these two columns represent the peak start position and peak end positions.  Now let's identify what the other columns represent by running the \texttt{distinct()} function again (but this time on a smaller interval to have less output printed to the screen):    
 
 <<>>=
-fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+fpath <- system.file("extdata", "somepeaksfile.txt", 
+                     package="geneXtendeR")
 peaksInput(fpath)
 distinct(rat, 2300, 2400)
 @
@@ -339,7 +344,8 @@ library(geneXtendeR)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
                       rattus_norvegicus/
                       Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
-fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
+fpath <- system.file("extdata", "somepeaksfile.txt", 
+                     package="geneXtendeR")
 peaksInput(fpath)
 @
 
@@ -527,11 +533,14 @@ Bailey TL, Boden M, Buske FA, Frith M, Grant CE, Clementi L, Ren J, Li WW, Noble
 \bibitem{barbier}
 Barbier E, Johnstone AL, Khomtchouk BB, Tapocik JD, Pitcairn C, Rehman F, Augier E, Borich A, Schank JR, Rienas CA, Van Booven DJ, Sun H, N\"{a}tt D, Wahlestedt C, Heilig M: \textit{Dependence-induced increase of alcohol self-administration and compulsive drinking mediated by the histone methyltransferase PRDM2}.  Molecular Psychiatry. 2016, Nature Publishing Group. doi: 10.1038/mp.2016.131.
 
+\bibitem{gidlof}
+Gidl\"{o}f, Johnstone AL, Bader K, Khomtchouk BB, et al.: \textit{Ischemic preconditioning confers epigenetic repression of Mtor and induction of autophagy through G9a-dependent H3K9 di-methylation.} Journal of the American Heart Association: Cardiovascular and Cerebrovascular Disease. 2016, 5(12): e004076.
+
 \bibitem{heinz}
 Heinz S, Benner C, Spann N, Bertolino E et al.: \textit{Simple Combinations of Lineage-Determining Transcription Factors Prime cis-Regulatory Elements Required for Macrophage and B Cell Identities.} Mol Cell 2010, 38(4): 576--589.
 
-\bibitem{khomtchouk}
-Khomtchouk BB, Van Booven DJ, Wahlestedt C: \textit{geneXtendeR: R/Bioconductor package for functional annotation of histone modification ChIP-seq data in a 3D genome world}.  bioRxiv. 2016, 1--15. 
+%\bibitem{khomtchouk}
+%Khomtchouk BB, Van Booven DJ, Wahlestedt C: \textit{geneXtendeR: optimized functional annotation of ChIP-seq data}.  bioRxiv. 2016, 1--15. 
 
 \bibitem{koohy}
 Koohy H, Down TA, Spivakov M, Hubbard T: \textit{A Comparison of Peak Callers Used for DNase-Seq Data}.  PLoS One. 2014, 9(8): e105136. 
