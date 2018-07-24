@@ -11,7 +11,7 @@ gene_lookup(organism, gene_name, n = 2, extension = NA, cutoff = Inf)
 
 \item{gene_name}{Gene names or gene ids specified by user in a string form.}
 
-\item{n}{Number of closest peaks located to `gene_name` on any given chromosome. Default = 2}
+\item{n}{Number of closest peaks located to `gene_name` on any given chromosome to be found. Default = 2}
 
 \item{extension}{Desired upstream extension. If left unspecified, the latest geneXtender bed file will be chosen. If no extension is specified and no bed file can be found, a default extension of 500 is selected.}
 
