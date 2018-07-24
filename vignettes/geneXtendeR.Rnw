@@ -36,13 +36,13 @@ BiocStyle::latex()
 
 This vignette describes \texttt{geneXtendeR}, an R/Bioconductor package for optimized functional annotation of ChIP-seq data.  This software is designed for optimized annotation of genomic features (primarily peaks called from a ChIP-seq experiment, but any coverage island regions would work) with the nearest gene. "Extending" refers to performing gene-feature overlaps after adding to the gene-span a user-specified region upstream of the start of the gene model and a fixed (500 bp) region downstream of the gene, resulting in assigning to a gene the features that do not physically overlap with it but are sufficiently close.  This facilitates the process of deciphering which differentially enriched peaks are dysregulating which specific genes which, in turn, aids experimental follow-up and validation in designing primers for a set of prospective genes during qPCR (Barbier et al. 2016).  
 
-\subsection{Rationale}
+\subsection{Brief Background}
 
 With an abundance of Bioconductor software currently available for peak annotation to nearby features (e.g., \texttt{ChIPpeakAnno} (Zhu et al. 2010)) as well as the existence of various command line tools (e.g., \texttt{BEDTools} \emph{closest} function (Quinlan and Hall, 2010), \texttt{HOMER} (Heinz et al. 2010)), what makes \texttt{geneXtendeR} different?  Let's look at a concrete example presented as a case-study:
 
 \subsection{Case-study}
 
-\subsubsection{R/Bioconductor package installation}
+\subsubsection{R/Bioconductor package installation} \label{sec:install}
 
 Here we use \texttt{geneXtendeR} to analyze ChIP-seq data published in \emph{Journal of the American Heart Association} (Gidl\"{o}f et al. 2016).  To follow along with the analysis steps of this workflow, please download the latest version of \texttt{geneXtendeR} directly from Github, since Bioconductor is on a bi-annual release cycle (and thus may not be fully up-to-date with the latest package features).  To download the latest version of the \texttt{geneXtendeR} package, open Terminal (or any command line) and type in \texttt{git clone https://github.com/Bohdan-Khomtchouk/geneXtendeR.git}
 
@@ -89,9 +89,9 @@ fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", package="geneXtendeR"
 peaksInput(fpath_peaks)
 @
 
-For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the Gidl\"{o}f et al. 2016 publication.  
+The structure of this peak coordinates file is explained in Section \ref{sec:qs}.  For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the instructions given in the Gidl\"{o}f et al. 2016 publication.  
 
-\subsubsection{Gene-centric functional annotation}
+\subsubsection{Gene-centric functional annotation} \label{sec:centric}
 
 \paragraph{Mapping peaks to genes with the gene\_annotate() function}
 
@@ -117,7 +117,7 @@ This output shows the sheer quantity of peaks that overlap the \texttt{mTOR} gen
 
 In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, \texttt{n} represents the number of nearest (and overlapping) peaks to a given gene. We see that in the case of \texttt{mTOR} there are quite a number of nearest and overlapping peaks to the gene, where the \texttt{gene\_lookup()} function displays their location as well as their distance from the gene. Thus, this function is motivated by the need of biologists to accurately design primers for specific genomic loci in order to experimentally validate the existence (realness) of a peak.
 
-\paragraph{N-dimensional annotation with the annotate\_n() function}
+\paragraph{N-dimensional annotation with the annotate\_n() function} \label{sec:ndim}
 
 \texttt{geneXtendeR} also provides a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} called: \texttt{annotate\_n()}. Instead of simply annotating a peak to a single closest gene (and reporting any overlapping peaks on gene bodies), this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the gene neighborhood around each individual peak. When called, this function looks like:
 
@@ -127,18 +127,23 @@ head(annotate_n(mouse, 2000, n = 3), 9)
 
 Since \texttt{n = 3} in the example above, each peak is annotated thrice -- once for closest gene, once for second-closest gene, and once for third-closest gene.  This function is the most versatile (and compute-intensive) of the annotation functions provided and is designed for the purpose of providing peak-to-gene associations and follow-up information that goes beyond just a simple "closest/nearest" genomic distance criterion.  Future work in this direction could also address three-dimensional genome interactions (when coupled with methods like Hi-C), and we encourage the reader to explore this integrative frontier further.  When moving away from the traditional "first closest gene to a peak" approach, this method opens up many more possibilities as to which peaks may play a role in biologically influencing which genes. It increases the scope of the individual peaks to reduce the chance that a peak that influences any particular gene is missed or misattributed to the wrong gene.  It also informs follow-up wet-lab strategy, for example, in the table above, rows 1-3 clearly suggest that the peak on chromosome 1, start position 4586400, and end position 4588199 overlaps gene \texttt{Gm37323} but is too far from \texttt{Gm7369} to be biologically relevant (20272 base pairs away).  In contrast, rows 4-6 show that the peak located on chromosome 1, start position 4769000, and end position 4770999 overlaps gene \texttt{Gm37323} yet is only 1707 bp away from a known gene (\texttt{Mrpl15}).  Given the choice, such proximity suggests that it would be wiser to design PCR primers specific for the second-closest gene (\texttt{Mrpl15}), given that \texttt{Gm37323} is a predicted gene while \texttt{Mrpl15} is known to be linked with hypertension (Ong et al. 2013) and therefore may play a putative role in ischemia as well.  
 
-\subsection{Background}
+\subsection{Making functional annotation more robust}
 
-\texttt{geneXtendeR} is designed for assessing the variability of peak overlap with cis-regulatory elements and proximal-promoter regions.  It is well-known that peak coordinates (peak start position, peak end position) exhibit a considerable degree of variance depending on the peak caller used (e.g., SICER (Zang et al. 2009), MACS2 (Zhang et al. 2008), etc.), both in terms of length distribution of peaks as well as the total number of peaks called, even when run at identical default parameter values (Koohy et al. 2014; Thomas et al. 2017).  Tuning algorithm-specific parameters produces even greater variance amongst peak callers, thereby complicating the issue further.  This variance becomes a factor when annotating peak lists genome-wide with their nearest genes as, depending on the peak caller, peaks can be either shifted in genomic position (towards 5' or 3' end) or be of different lengths.  As such, \texttt{geneXtendeR} represents a first step towards tailoring (or customizing) the functional annotation of a ChIP-seq peak dataset according to the details of the peak coordinates (chromosome number, peak start position, peak end position).  
+\subsubsection{Peak variability}
+It is well-known that peak coordinates (peak start position, peak end position) exhibit a considerable degree of variance depending on the peak caller used (e.g., SICER (Zang et al. 2009), MACS2 (Zhang et al. 2008), etc.), both in terms of length distribution of peaks as well as the total number of peaks called, even when run at identical default parameter values (Koohy et al. 2014; Thomas et al. 2017).  Tuning algorithm-specific parameters produces even greater variance amongst peak callers, thereby complicating the issue further.  This variance becomes a factor when annotating peak lists genome-wide with their nearest genes as, depending on the peak caller, peaks can be either shifted in genomic position (towards 5' or 3' end) or be of different lengths.  Thus, there is often considerable variability of peak overlap with cis-regulatory elements and proximal-promoter regions.  As such, \texttt{geneXtendeR} represents a first step towards making functional annotation more robust and consistent, by allowing users to experiment with multiple different gene body dimensions.  This allows the user to tailor the functional annotation of a ChIP-seq peak dataset according to the details of the peak coordinates (chromosome number, peak start position, peak end position).  
 
-The primary focus of \texttt{geneXtendeR} is to optimize the process of functional annotation of a ChIP-seq peak list whereby instead of just annotating peaks with their nearest genomic features (as statically defined by a given genome build's coordinates), \texttt{geneXtendeR} investigates how peaks dynamically align to various user-specified gene extensions (e.g., 500 bp upstream extensions, 2000 bp upstream extensions, etc. for all genes in the genome).  This shows where peaks localize across the genome with respect to their nearest gene, as well as what gene ontologies (BP, CC, and MF) are impacted at these various extension levels.  This, in turn, informs the user what gene extensions ideally capture the GO terms involved in the biology of their experiment.  For example, if a user's study is investigating the role of epigenetic enzymes in alcohol addiction and dependence, then functionally annotating a peak list using gene extensions that maximize the number of brain-related ontologies (for both BP, CC, and MF categories) makes sense.
+\subsubsection{Gene ontology optimization}
+The primary focus of \texttt{geneXtendeR} is to optimize the process of functional annotation of a ChIP-seq peak list whereby instead of just annotating peaks with their nearest genomic features (as statically defined by a given genome build's coordinates), \texttt{geneXtendeR} investigates how peaks may align to various user-specified gene extensions (e.g., 500 bp upstream extensions, 2000 bp upstream extensions, etc. for all genes in the genome).  This shows where peaks localize across the genome with respect to their nearest gene, as well as what gene ontologies (BP, CC, and MF) are impacted at these various extension levels (e.g., assuming one is interested only in investigating peaks that directly overlap genes, i.e., distance = 0).  This, in turn, informs the user what gene extensions ideally capture the GO terms involved in the biology of their experiment.  For example, if a user's study is investigating the role of epigenetic enzymes in alcohol addiction and dependence, then functionally annotating a peak list using gene extensions that maximize the number of brain-related ontologies (for both BP, CC, and MF categories) makes sense.  This will be explored more in depth in Section \ref{sec:GO}.
 
-With regards to histone modification ChIP-seq analysis, \texttt{geneXtendeR} computes optimal gene extensions tailored to the broadness of the specific epigenetic mark (e.g., H3K9me1, H3K27me3), as determined by a user-supplied ChIP-seq peak input file.  To accomplish this level of custom-tailored data analysis, \texttt{geneXtendeR} first optimally extends the boundaries of every gene in a genome by some genomic distance (in DNA base pairs) for the purpose of flexibly incorporating cis-regulatory elements, such as promoter regions, as well as downstream elements that are important to the function of the gene relative to an epigenetic histone modification ChIP-seq dataset.  This action effectively transforms genes into ``gene-spheres", a new term that we coin to emphasize the 3D-nature of heterochromatin.  A gene-sphere is composed of cis-regulatory elements (e.g., proximal promoters +/- $\approx 3$ kb from TSS), distal regulatory elements (e.g., enhancers), transcription start/end sites (TSS/TES), exons, introns, and downstream elements of a gene.  As such, \texttt{geneXtendeR} maximizes the signal-to-noise ratio of locating genes closest to and directly under peaks. By performing a computational expansion of this nature, ChIP-seq reads that would initially not map strictly to a specific gene can now be optimally mapped to the regulatory regions of the gene, thereby implicating the gene as a potential candidate, and thereby making the ChIP-seq analysis more successful. Such an approach becomes particularly important when working with epigenetic histone modifications that have inherently broad peaks with a diffuse range of signal enrichment (e.g., H3K9me1, H3K27me3). 
+\subsubsection{Summary}
+With regards to histone modification ChIP-seq analysis, \texttt{geneXtendeR} computes optimal gene extensions tailored to the broadness of the specific epigenetic mark (e.g., H3K9me1, H3K27me3), as determined by a user-supplied ChIP-seq peak input file.  This will be explored in the next section.  To accomplish this level of custom-tailored data analysis, \texttt{geneXtendeR} first optimally extends the boundaries of every gene in a genome by some genomic distance (in DNA base pairs) for the purpose of flexibly incorporating cis-regulatory elements, such as promoter regions, as well as downstream elements that are important to the function of the gene relative to an epigenetic histone modification ChIP-seq dataset.  This action effectively transforms genes into ``gene-spheres", a new term that we coin to emphasize the 3D-nature of heterochromatin (and, more importantly, to subliminally remind our users that \texttt{annotate\_n} may be their friend -- as alluded to in Section \ref{sec:ndim}).  A gene-sphere is composed of cis-regulatory elements (e.g., proximal promoters +/- $\approx 3$ kb from TSS), distal regulatory elements (e.g., enhancers), transcription start/end sites (TSS/TES), exons, introns, and downstream elements of a gene.  As such, \texttt{geneXtendeR} maximizes the signal-to-noise ratio of locating genes closest to and directly under peaks. By performing a computational expansion of this nature, ChIP-seq reads that would initially not map strictly to a specific gene can now be optimally mapped to the regulatory regions of the gene, thereby implicating the gene as a potential candidate, and thereby making the ChIP-seq analysis more successful. Such an approach becomes particularly important when working with epigenetic histone modifications that have inherently broad peaks with a diffuse range of signal enrichment (e.g., H3K9me1, H3K27me3). 
 
 
-\section{Quick start} \label{sec:qs}
+\section{Sample workflow}
 
-First, install the \texttt{geneXtendeR} package via:
+\subsection{Quick start} \label{sec:qs}
+
+If you have not done so already (Section \ref{sec:install}), please install the \texttt{geneXtendeR} package via Github or Bioconductor:
 
 <<eval=FALSE>>=
 ## try http:// if https:// URLs are not supported
@@ -158,7 +163,9 @@ rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/
                       Rattus_norvegicus.Rnor_6.0.84.chr.gtf.gz")
 @
 
-URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc.), and copy the link address.  Then, paste the link address into the \texttt{readGFF()} as shown above.  This will create an R dataframe object containing the respective GTF file.
+URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc.), and copy the link address.  Then, paste the link address into the \texttt{readGFF()} as shown above.  Alternatively, you can download the GTF file and place it directly in your local working directory.  The command above will create an R dataframe object containing the respective GTF file.
+
+\subsection{Loading and preprocessing ChIP-seq peak data}
 
 Next, the user must input their peak data from a peak caller (e.g., SICER, MACS2, etc.).  The peak data must contain only three tab-delimited columns (chromosome number, peak start, and peak end) and a header containing: ``chr", ``start", and ``end".  See \texttt{?samplepeaksinput} for an example.  Once the peak input data (e.g., ``somepeaksfile.txt") has been assembled properly (i.e., to contain only the three tab-delimited columns and header above), it must be properly formatted prior to the execution of downstream analyses.  
 
@@ -180,6 +187,8 @@ peaksInput(fpath)
 This creates a properly formatted (i.e., properly sorted) ``peaks.txt" file in the user's working directory.
 
 Now, we may use the R object that we created with \texttt{readGFF()} earlier to create a bar chart visualization showing the number of peaks that are sitting directly on top of genes across a series of upstream extensions (of each gene in a genome):
+
+\subsection{Charting ChIP-seq peaks into visualizations and tidy tables}
 
 \begin{figure}[H]
 \begin{center}
@@ -302,7 +311,7 @@ which returns the index of where this peak length is found.  Then the following 
 distinct(rat, 4000, 4500)
 @
 
-where we see that index \texttt{126} belongs to gene \texttt{AABR07044065.1}\footnote{This peak may not be statistically significant, but how could it be if it's so huge?  In situations like this, it may be a good idea to check what is known about the gene already: \url{http://panthertest2.usc.edu/genes/gene.do?acc=RAT\%7CEnsembl=ENSRNOG00000028578\%7CUniProtKB=A0A0G2K0W2}.  Clearly, not much is known yet.}.  Checking the arithmetic difference between column 3 and column 2 for this specific row verifies 114999, as these two columns represent the peak start position and peak end positions.  Now let's identify what the other columns represent by running the \texttt{distinct()} function again (but this time on a smaller interval to have less output printed to the screen):    
+where we see that index \texttt{126} belongs to gene \texttt{AABR07044065.1}\footnote{This peak may not be statistically significant, but how could it be if it's so huge?  In situations like this, it may be a good idea to check what is known about the gene already: \url{http://www.pantherdb.org/genes/gene.do?acc=RAT\%7CEnsembl\%3DENSRNOG00000028578\%7CUniProtKB\%3DA0A0G2K0W2}.  Clearly, not much is known yet.}.  Checking the arithmetic difference between column 3 and column 2 for this specific row verifies 114999, as these two columns represent the peak start position and peak end positions.  Now let's identify what the other columns represent by running the \texttt{distinct()} function again (but this time on a smaller interval to have less output printed to the screen):    
 
 <<>>=
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
@@ -320,9 +329,9 @@ annotate(rat, 2400)
 
 which generates a fully annotated peaks outfile (in the user's working directory) containing various genomic features and labeled headers. An example of which is above.
 
-\subsection{Gene-centric approach to functional annotation}
+\subsection{Exploring functional annotation in depth}
 
-If a user is looking for a more gene-centric approach to an\-notation, they may use either the \texttt{gene\_lookup()}
+If a user is looking for a more gene-centric approach to an\-notation (as briefly outlined in Section \ref{sec:centric}), they may use either the \texttt{gene\_lookup()}
 or \texttt{gene\_annotate()} functions. The \texttt{gene\_annotate()} function builds off of the \texttt{annotate()} function, but reorganizes and groups the output based on relevant gene information.  If you (the reader) are just joining us now in the vignette and have not yet run any of the command on preceding pages, first just run the following commands:
 
 <<results=hide, eval=FALSE>>=
@@ -375,11 +384,11 @@ For a much more in-depth analysis, a function that combines both \texttt{gene\_l
 annotate_n(rat, 3500, n = 3)
 @
 
-This function is the most versatile of the annotation functions provided and is designed for the purpose of providing peak-to-gene associations and follow-up information that goes beyond just a simple genomic distance criterion.  Future work in this direction will address three-dimensional genome interactions (when coupled with methods like Hi-C).  When moving away from the traditional "first closest gene" to a peak, this method opens up many more possibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance that a peak that influences any particular gene is missed or misattributed to the wrong gene.
+This function is the most versatile of the annotation functions provided and is designed for the purpose of providing peak-to-gene associations and follow-up information that goes beyond just a simple closest genomic distance criterion.  Future work in this direction can address three-dimensional genome interactions (when coupled with methods like Hi-C).  When moving away from the traditional "first closest gene" to a peak, this method opens up many more possibilities as to which peaks influence which genes. It increases the scope of the individual peaks to reduce the chance that a peak that influences any particular gene is missed or misattributed to the wrong gene.
 
-\subsection{Gene Ontology functions}
+\subsection{Gene Ontology functions} \label{sec:GO}
 
-It may be of interest to note the differential gene ontologies between these two upstream extensions:
+It may be of interest to note the differential gene ontologies between the following two upstream extensions:
 
 <<>>=
 library(org.Rn.eg.db)
