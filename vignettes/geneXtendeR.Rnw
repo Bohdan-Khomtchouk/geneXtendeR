@@ -82,7 +82,7 @@ mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
 Next, load in the ChIP-seq peak coordinates produced by the bioinformatics pipeline used by Gidl\"{o}f et al. 2016 (comes pre-bundled with the \texttt{geneXtendeR} package for convenience):
 
 <<>>=
-fpath_peaks <- system.file("extdata", "ischemiapeaks.txt", 
+fpath_peaks <- system.file("extdata", "sicerischemiapeaks.txt", 
                            package="geneXtendeR")
 peaksInput(fpath_peaks)
 @
