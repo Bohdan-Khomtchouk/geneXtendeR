@@ -67,7 +67,7 @@ library(geneXtendeR)
 
 \subsubsection{Quick setup}
 
-Since Gidl\"{o}f et al. 2016 is a mouse study, please load in a mouse GTF file:
+Per Gidl\"{o}f et al. 2016, please load in a mouse GTF file:
 
 %(will be explained more in detail in Section \ref{sec:qs} of this vignette):
 
@@ -93,7 +93,7 @@ The structure of this peak coordinates file is explained in Section \ref{sec:qs}
 
 \paragraph{Mapping peaks to genes with the gene\_annotate() function}
 
-Type in the following command to annotate the peaks file produced in the previous section with a GTF file (the R object \texttt{mouse} above) whose genes have been extended 2000 bp upstream of their first exon (and, by default, 500 bp downstream of their last exon):
+Type in the following command to annotate the peaks file preprocessed in the previous section with a GTF file (the R object \texttt{mouse} above) whose genes have been extended 2000 bp upstream of their first exon (and, by default, 500 bp downstream of their last exon):
 
 <<>>=
 head(gene_annotate(mouse, 2000))

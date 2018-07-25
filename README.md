@@ -12,7 +12,7 @@
 
 </div>
 
-`geneXtendeR` optimizes the functional annotation of ChIP-seq peaks by exploring relative differences in annotating ChIP-seq peak sets to variable-length gene bodies.  In contrast to prior techniques, `geneXtendeR` considers peak annotations beyond just the closest gene, allowing users to see peak summary statistics for the first-closest gene, second-closest gene, ..., n-closest gene whilst ranking the output according to biologically relevant events and iteratively comparing the fidelity of peak-to-gene overlap across a user-defined range of upstream and downstream extensions on the original boundaries of each gene's coordinates.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can often be a noisy process.  As such, the goal of `geneXtendeR` is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
+To see `geneXtendeR` in action (and why you may want to use it as part of your next ChIP-seq workflow), see pages 2-8 of the [vignette](https://github.com/Bohdan-Khomtchouk/geneXtendeR/files/2226068/geneXtendeR.pdf). 
 
 ## Github installation instructions (for latest updated version)
 
@@ -45,10 +45,6 @@ https://bioconductor.org/packages/3.6/geneXtendeR/
 source("https://bioconductor.org/biocLite.R")
 biocLite("geneXtendeR")
 ```
-
-## Vignette
-
-Please read the `geneXtendeR` documentation (https://bioconductor.org/packages/devel/bioc/vignettes/geneXtendeR/inst/doc/geneXtendeR.pdf), which includes software workflows and comprehensive analyses to get you started.  Note, however, that the most up-to-date vignette will be found in this git repository in `/vignettes`.
 
 ## Citation
 

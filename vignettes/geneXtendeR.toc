@@ -1,0 +1,22 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Brief Background}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Case-study}{2}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}R/Bioconductor package installation}{2}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Quick setup}{3}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Gene-centric functional annotation}{4}{subsubsection.1.2.3}
+\contentsline {paragraph}{\numberline {1.2.3.1}Mapping peaks to genes with the gene\_annotate() function}{4}{paragraph.1.2.3.1}
+\contentsline {paragraph}{\numberline {1.2.3.2}Mapping genes to peaks with the gene\_lookup() function}{5}{paragraph.1.2.3.2}
+\contentsline {paragraph}{\numberline {1.2.3.3}N-dimensional annotation with the annotate\_n() function}{7}{paragraph.1.2.3.3}
+\contentsline {subsection}{\numberline {1.3}Making functional annotation more robust}{8}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}Peak variability}{8}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.2}Gene ontology optimization}{9}{subsubsection.1.3.2}
+\contentsline {subsubsection}{\numberline {1.3.3}Summary}{9}{subsubsection.1.3.3}
+\contentsline {section}{\numberline {2}Sample workflow}{10}{section.2}
+\contentsline {subsection}{\numberline {2.1}Quick start}{10}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Loading and preprocessing ChIP-seq peak data}{11}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Charting ChIP-seq peaks into visualizations and tidy tables}{12}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Exploring functional annotation in depth}{23}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Gene Ontology functions}{28}{subsection.2.5}
+\contentsline {section}{\numberline {3}Discussion}{34}{section.3}
+\contentsline {section}{\numberline {4}Concluding remarks}{40}{section.4}
+\contentsfinish 
