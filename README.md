@@ -12,7 +12,7 @@
 
 </div>
 
-To see `geneXtendeR` in action (and why you may want to use it as part of your next ChIP-seq workflow), see pages 2-8 of the [vignette](https://github.com/Bohdan-Khomtchouk/geneXtendeR/files/2226068/geneXtendeR.pdf). 
+To see `geneXtendeR` in action (and why you may want to use it as part of your next ChIP-seq workflow), see Section 1 of the [vignette](https://github.com/Bohdan-Khomtchouk/geneXtendeR/files/2230557/geneXtendeR.pdf). 
 
 ## Github installation instructions (for latest updated version)
 
