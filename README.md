@@ -28,7 +28,7 @@ And then load the package:
 library(geneXtendeR)
 ```
 
-## Bioconductor landing page (updated biannually)
+## Bioconductor landing page (updated biannually -- so likely out-of-date)
 
 `geneXtendeR` can be found at: https://bioconductor.org/packages/geneXtendeR/.  This URL will redirect to the release landing page of the package and is the URL that should be used (in publications, etc.) to refer to `geneXtendeR`.  You can also refer specifically to the development, release, or specific numbered version of Bioconductor:
 
