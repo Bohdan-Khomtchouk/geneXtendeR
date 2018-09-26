@@ -87,7 +87,7 @@ fpath_peaks <- system.file("extdata", "sicerischemiapeaks.txt",
 peaksInput(fpath_peaks)
 @
 
-The structure of this peak coordinates file is explained in Section \ref{sec:qs}.  For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus), as specified in the Methods section of the Gidl\"{o}f et al. 2016 publication.  
+The structure of this peak coordinates file is explained in Section \ref{sec:qs}.  For reference, these genomic coordinates were called using the SICER peak calling algorithm (Zang et al. 2009), and can be recreated by the user from the original sequencing files (deposited in the Gene Expression Omnibus under accession identifier GSE83979), as specified in the Methods section of the Gidl\"{o}f et al. 2016 publication.  
 
 \subsubsection{Gene-centric functional annotation} \label{sec:centric}
 
@@ -95,9 +95,13 @@ The structure of this peak coordinates file is explained in Section \ref{sec:qs}
 
 Type in the following command to annotate the peaks file preprocessed in the previous section with a GTF file (the R object \texttt{mouse} above) whose genes have been extended 2000 bp upstream of their first exon (and, by default, 500 bp downstream of their last exon):
 
-<<>>=
+<<results=hide, eval=FALSE>>=
 head(gene_annotate(mouse, 2000))
 @
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.99\textwidth]{figures/mousegeneann2000.png}}
+\end{figure}
 
 Clearly, the peaks file has now been functionally annotated with the content of the mouse genome (mm10 build).  Specifically, each individual row of peak coordinates in the input file (chromosome, start position of peak, end position of peak) has been annotated with relevant gene information and collapsed into a tabular summary format.  This output labels each individual gene and matches it with: 
 
@@ -114,9 +118,13 @@ The table above shows that the top 3 genes (in terms of total number of peaks ov
 
 Similarly, the \texttt{gene\_lookup()} function looks up all peaks surrounding a specific gene or list of genes across all chromosomes and reports these peaks. This method is extremely useful when paired with \texttt{gene\_annotate()} to check genes that may be used in a follow-up.  Here, we examine the \texttt{mTOR} gene, which was also experimentally validated in Gidl\"{o}f et al. 2016:
 
-<<>>=
+<<results=hide, eval=FALSE>>=
 gene_lookup(mouse, c("mTOR"), n = 22, extension = 2000)
 @
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.99\textwidth]{figures/mousemtor.png}}
+\end{figure}
 
 In \texttt{gene\_lookup(organism, gene\_name, n, extension)}, \texttt{n} represents the number of nearest (and overlapping) peaks to a given gene that a user may wish to display.  The output above shows the sheer quantity of peaks that overlap the \texttt{mTOR} gene body (19 peaks!).  It is no surprise that, with this many peaks directly on top of the \texttt{mTOR} gene, experimental validation was indeed successful.  Using \texttt{geneXtendeR} can suggest such opportunities for wet-lab follow-up, especially when combined with biological knowledge/domain expertise.  For instance, it is known that \texttt{mTOR} is involved in the regulation of autophagy, and as the cardioprotective effect of ischemic preconditioning is strongly linked with autophagy, \texttt{mTOR} was an interesting gene to follow up on in this study.  The hypothesis was that ischemic preconditioning (IPC) leads to enrichment of H3K9me2 throughout the \texttt{mTOR} gene, transcriptional repression, induction of autophagy and ultimately, cardioprotection.  This hypothesis was successfully validated.  For instance, it was confirmed that \texttt{mTOR} is indeed downregulated in IPC-hearts compared with qPCR (Figure 3a from Gidl\"{o}f et al. 2016).  Therefore, knowing these genomic peak coordinates facilitated the design of PCR primers.  Likewise, Figures 4-6 validated the other points of the hypothesis.  
 
@@ -126,9 +134,13 @@ In summary, we see that in the case of \texttt{mTOR} there are quite a number of
 
 \texttt{geneXtendeR} also provides a function that combines both \texttt{gene\_lookup()} and \texttt{gene\_annotate()} called: \texttt{annotate\_n()}. Instead of simply annotating a peak to a single closest gene (and reporting any overlapping peaks on gene bodies), this function annotates each peak to the closest, the second-closest, ..., to the nth-closest genes to provide the user an expanded picture of the gene neighborhood around each individual peak. When called, this function looks like:
 
-<<>>=
+<<results=hide, eval=FALSE>>=
 head(annotate_n(mouse, 2000, n = 3), 9)
 @
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.99\textwidth]{figures/ndimen.png}}
+\end{figure}
 
 Since \texttt{n = 3} in the example above, each peak is annotated thrice -- once for the closest gene, once for the second-closest gene, and once for the third-closest gene.  This function is the most versatile (and compute-intensive) of the annotation functions provided and is designed for the purpose of providing peak-to-gene associations and follow-up information that goes beyond just a simple "closest/nearest" genomic distance criterion.  Future work in this direction could also address three-dimensional genome interactions (when coupled with methods like Hi-C), and we encourage the reader to explore this integrative frontier further.  When moving away from the traditional "first closest gene to a peak" approach, this method opens up many more possibilities as to which peaks may play a role in biologically influencing which genes. It increases the scope of the individual peaks to reduce the chance that a peak that influences any particular gene is missed or misattributed to the wrong gene.  It also informs follow-up wet-lab strategy, for example, in the table above, rows 1-3 clearly suggest that the peak on chromosome 1, start position 4586400, and end position 4588199 overlaps gene \texttt{Gm37323} but is too far from \texttt{Gm7369} to be biologically relevant (20272 base pairs away).  In contrast, rows 4-6 show that the peak located on chromosome 1, start position 4769000, and end position 4770999 overlaps gene \texttt{Gm37323} yet is only 1707 bp away from a known gene (\texttt{Mrpl15}).  Given the choice, such proximity suggests that it would be wiser to design PCR primers specific for the second-closest gene (\texttt{Mrpl15}), given that \texttt{Gm37323} is a predicted gene while \texttt{Mrpl15} is known to be linked with hypertension (Ong et al. 2013) and therefore may play a putative role in ischemia as well.  
 
@@ -140,21 +152,29 @@ It is well-known that peak coordinates (peak start position, peak end position) 
 \paragraph{SICER vs. CisGenome}
 Here we demonstrate an example of how \texttt{geneXtendeR} can make functional annotation more robust, regardless of the peak caller used or the variability in peak dimensions (or their relative genomic positions).  Let us look at the \texttt{gene\_annotate()} function in action on the same ChIP-seq data from Gidl\"{o}f et al. 2016, where one input peak list was generated by SICER (Zang et al. 2009) and the other by CisGenome (Ji et al. 2008), both on the exact same ChIP-seq data using the same bioinformatics pipeline (the only difference being the choice of peak caller used -- SICER vs. CisGenome -- using default run parameters recommended in their respective manuals).  These are two fundamentally different peak callers, where the algorithms behind CisGenome utilize a sliding window approach of fixed length to call its peaks, while SICER's algorithms make use of clusters of enriched windows (otherwise known as "islands," which is a fundamentally distinct method/approach to peak calling that incorporates the biological observation/tendency of histone modifications to cluster when forming domains).  To emphasize how differently these peak callers operate on the same dataset (Figure \ref{fig:violin}), CisGenome's output produces 43,974 peaks while SICER's output produces 53,386 peaks (on the same ChIP-seq dataset).  Also, the average peak length from CisGenome is 161 base pairs (bp) while the average peak length from SICER is 2915 bp.  Despite these drastic differences, \texttt{geneXtendeR}'s \texttt{gene\_annotate()} function can robustly identify the same top two gene candidates.  For the SICER called peaks, we have:
 
-<<>>=
+<<results=hide, eval=FALSE>>=
 fpath_peaks <- system.file("extdata", "sicerischemiapeaks.txt", 
                            package="geneXtendeR")
 peaksInput(fpath_peaks)
 head(gene_annotate(mouse, 2000))
 @
 
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.99\textwidth]{figures/sicerrun.png}}
+\end{figure}
+
 And for the CisGenome called peaks we have:
 
-<<>>=
+<<results=hide, eval=FALSE>>=
 fpath_peaks <- system.file("extdata", "cisgenomeischemiapeaks.txt", 
                            package="geneXtendeR")
 peaksInput(fpath_peaks)
 head(gene_annotate(mouse, 2000))
 @
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.99\textwidth]{figures/cisgenomerun.png}}
+\end{figure}
 
 Clearly, \texttt{gene\_annotate()} returns \texttt{Gm20388} and \texttt{Fgfr2} as the top two gene candidates in both cases.  As such, \texttt{geneXtendeR} represents a first step towards making functional annotation more robust and consistent, regardless of the peak variability.  For reference, here is a violin plot showing the distribution shape of the ChIP-seq data analyzed above:
 
