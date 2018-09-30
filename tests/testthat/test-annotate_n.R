@@ -10,9 +10,9 @@ test_that("annotate_n is the correct length", {
   
   expect_equal(dim(annotated)[1], dim(samplepeaksinput)[1] * n)
   
-  expect_equal(dim(annotated)[2], 11)
+  expect_equal(dim(annotated)[2], 10)
   
-  expect_equal(names(annotated), c("Peak-Num", "Chromosome", "Peak-Start", "Peak-End", "Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "rank", "Minimum-Distance-to-Gene", "seqid"))
+  expect_equal(names(annotated), c("Peak-Num", "Chromosome", "Peak-Start", "Peak-End", "Gene-Start", "Gene-End", "Gene-ID", "Gene-Name", "rank", "Minimum-Distance-to-Gene"))
 })
 
 

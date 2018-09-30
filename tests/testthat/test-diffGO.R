@@ -1,4 +1,5 @@
 context("diffGo tests")
+library(org.Rn.eg.db)
 
 if (file.exists("peaks.txt")) {
   file.remove("peaks.txt")
@@ -26,8 +27,8 @@ test_that("function runs properly for each category", {
 
 test_that("function output is correct for BP", {
   p <- diffGO(rat, start, end, BP, GOspecies)
-  expect_equal(dim(p), c(683, 3))
-  expect_length(unique(p$`gene$SYMBOL`), 75)
+  expect_equal(dim(p), c(739, 3))
+  expect_length(unique(p$`gene$SYMBOL`), 77)
 })
 
 

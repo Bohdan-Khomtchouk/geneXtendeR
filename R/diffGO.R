@@ -11,6 +11,8 @@
 #'
 #' @return A data frame of gene symbol, gene ontology ID, and gene ontology term for either a BP, CC, or MF category.  This data frame displays the annotations of all unique genes (i.e., genes that are located under peaks between two upstream extension levels) with their respective gene ontology information.
 #'
+#' @importFrom GO.db GO.db
+#' 
 #' @examples
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")

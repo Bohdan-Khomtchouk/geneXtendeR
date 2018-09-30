@@ -26,6 +26,7 @@
 #' @importFrom tm VectorSource removeWords stopwords
 #' @importFrom wordcloud wordcloud
 #' @importFrom RColorBrewer brewer.pal
+#' @importFrom GO.db GO.db
 #'
 #' @export
 
@@ -33,8 +34,8 @@ makeWordCloud <- function(organism, start, end, GOcategory, GOspecies) {
   if(!file.exists("peaks.txt")){
     message("Please run peaksInput() function first!  See ?peaksInput for more information")
   } else {
-    oopts = options(warn=-1)
-    on.exit(options(oopts))
+    #oopts = options(warn=-1)
+    #n.exit(options(oopts))
     
     run2 <- function(f1, f2, peakslist) {
       .C("extractpeaks", f1, f2, peakslist)[[3]]

@@ -1,5 +1,6 @@
 %\VignetteIndexEntry{geneXtendeR Vignette}
 %\VignettePackage{geneXtendeR}
+%\VignetteEngine{knitr::rmarkdown}
 
 \documentclass[12pt]{article}
 

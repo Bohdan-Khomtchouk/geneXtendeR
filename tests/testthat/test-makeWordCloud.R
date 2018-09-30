@@ -1,4 +1,5 @@
 context("makeWordCloud tester")
+library(org.Rn.eg.db)
 
 if (file.exists("peaks.txt")) {
   file.remove("peaks.txt")
@@ -16,12 +17,6 @@ peaksInput(system.file("extdata", "somepeaksfile.txt", package="geneXtendeR"))
 
 test_that("error is thrown when not selecting correct category", {
   expect_error(makeWordCloud(rat, start, end, AP, GOspecies), "Not a valid GO category.  Must be either BP, CC, or MF.")
-})
-
-test_that("makeNetwork runs properly", {
-  expect_message(makeWordCloud(rat, start, end, BP, GOspecies))
-  expect_message(makeWordCloud(rat, start, end, CC, GOspecies))
-  expect_message(makeWordCloud(rat, start, end, MF, GOspecies))
 })
 
 test_that("cleanup is successful for makeNetwork", {

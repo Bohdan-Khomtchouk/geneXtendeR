@@ -19,7 +19,10 @@
 #' 
 #' @export
 peaksInput <- function(filename) {
-	file.input <- fread(filename)
+  file.input <- fread(filename)
+  if (ncol(file.input) != 3) {
+    stop("Must be a 3-column tab-demimited file. (see ?samplepeaksinput)")
+  }
 	file.input[chr == "chr1", chr := '1']
 	file.input[chr == "chr2", chr := '2']
 	file.input[chr == "chr3", chr := '3']
@@ -76,5 +79,5 @@ peaksInput <- function(filename) {
   file.input[chr == "Mito", chr := '300']
   file.input[chr == "chrMito", chr := '300']
   file.sorted <- dplyr::arrange(file.input, as.numeric(chr), as.numeric(start))
-  write.table(file.sorted, file = "peaks.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
+  write.table(na.omit(file.sorted), file = "peaks.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
 }
