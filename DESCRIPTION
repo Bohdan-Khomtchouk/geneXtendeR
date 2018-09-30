@@ -10,14 +10,15 @@ Authors@R: c(
 Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
-Depends: GO.db, org.Rn.eg.db, rtracklayer, R (>= 3.3.1)
-Imports: AnnotationDbi, data.table, dplyr, graphics, networkD3, org.Ag.eg.db, org.Bt.eg.db, org.Ce.eg.db, org.Cf.eg.db, org.Dm.eg.db, org.Dr.eg.db, org.Gg.eg.db, org.Hs.eg.db, org.Mm.eg.db, org.Mmu.eg.db, org.Pt.eg.db, org.Sc.sgd.db, org.Ss.eg.db, org.Xl.eg.db, RColorBrewer, SnowballC, tm, utils, wordcloud
-Suggests: BiocStyle, knitr, rmarkdown, testthat
+Depends: R (>= 3.3.1)
+Imports: data.table, dplyr, graphics, networkD3, RColorBrewer, SnowballC, tm, utils, wordcloud, AnnotationDbi, GO.db, rtracklayer, BiocStyle, org.Rn.eg.db
+Suggests: knitr, rmarkdown, testthat, org.Ag.eg.db, org.Bt.eg.db, org.Ce.eg.db, org.Cf.eg.db, org.Dm.eg.db, org.Dr.eg.db, org.Gg.eg.db, org.Hs.eg.db, org.Mm.eg.db, org.Pt.eg.db, org.Sc.sgd.db, org.Ss.eg.db, org.Xl.eg.db, rtracklayer
 VignetteBuilder: knitr
 License: GPL (>= 3)
 LazyData: TRUE
 biocViews: ChIPSeq, Genetics, Annotation, GenomeAnnotation,
         DifferentialPeakCalling, Coverage, PeakDetection, ChipOnChip,
         HistoneModification, DataImport, NaturalLanguageProcessing, Visualization, GO, Software
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 NeedsCompilation: yes
+Encoding: UTF-8

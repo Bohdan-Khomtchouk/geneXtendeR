@@ -1,4 +1,5 @@
 context("Makenetwork tester")
+library(org.Rn.eg.db)
 
 if (file.exists("peaks.txt")) {
   file.remove("peaks.txt")
