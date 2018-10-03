@@ -8,11 +8,11 @@
 
 ![AUR](https://img.shields.io/aur/license/yaourt.svg)
 [![Bioconductor Time](http://bioconductor.org/shields/years-in-bioc/geneXtendeR.svg)](http://bioconductor.org/packages/release/bioc/html/geneXtendeR.html "Bioconductor status")
-[![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](https://bioconductor.org/packages/stats/bioc/geneXtendeR/ "Percentile downloads")
+<!-- [![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](https://bioconductor.org/packages/stats/bioc/geneXtendeR/ "Percentile downloads") -->
 
 </div>
 
-`geneXtendeR` optimizes the functional annotation of ChIP-seq peaks by exploring relative differences in annotating ChIP-seq peak sets to variable-length gene bodies.  In contrast to prior techniques, `geneXtendeR` considers peak annotations beyond just the closest gene, allowing users to see peak summary statistics for the first-closest gene, second-closest gene, ..., n-closest gene whilst ranking the output according to biologically relevant events and iteratively comparing the fidelity of peak-to-gene overlap across a user-defined range of upstream and downstream extensions on the original boundaries of each gene's coordinates.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can often be a noisy process.  As such, the goal of `geneXtendeR` is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
+To see `geneXtendeR` in action (and why you may want to use it as part of your next ChIP-seq workflow), see Section 1 of the [vignette](https://github.com/Bohdan-Khomtchouk/geneXtendeR/files/2426141/geneXtendeR.pdf). 
 
 ## Github installation instructions (for latest updated version)
 
@@ -28,7 +28,7 @@ And then load the package:
 library(geneXtendeR)
 ```
 
-## Bioconductor landing page (updated biannually)
+## Bioconductor landing page (updated biannually -- so likely out-of-date)
 
 `geneXtendeR` can be found at: https://bioconductor.org/packages/geneXtendeR/.  This URL will redirect to the release landing page of the package and is the URL that should be used (in publications, etc.) to refer to `geneXtendeR`.  You can also refer specifically to the development, release, or specific numbered version of Bioconductor:
 
@@ -45,10 +45,6 @@ https://bioconductor.org/packages/3.6/geneXtendeR/
 source("https://bioconductor.org/biocLite.R")
 biocLite("geneXtendeR")
 ```
-
-## Vignette
-
-Please read the `geneXtendeR` documentation (https://bioconductor.org/packages/devel/bioc/vignettes/geneXtendeR/inst/doc/geneXtendeR.pdf), which includes software workflows and comprehensive analyses to get you started.  Note, however, that the most up-to-date vignette will be found in this git repository in `/vignettes`.
 
 ## Citation
 
