@@ -22,6 +22,7 @@ A data.table formatted version of the gene-annotated file for checking or furthe
 Annotate a user's peaks file (which has been preprocessed with the peaksInput() command) with gene information based on optimally chosen geneXtendeR upstream extension file and compresses the annotations based on genes.  This command requires a preprocessed "peaks.txt" file (generated using peaksInput()) to be present in the user's working directory, otherwise the user is prompted to rerun the peaksInput() command in order to regenerate it.
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)

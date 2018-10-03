@@ -23,6 +23,7 @@ Determines what genes directly under peaks are actually unique between two diffe
 V1-V3 denote the chromosome/start/end positions of the peaks, V4-V6 denote the respective values of the genes, V7 is the gene ID (e.g., Ensembl ID), V8 is the gene name, and V9 is the distance of peak to nearest gene.
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)

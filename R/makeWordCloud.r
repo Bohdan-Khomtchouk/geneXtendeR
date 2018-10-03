@@ -12,6 +12,7 @@
 #' @return A word cloud comprised of words gathered from gene ontology terms of either a BP, CC, or MF category.
 #'
 #' @examples
+#' library(rtracklayer)
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 #' peaksInput(fpath)

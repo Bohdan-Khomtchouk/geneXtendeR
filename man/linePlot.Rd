@@ -22,6 +22,7 @@ Creates differential line plots.
 Makes differential line plots showing the differences in the number of genes under peaks at consecutive upstream extension levels.
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)

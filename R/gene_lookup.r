@@ -11,6 +11,7 @@
 #' @return A data.table with all peaks located within `n` peaks and `cutoff` bp distance away on every chromosome that contains `gene_name`.
 #'
 #' @examples
+#' library(rtracklayer)
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 #' closest <- gene_lookup(rat, c("Vom2r3", "Vom2r5"), n = 7, extension = 1000)

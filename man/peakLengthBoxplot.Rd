@@ -20,6 +20,7 @@ Creates boxplots showing how lengths of peaks are distributed within any given g
 Makes boxplots of peak lengths to show how lengths of individual peaks are distributed within any genomic interval (e.g., 0-500 bp upstream of nearest gene for all genes throughout the genome).
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
 peaksInput(allpeaks)
