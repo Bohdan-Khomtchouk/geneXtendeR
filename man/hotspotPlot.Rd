@@ -26,6 +26,7 @@ Line plot showing the ratio of significant to total peaks at each interval acros
 Makes line plots showing the ratio of statistically significant peaks to the total number of peaks at each genomic interval (e.g., 0-500 bp upstream of every gene in the genome, 500-1000 bp upstream of every gene in the genome, etc.).
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
 sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")

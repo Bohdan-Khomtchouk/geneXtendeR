@@ -24,6 +24,7 @@ A data.table with all peaks located within `n` peaks and `cutoff` bp distance aw
 Looks up closest peak to a specified gene on the peaks file (which has been preprocessed with the peaksInput() command) based on the latest .bed file accessed or for a specified extension.  This command requires a preprocessed "peaks.txt" file (generated using peaksInput()) to be present in the user's working directory, otherwise the user is prompted to rerun the peaksInput() command in order to regenerate it.
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 closest <- gene_lookup(rat, c("Vom2r3", "Vom2r5"), n = 7, extension = 1000)

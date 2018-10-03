@@ -10,6 +10,7 @@
 #' @return Creates mean peak length line plots.
 #'
 #' @examples
+#' library(rtracklayer)
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' allpeaks <- system.file("extdata", "totalpeaksfile.txt", package="geneXtendeR")
 #' peaksInput(allpeaks)

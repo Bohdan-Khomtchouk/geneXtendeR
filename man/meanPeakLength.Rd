@@ -20,6 +20,7 @@ A vector composed of a single number representing the average peak length found 
 Determines the average peak length of all peaks found within some genomic interval (e.g., 0-500 bp upstream of nearest gene for all genes throughout the genome).
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 sigpeaks <- system.file("extdata", "significantpeaksfile.txt", package="geneXtendeR")
 peaksInput(sigpeaks)

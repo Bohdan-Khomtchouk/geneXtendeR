@@ -26,6 +26,7 @@ A barplot comprised of words sorted by frequency of occurrence from gene ontolog
 Creates barplots of word frequencies from gene ontology terms derived from either biological process (BP), cellular compartment (CC), or molecular function (MF) of genes-under-peaks that are unique between two different upstream extension levels.
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)

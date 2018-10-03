@@ -1,6 +1,6 @@
 Package: geneXtendeR
 Type: Package
-Version: 1.4.1
+Version: 1.6.1
 Title: Optimized Functional Annotation Of ChIP-seq Data
 Description: geneXtendeR optimizes the functional annotation of ChIP-seq peaks by exploring relative differences in annotating ChIP-seq peak sets to variable-length gene bodies.  In contrast to prior techniques, geneXtendeR considers peak annotations beyond just the closest gene, allowing users to see peak summary statistics for the first-closest gene, second-closest gene, ..., n-closest gene whilst ranking the output according to biologically relevant events and iteratively comparing the fidelity of peak-to-gene overlap across a user-defined range of upstream and downstream extensions on the original boundaries of each gene's coordinates.  Since different ChIP-seq peak callers produce different differentially enriched peaks with a large variance in peak length distribution and total peak count, annotating peak lists with their nearest genes can often be a noisy process.  As such, the goal of geneXtendeR is to robustly link differentially enriched peaks with their respective genes, thereby aiding experimental follow-up and validation in designing primers for a set of prospective gene candidates during qPCR.
 Authors@R: c(
@@ -10,8 +10,8 @@ Authors@R: c(
 Maintainer: Bohdan Khomtchouk <khomtchoukmed@gmail.com>
 URL: https://github.com/Bohdan-Khomtchouk/geneXtendeR
 BugReports: https://github.com/Bohdan-Khomtchouk/geneXtendeR/issues
-Depends: rtracklayer, R (>= 3.3.1)
-Imports: data.table, dplyr, graphics, networkD3, RColorBrewer, SnowballC, tm, utils, wordcloud, AnnotationDbi, GO.db, BiocStyle, org.Rn.eg.db
+Depends: rtracklayer, GO.db, R (>= 3.5.0)
+Imports: data.table, dplyr, graphics, networkD3, RColorBrewer, SnowballC, tm, utils, wordcloud, AnnotationDbi, BiocStyle, org.Rn.eg.db
 Suggests: knitr, rmarkdown, testthat, org.Ag.eg.db, org.Bt.eg.db, org.Ce.eg.db, org.Cf.eg.db, org.Dm.eg.db, org.Dr.eg.db, org.Gg.eg.db, org.Hs.eg.db, org.Mm.eg.db, org.Pt.eg.db, org.Sc.sgd.db, org.Ss.eg.db, org.Xl.eg.db, rtracklayer
 VignetteBuilder: knitr
 License: GPL (>= 3)

@@ -24,6 +24,7 @@ An interactive network of gene names linked to their respective gene ontology te
 Creates dynamic and interactive networks of genes linked to their respective gene ontology terms for each category (biological process (BP), cellular compartment (CC), molecular function (MF)) of genes-under-peaks that are unique between two different upstream extension levels.
 }
 \examples{
+library(rtracklayer)
 rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 peaksInput(fpath)

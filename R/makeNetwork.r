@@ -12,6 +12,7 @@
 #' @return An interactive network of gene names linked to their respective gene ontology terms for either a BP, CC, or MF category.
 #'
 #' @examples
+#' library(rtracklayer)
 #' rat <- readGFF("ftp://ftp.ensembl.org/pub/release-84/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.84.gtf.gz")
 #' fpath <- system.file("extdata", "somepeaksfile.txt", package="geneXtendeR")
 #' peaksInput(fpath)
@@ -23,7 +24,7 @@
 #' @useDynLib geneXtendeR, .registration = TRUE
 #' 
 #' 
-#' @importFrom dplyr left_join select %>% rename
+#' @importFrom dplyr left_join select %>% rename id
 #' @importFrom networkD3 forceNetwork JS
 #'
 #' @export
