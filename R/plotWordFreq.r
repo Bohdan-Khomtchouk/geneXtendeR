@@ -21,6 +21,7 @@
 #' library(SnowballC)
 #' library(wordcloud)
 #' library(RColorBrewer)
+#' library(org.Rn.eg.db)
 #' plotWordFreq(rat, 0, 500, BP, org.Rn.eg.db, 10)
 #'
 #' @useDynLib geneXtendeR, .registration = TRUE
