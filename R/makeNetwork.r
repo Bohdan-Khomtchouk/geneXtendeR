@@ -28,7 +28,6 @@
 #' @importFrom networkD3 forceNetwork JS
 #'
 #' @export
-
 makeNetwork <- function(organism, start, end, GOcategory, GOspecies) {
   if(!file.exists("peaks.txt")){
     message("Please run peaksInput() function first!  See ?peaksInput for more information")

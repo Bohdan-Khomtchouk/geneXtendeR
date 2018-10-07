@@ -27,7 +27,6 @@
 #' @useDynLib geneXtendeR, .registration = TRUE
 #'
 #' @export
-
 plotWordFreq <- function(organism, start, end, GOcategory, GOspecies, word_count) {
   if(!file.exists("peaks.txt")){
     message("Please run peaksInput() function first!  See ?peaksInput for more information")

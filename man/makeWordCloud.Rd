@@ -32,6 +32,7 @@ library(tm)
 library(SnowballC)
 library(wordcloud)
 library(RColorBrewer)
+library(org.Rn.eg.db)
 makeWordCloud(rat, 0, 500, BP, org.Rn.eg.db)
 
 }

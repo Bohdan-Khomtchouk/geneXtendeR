@@ -31,7 +31,6 @@
 #' @importFrom GO.db GO.db
 #'
 #' @export
-
 makeWordCloud <- function(organism, start, end, GOcategory, GOspecies) {
   if(!file.exists("peaks.txt")){
     message("Please run peaksInput() function first!  See ?peaksInput for more information")
