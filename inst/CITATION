@@ -1,16 +1,14 @@
 citHeader("To cite geneXtendeR in publications use:")
 
 citEntry(entry = "article",
-	title	   = "geneXtendeR: optimized functional annotation of ChIP-seq data",
-	author	   = personList(as.person("Bohdan Khomtchouk"), as.person("Derek Van Booven"), as.person("Claes Wahlestedt")),
+	title	   = "Optimized functional annotation of ChIP-seq data",
+	author	   = personList(as.person("Bohdan Khomtchouk"), as.person("William Koehler"), as.person("Derek Van Booven"), as.person("Claes Wahlestedt")),
 	journal    = "bioRxiv",
-	year       = "2017",
-	number     = "R package version 1.3.4",
-	url        = "http://dx.doi.org/10.1101/082347",
+	year       = "2018",
+	number     = "R package version 1.8.0",
 	
 	textVersion = 
-	paste("Khomtchouk BB, Van Booven DJ, Wahlestedt C.",
-		  "geneXtendeR: optimized functional annotation of ChIP-seq data.",
-		  "bioRxiv, 2017.",
-		  "http://dx.doi.org/10.1101/082347.")
+	paste("Khomtchouk BB, Koehler WC, Van Booven DJ, Wahlestedt C.",
+		  "Optimized functional annotation of ChIP-seq data.",
+		  "bioRxiv, 2018.")
 	)
