@@ -12,7 +12,7 @@
 
 </div>
 
-To see `geneXtendeR` in action (and why you may want to use it as part of your next ChIP-seq workflow), see Section 1 of the [vignette](https://github.com/Bohdan-Khomtchouk/geneXtendeR/files/2426141/geneXtendeR.pdf). 
+To see `geneXtendeR` in action (and why you may want to use it as part of your next ChIP-seq workflow), see Section 1 of the [vignette](https://github.com/Bohdan-Khomtchouk/geneXtendeR/tree/master/inst/doc). 
 
 ## Github installation instructions (for latest updated version)
 
@@ -36,7 +36,7 @@ https://bioconductor.org/packages/devel/geneXtendeR/
 
 https://bioconductor.org/packages/release/geneXtendeR/
 
-https://bioconductor.org/packages/3.6/geneXtendeR/
+https://bioconductor.org/packages/3.8/geneXtendeR/
 
 ## Bioconductor installation instructions
 
@@ -48,4 +48,4 @@ biocLite("geneXtendeR")
 
 ## Citation
 
-If you are using `geneXtendeR` in your work, please cite the paper (http://dx.doi.org/10.1101/082347) accordingly.  **Note:** this paper is not up-to-date with latest developments.  Please stay tuned for updated preprint in 2018.  
+Coming soon! 

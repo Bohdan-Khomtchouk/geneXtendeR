@@ -80,6 +80,8 @@ mouse <- readGFF("ftp://ftp.ensembl.org/pub/release-93/gtf/
 
 {\bf{Note:}} Please make sure the above command is pre-formatted to fit on one line (as opposed to three separate lines like displayed above for page margin purposes).
 
+URLs may be obtained as direct links from: \url{http://useast.ensembl.org/info/data/ftp/index.html}.  Click on the ``GTF" link under the ``Gene sets" column for a particular species and then right-click (or command-click on Mac OS X) the name of the file containing the species name/version number and file extension \texttt{chr.gtf.gz} (e.g., Homo\_sapiens.GRCh38.84.chr.gtf.gz, Mus\_musculus.GRCm38.84.chr.gtf.gz, etc.), and copy the link address.  Then, paste the link address into the \texttt{readGFF()} as shown above.  Alternatively, you can download the GTF file and place it directly in your local working directory.  The command above will create an R dataframe object containing the respective GTF file.
+
 Next, load in the ChIP-seq peak coordinates produced by the bioinformatics pipeline used by Gidl\"{o}f et al. 2016 (comes pre-bundled with the \texttt{geneXtendeR} package for convenience):
 
 <<>>=
