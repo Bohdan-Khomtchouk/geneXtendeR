@@ -31,7 +31,7 @@ annotate <- function(organism, extension) {
       .C("annotate", f1, f2, peakslist)[[3]]
     }
     
-    linelen <- "                                                                                                    "  
+    linelen <- "                                                                                                                                  "
     n <- 500000
     peaksArray<-rep(linelen,n)
     sapply(extension, .geneXtender, organism, FALSE)
