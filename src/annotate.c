@@ -140,7 +140,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
     /*===============================================R/C code====================================================*/  
     
     int counter=0;
-    char Buffer[100];
+    char Buffer[1000];
     
     /*============================================================================================================*/
     
@@ -148,7 +148,7 @@ void annotate(char **f1, char **f2, char ** Rlist)
     while(wflag > 0)
     {
         int numchars = 0;
-        memset(Buffer,' ',100);
+        memset(Buffer,' ',1000);
         
         // check chromosomes.  If gtf is on next chromosome then move var file appropriately.
         
