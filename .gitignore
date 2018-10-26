@@ -4,3 +4,5 @@
 .Rbuildignore
 .Rproj.user
 *.Rproj
+*.dll
+FAKEFILE
