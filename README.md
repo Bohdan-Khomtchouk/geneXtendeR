@@ -48,4 +48,4 @@ biocLite("geneXtendeR")
 
 ## Citation
 
-Coming soon! 
+https://doi.org/10.1101/082347
