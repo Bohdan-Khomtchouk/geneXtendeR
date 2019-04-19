@@ -8,6 +8,7 @@
 
 ![AUR](https://img.shields.io/aur/license/yaourt.svg)
 [![Bioconductor Time](http://bioconductor.org/shields/years-in-bioc/geneXtendeR.svg)](http://bioconductor.org/packages/release/bioc/html/geneXtendeR.html "Bioconductor status")
+[![DOI](https://zenodo.org/badge/58662909.svg)](https://zenodo.org/badge/latestdoi/58662909)
 <!-- [![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](https://bioconductor.org/packages/stats/bioc/geneXtendeR/ "Percentile downloads") -->
 
 </div>
