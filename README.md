@@ -49,4 +49,4 @@ biocLite("geneXtendeR")
 
 ## Citation
 
-Khomtchouk BB, Koehler WC, Van Booven DJ, Wahlestedt C: "Optimized functional annotation of ChIP-seq data."  F1000Research.  2019, 8(612): https://doi.org/10.12688/f1000research.18966.1 
+Khomtchouk BB, Koehler WC, Van Booven DJ, Wahlestedt C: "Optimized functional annotation of ChIP-seq data."  _F1000Research_.  2019, 8(612): https://doi.org/10.12688/f1000research.18966.1 
