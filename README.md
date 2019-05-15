@@ -6,7 +6,7 @@
 
 ##### R/Bioconductor package for optimized functional annotation of ChIP-seq data
 
-![AUR](https://img.shields.io/aur/license/yaourt.svg)
+<!-- ![AUR](https://img.shields.io/aur/license/yaourt.svg)-->
 [![Bioconductor Time](http://bioconductor.org/shields/years-in-bioc/geneXtendeR.svg)](http://bioconductor.org/packages/release/bioc/html/geneXtendeR.html "Bioconductor status")
 [![DOI](https://zenodo.org/badge/58662909.svg)](https://zenodo.org/badge/latestdoi/58662909)
 <!-- [![Bioconductor Downloads](http://bioconductor.org/shields/downloads/geneXtendeR.svg)](https://bioconductor.org/packages/stats/bioc/geneXtendeR/ "Percentile downloads") -->
@@ -29,7 +29,7 @@ And then load the package:
 library(geneXtendeR)
 ```
 
-## Bioconductor landing page (updated biannually -- so likely out-of-date)
+## Bioconductor landing page (updated biannually -- so possibly out-of-date)
 
 `geneXtendeR` can be found at: https://bioconductor.org/packages/geneXtendeR/.  This URL will redirect to the release landing page of the package and is the URL that should be used (in publications, etc.) to refer to `geneXtendeR`.  You can also refer specifically to the development, release, or specific numbered version of Bioconductor:
 
@@ -49,4 +49,4 @@ biocLite("geneXtendeR")
 
 ## Citation
 
-https://doi.org/10.1101/082347
+Khomtchouk BB, Koehler WC, Van Booven DJ, Wahlestedt C: "Optimized functional annotation of ChIP-seq data."  F1000Research.  2019, 8(612): https://doi.org/10.12688/f1000research.18966.1 
